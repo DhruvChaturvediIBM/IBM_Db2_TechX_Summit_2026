@@ -44,7 +44,7 @@ Sections in page order. The `id` is the anchor used in the nav (`/#db2hack` and 
 | 04 | Toolkit | `toolkit` | Db2 ecosystem orbit, 9 packages with copy-to-clipboard installs, Db2 Community Edition guide, open-source logos |
 | 05 | Resources | `resources` | 3 IBM tutorial videos, 27 links to announcements, community blogs, connector docs and getting-started pages |
 | 06 | Rewards | `rewards` | Recognition and certificates. Winners' prizes are deliberately **not** shown — "Revealed live at the finale" |
-| 07 | Speakers | `speakers` | Five IBM Db2 experts from IBM Lucknow |
+| 07 | Speakers | `speakers` | Six IBM Db2 speakers, led by Program Director Gaurav Saxena |
 | — | Text band | — | Scroll-speed marquee |
 | 08 | Venue | `venue` | Address, time, Google Map, directions |
 | 09 | FAQ | `faq` | 11 questions in an accordion |

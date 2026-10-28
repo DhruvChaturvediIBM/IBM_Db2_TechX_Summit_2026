@@ -338,7 +338,7 @@ const BENTO_VISUALS = {
       {SPEAKERS.map(sp => (
         <img key={sp.name} src={sp.photo} alt="" />
       ))}
-      <span>5 IBM Db2 experts</span>
+      <span>{SPEAKERS.length} IBM Db2 speakers</span>
     </div>
   ),
   'Db2Hack finale': (
@@ -1098,13 +1098,13 @@ function Speakers() {
       <div className="container">
         <SectionHead
           num="07"
-          kicker="Speakers · IBM Lucknow"
+          kicker="Speakers · IBM Db2"
           title={
             <>
               Learn from the people <span className="dim">who build Db2.</span>
             </>
           }
-          sub="Five IBM Db2 experts from IBM Lucknow lead the talks, the workshop and the Db2Hack finale."
+          sub="IBM Db2 leadership and engineers lead the talks, the workshop and the Db2Hack finale."
         />
         <Reveal>
           <ChromaGrid
@@ -1115,8 +1115,8 @@ function Speakers() {
               alt: sp.name,
               borderColor: '#0f62fe',
             }))}
-            columns={5}
-            minCardWidth={200}
+            columns={6}
+            minCardWidth={160}
             aspectRatio="1 / 1"
             cardRadius={24}
             radius={280}

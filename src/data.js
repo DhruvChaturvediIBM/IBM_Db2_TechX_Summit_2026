@@ -52,7 +52,7 @@ export const PROGRAMME = [
 
 export const STATS = [
   { value: 1, suffix: '', label: 'Day of Db2, data & AI' },
-  { value: 5, suffix: '', label: 'IBM Db2 experts on stage' },
+  { value: 6, suffix: '', label: 'IBM Db2 leaders & experts' },
   { value: 24, suffix: 'h', label: 'Db2Hack build sprint' },
   { value: 10, suffix: '', label: 'Finalists pitch live' },
 ];
@@ -131,6 +131,7 @@ export const CERTIFICATES = [
 export const QUIZ_TOPICS = ['Databases & SQL', 'Vector search', 'RAG', 'LLMs & agents', 'Data for AI'];
 
 export const SPEAKERS = [
+  { name: 'Gaurav Saxena', role: 'Program Director, IBM Db2', org: 'IBM', photo: '/speakers/Gaurav-Saxena.png' },
   { name: 'Daya Nand', role: 'Senior Db2 Development Manager', org: 'IBM Lucknow', photo: '/speakers/Daya-Nand.png' },
   { name: 'Dhruv Chaturvedi', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Dhruv-Chaturvedi-light-bg.png', tag: 'Event SPOC' },
   { name: 'Keshav Maheshwari', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Keshav-Maheshwari.png' },
