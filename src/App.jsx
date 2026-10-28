@@ -1028,20 +1028,34 @@ function Resources() {
             );
           })}
         </div>
-        <motion.ul className="res-list" layout>
+        <motion.ul className="res-grid" layout>
           {list.map(r => (
             <motion.li
               key={r.url}
               layout
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, ease: EASE }}
+              transition={{ duration: 0.4, ease: EASE }}
             >
-              <a href={r.url} {...ext}>
-                <span className="res-src">{r.src}</span>
-                <span className="res-title">{r.title}</span>
-                <span className="res-arrow">
-                  <ArrowUpRight />
+              <a className="res-card" href={r.url} {...ext}>
+                <span className={`res-thumb ${r.thumb ? '' : 'is-cover'}`}>
+                  {r.thumb ? (
+                    <img src={r.thumb} alt="" loading="lazy" />
+                  ) : (
+                    <>
+                      <span className="res-cover-logo">
+                        <img src={r.logo} alt="" loading="lazy" />
+                      </span>
+                      <span className="res-cover-src">{r.src}</span>
+                    </>
+                  )}
+                </span>
+                <span className="res-body">
+                  <span className="res-src">{r.src}</span>
+                  <span className="res-title">{r.title}</span>
+                  <span className="res-go">
+                    Open <ArrowUpRight />
+                  </span>
                 </span>
               </a>
             </motion.li>

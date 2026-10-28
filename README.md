@@ -66,7 +66,7 @@ Sections in page order. The `id` is the anchor used in the nav (`/#db2hack` and 
 | # | Section | `id` | What it shows |
 |---|---|---|---|
 | — | Page hero | — | LetterGlitch background, jump links |
-| 01 | Watch & read | `resources` | 3 IBM Product Hub tutorials, 5 Hinglish videos from Dhruv Insights, 27 filterable links |
+| 01 | Watch & read | `resources` | 3 IBM Product Hub tutorials, 5 Hinglish videos from Dhruv Insights, 27 filterable resource cards with thumbnails |
 | 02 | Toolkit | `toolkit` | Db2 ecosystem orbit, 9 packages with copy-to-clipboard installs |
 | — | Community Edition | `community-edition` | Free Db2 Community Edition: VS Code extension, Docker, download |
 | — | Final call to action | — | Register + WhatsApp + Luma embed |
@@ -136,6 +136,7 @@ Open the URL Vite prints (usually http://localhost:5173).
 │   ├── og.png                  # Link-preview image (Luma cover)
 │   ├── logos/                  # IBM, IBM Db2, IIC, NexaSphere, GL Bajaj, Db2 icons
 │   ├── fw/                     # Framework logos (LangChain, CrewAI, LlamaIndex, …)
+│   ├── res/                    # Resource card thumbnails (each page's og:image, r<N>.jpg)
 │   └── speakers/               # Speaker photos (transparent PNG, 600×600)
 ├── src/
 │   ├── main.jsx                # Entry point (no StrictMode, see Troubleshooting)
@@ -188,8 +189,10 @@ Open the URL Vite prints (usually http://localhost:5173).
 
 ```js
 // src/data.js → RESOURCES
-{ group: 'blog', src: 'IBM Community', title: 'My new Db2 post', url: 'https://…' },
+{ group: 'blog', src: 'IBM Community', title: 'My new Db2 post', url: 'https://…', thumb: '/res/my-post.jpg' },
 ```
+
+For `thumb`, save the page's preview image (its `og:image`, around 900 px wide) in `public/res/`. If the page has none, use `logo: '/fw/<logo>.png'` instead and the card shows a branded cover with that logo.
 
 **Add a tutorial video:** add `{ id: '<youtube id>', title: '…', tag: 'LangChain' }` to `VIDEOS`.
 

@@ -2153,6 +2153,121 @@ p {
   letter-spacing: -0.02em;
 }
 
+/* ---------- resource cards ---------- */
+.res-grid {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.res-grid > li {
+  min-width: 0;
+}
+.res-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface);
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.4s var(--ease);
+}
+.res-card:hover {
+  border-color: var(--line-3);
+  transform: translateY(-4px);
+}
+.res-thumb {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #111;
+  border-bottom: 1px solid var(--line);
+}
+.res-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease), filter 0.5s;
+  filter: saturate(0.85);
+}
+.res-card:hover .res-thumb img {
+  transform: scale(1.04);
+  filter: none;
+}
+.res-thumb.is-cover {
+  display: grid;
+  place-items: center;
+  background: radial-gradient(80% 90% at 50% 30%, #0d2a6b 0%, #06122e 45%, #050505 100%);
+}
+.res-thumb.is-cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(166, 200, 255, 0.18) 1px, transparent 1px);
+  background-size: 16px 16px;
+  mask-image: radial-gradient(60% 70% at 50% 40%, #000, transparent);
+  -webkit-mask-image: radial-gradient(60% 70% at 50% 40%, #000, transparent);
+}
+.res-cover-logo {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  border-radius: 20px;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  padding: 14px;
+  box-shadow: 0 16px 40px -12px rgba(15, 98, 254, 0.7);
+  transition: transform 0.5s var(--ease);
+}
+.res-card:hover .res-cover-logo {
+  transform: translateY(-4px) scale(1.05);
+}
+.res-cover-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: none !important;
+  transform: none !important;
+}
+.res-cover-src {
+  position: absolute;
+  left: 16px;
+  bottom: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue-light);
+}
+.res-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 22px 22px;
+}
+.res-body .res-title {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.35;
+  flex: 1;
+}
+.res-go {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--ink-2);
+  transition: color 0.2s;
+}
+.res-card:hover .res-go {
+  color: #fff;
+}
+
 /* ---------- rewards ---------- */
 .rewards-grid {
   display: grid;
@@ -2648,6 +2763,9 @@ p {
   .videos-learn {
     grid-template-columns: 1fr;
   }
+  .res-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
   .videos {
     grid-template-columns: 1fr;
     max-width: 640px;
@@ -2826,6 +2944,9 @@ p {
   .speakers {
     grid-template-columns: 1fr 1fr;
     gap: 10px;
+  }
+  .res-grid {
+    grid-template-columns: 1fr;
   }
   .speaker {
     padding: 18px 14px 16px;

@@ -197,7 +197,8 @@ export const LEARN_VIDEOS = [
 ];
 export const LEARN_CHANNEL = 'https://www.youtube.com/@dhruv_insights';
 
-// Every link here was checked to resolve (Oct 2026).
+// Every link here was checked to resolve (Oct 2026). `thumb` is the page's own preview
+// image (og:image, saved in public/res/); `logo` is used for a branded cover when a page has none.
 export const RESOURCE_GROUPS = [
   { id: 'all', label: 'All' },
   { id: 'news', label: 'Announcements' },
@@ -207,36 +208,36 @@ export const RESOURCE_GROUPS = [
 ];
 
 export const RESOURCES = [
-  { group: 'news', src: 'IBM Announcement', title: 'Announcing the Db2 LangChain Connector — enterprise vector storage for Python AI workflows', url: 'https://www.ibm.com/new/announcements/announcing-the-db2-langchain-connector' },
-  { group: 'news', src: 'IBM Announcement', title: 'Announcing the IBM Db2 Vector Store integration for LlamaIndex', url: 'https://www.ibm.com/new/announcements/announcing-the-ibm-db2-vector-store-integration-for-llamaindex' },
-  { group: 'news', src: 'IBM Announcement', title: 'Announcing the IBM Db2 Developer Extension for VS Code', url: 'https://www.ibm.com/new/announcements/announcing-the-ibm-db2-developer-extension-for-vs-code' },
-  { group: 'news', src: 'IBM Announcement', title: 'Get a jumpstart with IBM Db2 Community Edition', url: 'https://www.ibm.com/new/announcements/ibm-db2-developer-community-edition' },
-  { group: 'news', src: 'Langflow Blog', title: 'Langflow 1.10 — now with the IBM Db2 component', url: 'https://www.langflow.org/blog/langflow-1-10' },
+  { group: 'news', src: 'IBM Announcement', title: 'Announcing the Db2 LangChain Connector — enterprise vector storage for Python AI workflows', url: 'https://www.ibm.com/new/announcements/announcing-the-db2-langchain-connector', thumb: '/res/r1.jpg' },
+  { group: 'news', src: 'IBM Announcement', title: 'Announcing the IBM Db2 Vector Store integration for LlamaIndex', url: 'https://www.ibm.com/new/announcements/announcing-the-ibm-db2-vector-store-integration-for-llamaindex', thumb: '/res/r2.jpg' },
+  { group: 'news', src: 'IBM Announcement', title: 'Announcing the IBM Db2 Developer Extension for VS Code', url: 'https://www.ibm.com/new/announcements/announcing-the-ibm-db2-developer-extension-for-vs-code', thumb: '/res/r3.jpg' },
+  { group: 'news', src: 'IBM Announcement', title: 'Get a jumpstart with IBM Db2 Community Edition', url: 'https://www.ibm.com/new/announcements/ibm-db2-developer-community-edition', thumb: '/res/r4.jpg' },
+  { group: 'news', src: 'Langflow Blog', title: 'Langflow 1.10 — now with the IBM Db2 component', url: 'https://www.langflow.org/blog/langflow-1-10', thumb: '/res/r5.jpg' },
 
-  { group: 'blog', src: 'IBM Community', title: 'Announcement: IBM Db2 Langflow component', url: 'https://community.ibm.com/community/user/blogs/priyanshu-krishnan/2026/06/10/announcement-ibm-db2-langflow-component' },
-  { group: 'blog', src: 'IBM Community', title: 'Langflow just added IBM Db2 — 16 questions I asked', url: 'https://community.ibm.com/community/user/blogs/shaikh-quader/2026/06/10/langflow-just-added-ibm-db2-16-questions-i-asked-b' },
-  { group: 'blog', src: 'IBM Community', title: 'Exciting news: Db2 dbt integration is here', url: 'https://community.ibm.com/community/user/blogs/shubham-kapoor/2026/06/17/exciting-news-db2-dbt-integration-is-here' },
-  { group: 'blog', src: 'IBM Community', title: 'Orchestrating IBM Db2 workflows with Airflow', url: 'https://community.ibm.com/community/user/blogs/shubham-kapoor/2026/09/01/orchestrating-ibm-db2-workflows-with-airflow' },
-  { group: 'blog', src: 'IBM Community', title: 'Vector indexes in Db2: an early preview', url: 'https://community.ibm.com/community/user/blogs/christian-garcia-arellano/2025/10/04/vector-indexes-in-db2-an-early-preview' },
-  { group: 'blog', src: 'IBM Community', title: 'IBM Db2 LUW Pulse — monthly update from the Db2 team', url: 'https://community.ibm.com/community/user/discussion/ibm-db2-luw-pulse-monthly-update-from-the-db2-team-30-june-2026' },
+  { group: 'blog', src: 'IBM Community', title: 'Announcement: IBM Db2 Langflow component', url: 'https://community.ibm.com/community/user/blogs/priyanshu-krishnan/2026/06/10/announcement-ibm-db2-langflow-component', thumb: '/res/r6.jpg' },
+  { group: 'blog', src: 'IBM Community', title: 'Langflow just added IBM Db2 — 16 questions I asked', url: 'https://community.ibm.com/community/user/blogs/shaikh-quader/2026/06/10/langflow-just-added-ibm-db2-16-questions-i-asked-b', thumb: '/res/r7.jpg' },
+  { group: 'blog', src: 'IBM Community', title: 'Exciting news: Db2 dbt integration is here', url: 'https://community.ibm.com/community/user/blogs/shubham-kapoor/2026/06/17/exciting-news-db2-dbt-integration-is-here', logo: '/fw/dbt-icon.png' },
+  { group: 'blog', src: 'IBM Community', title: 'Orchestrating IBM Db2 workflows with Airflow', url: 'https://community.ibm.com/community/user/blogs/shubham-kapoor/2026/09/01/orchestrating-ibm-db2-workflows-with-airflow', thumb: '/res/r9.jpg' },
+  { group: 'blog', src: 'IBM Community', title: 'Vector indexes in Db2: an early preview', url: 'https://community.ibm.com/community/user/blogs/christian-garcia-arellano/2025/10/04/vector-indexes-in-db2-an-early-preview', logo: '/logos/db-cyl-blue.svg' },
+  { group: 'blog', src: 'IBM Community', title: 'IBM Db2 LUW Pulse — monthly update from the Db2 team', url: 'https://community.ibm.com/community/user/discussion/ibm-db2-luw-pulse-monthly-update-from-the-db2-team-30-june-2026', logo: '/fw/langflow.png' },
 
-  { group: 'docs', src: 'LangChain Docs', title: 'IBM Db2 vector store (langchain-db2)', url: 'https://docs.langchain.com/oss/python/integrations/vectorstores/db2' },
-  { group: 'docs', src: 'LlamaIndex Docs', title: 'Db2 vector store for LlamaIndex', url: 'https://developers.llamaindex.ai/python/framework/integrations/vector_stores/db2llamavs/' },
-  { group: 'docs', src: 'CrewAI Docs', title: 'Db2 vector search tool for CrewAI agents', url: 'https://docs.crewai.com/edge/en/tools/database-data/db2searchtool' },
-  { group: 'docs', src: 'Langflow Docs', title: 'IBM bundle — Db2 Vector Store component', url: 'https://docs.langflow.org/bundles-ibm' },
-  { group: 'docs', src: 'PyPI', title: 'ibm-db-haystack — Db2 document store for Haystack', url: 'https://pypi.org/project/ibm-db-haystack/' },
-  { group: 'docs', src: 'dbt Docs', title: 'IBM Db2 setup for dbt (ibm-dbt-db2)', url: 'https://docs.getdbt.com/docs/local/connect-data-platform/ibm-db2-setup' },
-  { group: 'docs', src: 'GitHub · IBM', title: 'db2-sqlglot-plugin — Db2 SQL dialect for SQLGlot', url: 'https://github.com/IBM/db2-sqlglot-plugin' },
-  { group: 'docs', src: 'Apache Airflow', title: 'apache-airflow-providers-ibm-db2', url: 'https://airflow.apache.org/docs/apache-airflow-providers-ibm-db2/stable/index.html' },
-  { group: 'docs', src: 'PyPI', title: 'lfx-ibm — IBM components for Langflow', url: 'https://pypi.org/project/lfx-ibm/' },
+  { group: 'docs', src: 'LangChain Docs', title: 'IBM Db2 vector store (langchain-db2)', url: 'https://docs.langchain.com/oss/python/integrations/vectorstores/db2', thumb: '/res/r12.jpg' },
+  { group: 'docs', src: 'LlamaIndex Docs', title: 'Db2 vector store for LlamaIndex', url: 'https://developers.llamaindex.ai/python/framework/integrations/vector_stores/db2llamavs/', thumb: '/res/r13.jpg' },
+  { group: 'docs', src: 'CrewAI Docs', title: 'Db2 vector search tool for CrewAI agents', url: 'https://docs.crewai.com/edge/en/tools/database-data/db2searchtool', logo: '/fw/crewai-t.png' },
+  { group: 'docs', src: 'Langflow Docs', title: 'IBM bundle — Db2 Vector Store component', url: 'https://docs.langflow.org/bundles-ibm', logo: '/fw/haystack-icon.png' },
+  { group: 'docs', src: 'PyPI', title: 'ibm-db-haystack — Db2 document store for Haystack', url: 'https://pypi.org/project/ibm-db-haystack/', logo: '/fw/dbt-icon.png' },
+  { group: 'docs', src: 'dbt Docs', title: 'IBM Db2 setup for dbt (ibm-dbt-db2)', url: 'https://docs.getdbt.com/docs/local/connect-data-platform/ibm-db2-setup', logo: '/fw/airflow-t.png' },
+  { group: 'docs', src: 'GitHub · IBM', title: 'db2-sqlglot-plugin — Db2 SQL dialect for SQLGlot', url: 'https://github.com/IBM/db2-sqlglot-plugin', thumb: '/res/r18.jpg' },
+  { group: 'docs', src: 'Apache Airflow', title: 'apache-airflow-providers-ibm-db2', url: 'https://airflow.apache.org/docs/apache-airflow-providers-ibm-db2/stable/index.html', logo: '/fw/langflow.png' },
+  { group: 'docs', src: 'PyPI', title: 'lfx-ibm — IBM components for Langflow', url: 'https://pypi.org/project/lfx-ibm/', logo: '/logos/db-cyl-blue.svg' },
 
-  { group: 'start', src: 'IBM', title: 'Get started with IBM Db2 — free Community Edition', url: 'https://www.ibm.com/db2/get-started' },
-  { group: 'start', src: 'IBM Docs', title: 'IBM Db2 12.1 documentation', url: 'https://www.ibm.com/docs/en/db2/12.1.x' },
-  { group: 'start', src: 'IBM Docs', title: 'VECTOR_DISTANCE — vector similarity in Db2 SQL', url: 'https://www.ibm.com/docs/en/db2/12.1.x?topic=functions-vector-distance' },
-  { group: 'start', src: 'VS Code Marketplace', title: 'IBM Db2 Developer Extension for VS Code', url: 'https://marketplace.visualstudio.com/items?itemName=IBM.db2-for-luw' },
-  { group: 'start', src: 'GitHub · ibmdb', title: 'Db2 VS Code extension wiki', url: 'https://github.com/ibmdb/vscode-extension/wiki' },
-  { group: 'start', src: 'GitHub · ibmdb', title: 'python-ibmdb — the ibm_db Python driver', url: 'https://github.com/ibmdb/python-ibmdb' },
-  { group: 'start', src: 'IBM', title: 'IBM Db2 product overview', url: 'https://www.ibm.com/products/db2' },
+  { group: 'start', src: 'IBM', title: 'Get started with IBM Db2 — free Community Edition', url: 'https://www.ibm.com/db2/get-started', thumb: '/res/r21.jpg' },
+  { group: 'start', src: 'IBM Docs', title: 'IBM Db2 12.1 documentation', url: 'https://www.ibm.com/docs/en/db2/12.1.x', logo: '/logos/db-cyl-blue.svg' },
+  { group: 'start', src: 'IBM Docs', title: 'VECTOR_DISTANCE — vector similarity in Db2 SQL', url: 'https://www.ibm.com/docs/en/db2/12.1.x?topic=functions-vector-distance', logo: '/logos/db-cyl-blue.svg' },
+  { group: 'start', src: 'VS Code Marketplace', title: 'IBM Db2 Developer Extension for VS Code', url: 'https://marketplace.visualstudio.com/items?itemName=IBM.db2-for-luw', logo: '/fw/vscode-db2.png' },
+  { group: 'start', src: 'GitHub · ibmdb', title: 'Db2 VS Code extension wiki', url: 'https://github.com/ibmdb/vscode-extension/wiki', thumb: '/res/r25.jpg' },
+  { group: 'start', src: 'GitHub · ibmdb', title: 'python-ibmdb — the ibm_db Python driver', url: 'https://github.com/ibmdb/python-ibmdb', thumb: '/res/r26.jpg' },
+  { group: 'start', src: 'IBM', title: 'IBM Db2 product overview', url: 'https://www.ibm.com/products/db2', thumb: '/res/r27.jpg' },
 ];
 
 // Db2 Community Edition — the free Db2 to build Db2Hack projects on.
