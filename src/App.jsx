@@ -1,10 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useSpring, useTransform } from 'motion/react';
 import GradientASCII from './components/GradientASCII';
+import DecryptedText from './components/reactbits/DecryptedText';
+import ShinyText from './components/reactbits/ShinyText';
+import Magnet from './components/reactbits/Magnet';
+import RotatingText from './components/reactbits/RotatingText';
+import ScrollVelocity from './components/reactbits/ScrollVelocity';
+import LogoLoop from './components/reactbits/LogoLoop';
+import StarBorder from './components/reactbits/StarBorder';
+import DotGrid from './components/reactbits/DotGrid';
+import BorderGlow from './components/reactbits/BorderGlow';
+import ClickSpark from './components/reactbits/ClickSpark';
 import {
   Reveal,
   SectionHead,
-  Scramble,
   CountUp,
   Countdown,
   Spotlight,
@@ -201,7 +210,14 @@ function Hero() {
       <motion.div className="hero-content" style={{ opacity: fade, y: lift }}>
         <motion.div className="hero-pill" {...rise(0.2, 16)}>
           <span className="live-dot" />
-          <Scramble text="A DAY OF IBM DB2 — DATA AND AI" delay={300} duration={1200} />
+          <DecryptedText
+            text="A DAY OF IBM DB2 — DATA AND AI"
+            animateOn="view"
+            sequential
+            speed={35}
+            characters="=+xX0S8#@"
+            encryptedClassName="decrypt-dim"
+          />
         </motion.div>
 
         <h1 className="hero-title">
@@ -214,14 +230,18 @@ function Hero() {
         </h1>
 
         <motion.p className="hero-tagline" {...rise(0.85, 20)}>
-          {EVENT.tagline}
+          <ShinyText text={EVENT.tagline} color="#c6c6c6" shineColor="#ffffff" speed={3} delay={1.5} />
         </motion.p>
 
         <motion.div className="hero-ctas" {...rise(1.05, 20)}>
-          <RegisterButton size="btn-xl" label="Register free on Luma" />
-          <a className="btn btn-ghost btn-xl" href="#db2hack">
-            Explore Db2Hack
-          </a>
+          <Magnet padding={70} magnetStrength={4}>
+            <RegisterButton size="btn-xl" label="Register free on Luma" />
+          </Magnet>
+          <Magnet padding={70} magnetStrength={4}>
+            <a className="btn btn-ghost btn-xl" href="#db2hack">
+              Explore Db2Hack
+            </a>
+          </Magnet>
         </motion.div>
       </motion.div>
 
@@ -497,6 +517,19 @@ function Db2Hack() {
           <Reveal delay={0.1} className="hack-24">
             <span>24</span> hours to build
           </Reveal>
+          <Reveal delay={0.12} className="hack-rotate">
+            Build with
+            <RotatingText
+              texts={CORE_FRAMEWORKS}
+              mainClassName="rotate-pill"
+              staggerFrom="last"
+              staggerDuration={0.025}
+              rotationInterval={2200}
+              splitLevelClassName="rotate-split"
+              transition={{ type: 'spring', damping: 30, stiffness: 400 }}
+            />
+            on IBM Db2
+          </Reveal>
           <Reveal delay={0.14} as="p" className="hack-lead">
             Build an AI use case on IBM Db2 in 24 hours. Individual participation — <b>your idea matters most.</b>
           </Reveal>
@@ -656,7 +689,15 @@ function Toolkit() {
           ))}
         </div>
 
-        <Reveal className="ce">
+        <Reveal className="ce-wrap">
+          <BorderGlow
+            className="ce"
+            backgroundColor="#0b0b0b"
+            borderRadius={24}
+            glowColor="218 99 53"
+            colors={['#0f62fe', '#78a9ff', '#38bdf8']}
+            glowRadius={36}
+          >
           <div className="ce-head">
             <div>
               <span className="mono-label">Start here · free</span>
@@ -689,6 +730,7 @@ function Toolkit() {
               </div>
             ))}
           </div>
+          </BorderGlow>
         </Reveal>
 
         <Reveal className="oss">
@@ -702,18 +744,29 @@ function Toolkit() {
               cases (open source), building on IBM Db2 integrations across the AI and data ecosystem.
             </p>
           </div>
-          <div className="marquee" aria-hidden="true">
+          <div className="logo-loops">
             {[0, 1].map(r => (
-              <div className={`marquee-track ${r ? 'is-rev' : ''}`} key={r}>
-                {[...ECOSYSTEM, ...ECOSYSTEM].map((e, i) => (
-                  <span className="mq-item" key={`${e.name}-${i}`}>
-                    <span className="mq-logo">
-                      <img src={`/fw/${e.logo}`} alt="" />
+              <LogoLoop
+                key={r}
+                logos={ECOSYSTEM.map(e => ({
+                  title: e.name,
+                  node: (
+                    <span className="mq-item">
+                      <span className="mq-logo">
+                        <img src={`/fw/${e.logo}`} alt="" />
+                      </span>
+                      {e.name}
                     </span>
-                    {e.name}
-                  </span>
-                ))}
-              </div>
+                  ),
+                }))}
+                speed={r ? 50 : 70}
+                direction={r ? 'right' : 'left'}
+                logoHeight={46}
+                gap={10}
+                pauseOnHover
+                fadeOut
+                ariaLabel="IBM Db2 ecosystem integrations"
+              />
             ))}
           </div>
         </Reveal>
@@ -840,7 +893,10 @@ function LoopScramble() {
 
 function Rewards() {
   return (
-    <section className="section" id="rewards">
+    <section className="section rewards-sec" id="rewards">
+      <div className="rewards-bg" aria-hidden="true">
+        <DotGrid dotSize={3} gap={26} baseColor="#1c1c1c" activeColor="#0f62fe" proximity={130} glow={0.4} />
+      </div>
       <div className="container">
         <SectionHead
           num="06"
@@ -952,6 +1008,21 @@ function Speakers() {
           ))}
         </div>
       </div>
+    </section>
+  );
+}
+
+function Band() {
+  return (
+    <section className="band" aria-hidden="true">
+      <ScrollVelocity
+        texts={['IBM Db2 TechX Summit', 'Db2Hack · 24 hours · Build on Db2']}
+        velocity={60}
+        separator="✦"
+        outlineAlternate
+        parallaxClassName="band-parallax"
+        scrollerClassName="band-scroller"
+      />
     </section>
   );
 }
@@ -1071,9 +1142,19 @@ function FinalCta() {
         </Reveal>
         <Reveal delay={0.18} className="final-ctas">
           <RegisterButton size="btn-xl" label="Register free on Luma" />
-          <a className="btn btn-ghost btn-xl" href={WHATSAPP_URL} {...ext}>
+          <StarBorder
+            as="a"
+            href={WHATSAPP_URL}
+            {...ext}
+            className="star-cta"
+            color="#78a9ff"
+            radius={40}
+            backgroundColor="#000"
+            textColor="#fff"
+            stars={2}
+          >
             WhatsApp community <ArrowUpRight />
-          </a>
+          </StarBorder>
         </Reveal>
       </div>
     </section>
@@ -1164,7 +1245,7 @@ function ScrollProgress() {
 
 export default function App() {
   return (
-    <>
+    <ClickSpark sparkColor="#78a9ff" sparkSize={10} sparkRadius={22} sparkCount={9} duration={450}>
       <ScrollProgress />
       <AnnouncementBar />
       <Nav />
@@ -1179,12 +1260,13 @@ export default function App() {
         <Resources />
         <Rewards />
         <Speakers />
+        <Band />
         <Venue />
         <Faq />
         <FinalCta />
       </main>
       <Footer />
       <FloatCta />
-    </>
+    </ClickSpark>
   );
 }

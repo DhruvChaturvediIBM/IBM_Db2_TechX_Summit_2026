@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useInView, animate } from 'motion/react';
 import { MOMENTS } from '../data';
+import DecryptedText from './reactbits/DecryptedText';
 
 const EASE = [0.22, 1, 0.36, 1];
 
@@ -25,7 +26,14 @@ export function SectionHead({ num, kicker, title, sub }) {
       <Reveal>
         <span className="kicker">
           {num ? <span className="kicker-num">{num}</span> : <span className="kicker-dot" />}
-          {kicker}
+          <DecryptedText
+            text={kicker}
+            animateOn="view"
+            sequential
+            speed={25}
+            characters="=+xX0S8#@"
+            encryptedClassName="decrypt-dim"
+          />
         </span>
       </Reveal>
       <Reveal delay={0.08} as="h2">
@@ -37,42 +45,6 @@ export function SectionHead({ num, kicker, title, sub }) {
         </Reveal>
       )}
     </div>
-  );
-}
-
-const GLYPHS = '=+xX0S8#@<>/\\_';
-
-// Decodes text from random glyphs, left to right.
-export function Scramble({ text, delay = 0, duration = 1100, className = '' }) {
-  const [out, setOut] = useState(text.replace(/\S/g, ' '));
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setOut(text);
-      return undefined;
-    }
-    let raf = 0;
-    let start = 0;
-    const tick = now => {
-      if (!start) start = now;
-      const t = Math.min(1, (now - start) / duration);
-      const settled = Math.floor(t * text.length);
-      setOut(
-        [...text]
-          .map((c, i) => (c === ' ' || i < settled ? c : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]))
-          .join('')
-      );
-      if (t < 1) raf = requestAnimationFrame(tick);
-    };
-    const timer = setTimeout(() => (raf = requestAnimationFrame(tick)), delay);
-    return () => {
-      clearTimeout(timer);
-      cancelAnimationFrame(raf);
-    };
-  }, [text, delay, duration]);
-  return (
-    <span className={className} aria-label={text}>
-      {out}
-    </span>
   );
 }
 
