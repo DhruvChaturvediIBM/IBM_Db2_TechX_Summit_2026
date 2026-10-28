@@ -189,13 +189,11 @@ export const VIDEOS = [
 ];
 export const VIDEO_CHANNEL = 'https://www.youtube.com/@IBMProductHub';
 
-// Hinglish learning videos from Dhruv Insights (Dhruv Chaturvedi's channel).
+// Optional prerequisites (Hinglish) from Dhruv Insights — Python and agentic AI basics.
 export const LEARN_VIDEOS = [
   { id: '9GDvvZPPitI', title: 'Python in One Shot — full course with live coding', tag: 'Python' },
   { id: 'LK_Wz39TbnQ', title: 'Agentic AI explained from beginner to advanced — Episode 01', tag: 'Agentic AI' },
   { id: 'tgiKX3nB-ok', title: 'How Agentic AI really works — a system-level breakdown', tag: 'Agentic AI' },
-  { id: 'qEdqG7VfiRE', title: 'Foundations of MCP (Model Context Protocol) for agentic AI', tag: 'MCP' },
-  { id: '_n8kWtXdbpk', title: 'How AI agents actually make decisions', tag: 'AI agents' },
 ];
 export const LEARN_CHANNEL = 'https://www.youtube.com/@dhruv_insights';
 
@@ -203,10 +201,10 @@ export const LEARN_CHANNEL = 'https://www.youtube.com/@dhruv_insights';
 // image (og:image, saved in public/res/); `logo` is used for a branded cover when a page has none.
 export const RESOURCE_GROUPS = [
   { id: 'all', label: 'All' },
-  { id: 'news', label: 'Announcements' },
   { id: 'blog', label: 'Community blogs' },
-  { id: 'docs', label: 'Connector docs' },
   { id: 'start', label: 'Get started' },
+  { id: 'docs', label: 'Connector docs' },
+  { id: 'news', label: 'Announcements' },
 ];
 
 export const RESOURCES = [
@@ -362,4 +360,32 @@ export const PENALTIES = [
   { title: 'Committed secrets', body: 'Real passwords, API keys or tokens pushed to GitHub.' },
   { title: 'Plagiarism', body: 'Copying uncredited third-party repos without real innovation.' },
   { title: 'Tampering', body: "Changing repo root config, scripts or another participant's folder." },
+];
+
+// "Compulsory before you build" checklist at the top of /resources.
+export const MUST_DO = [
+  {
+    title: 'Set up IBM Db2 locally with the VS Code extension',
+    why: 'Gives you a working Db2 (testdb + SAMPLE) on your laptop in minutes — you need it to build and test your Db2Hack project.',
+    links: [
+      { label: 'Install extension', url: 'https://marketplace.visualstudio.com/items?itemName=IBM.db2-for-luw' },
+      { label: 'Create a Db2 instance — guide', url: 'https://ibm.github.io/db2developerextension-about/docs/the-basics/creating-db2-instance' },
+    ],
+    cmd: 'code --install-extension IBM.db2-for-luw',
+  },
+  {
+    title: 'Read the IBM Db2 community blogs',
+    why: 'Written by the Db2 team: how the Langflow, dbt and Airflow integrations work and what vector indexes can do — the fastest way to a strong idea.',
+    links: [{ label: 'Go to community blogs', url: '#community-blogs' }],
+  },
+  {
+    title: 'Watch the IBM tutorial for your framework',
+    why: 'Short official walkthroughs of Db2 with Langflow, Haystack and CrewAI — copy the pattern, then add your own idea.',
+    links: [{ label: 'Watch tutorials', url: '#tutorials' }],
+  },
+  {
+    title: "Open your framework's Db2 connector doc",
+    why: 'Every Db2Hack project must use LangChain, Haystack, CrewAI, LlamaIndex or Langflow — the connector doc shows the exact install and code.',
+    links: [{ label: 'Connector docs & toolkit', url: '#toolkit' }],
+  },
 ];

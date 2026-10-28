@@ -66,9 +66,11 @@ Sections in page order. The `id` is the anchor used in the nav (`/#db2hack` and 
 | # | Section | `id` | What it shows |
 |---|---|---|---|
 | — | Page hero | — | LetterGlitch background, jump links |
-| 01 | Watch & read | `resources` | 3 IBM Product Hub tutorials, 5 Hinglish videos from Dhruv Insights, 27 filterable resource cards with thumbnails |
-| 02 | Toolkit | `toolkit` | Db2 ecosystem orbit, 9 packages with copy-to-clipboard installs |
+| 01 | Compulsory first | `must-do` | 4 must-do steps (VS Code extension + local Db2, community blogs, IBM tutorial, connector doc), then the community blog cards (`community-blogs`) |
+| 02 | Watch & read | `resources` | 3 IBM Product Hub tutorials (`tutorials`) and all 31 resources as filterable cards, blogs first |
+| 03 | Toolkit | `toolkit` | Db2 ecosystem orbit, 9 packages with copy-to-clipboard installs |
 | — | Community Edition | `community-edition` | Free Db2 Community Edition: VS Code extension, Docker, download |
+| — | Prerequisites | `prerequisites` | Optional Python / agentic AI basics in Hinglish from Dhruv Chaturvedi |
 | — | Final call to action | — | Register + WhatsApp + Luma embed |
 
 ### Time-aware behaviour
@@ -175,7 +177,8 @@ Open the URL Vite prints (usually http://localhost:5173).
 | `ECOSYSTEM` | Logos in the orbit and the scrolling logo strip |
 | `COMMUNITY_EDITION` | Facts and the three ways to install Db2 Community Edition |
 | `VIDEOS` | IBM tutorials: put the YouTube video **ID** in `id` (e.g. `NRo4ePT2MEE`) |
-| `LEARN_VIDEOS`, `LEARN_CHANNEL` | "Learn in Hinglish" videos from the Dhruv Insights channel |
+| `MUST_DO` | The compulsory checklist at the top of `/resources` |
+| `LEARN_VIDEOS`, `LEARN_CHANNEL` | Optional prerequisite videos (Python, agentic AI) from the Dhruv Insights channel |
 | `RESOURCES`, `RESOURCE_GROUPS` | Resource links and their filter tabs (`news`, `blog`, `docs`, `start`) |
 | `REWARDS` | Recognition cards. **Do not add prizes here** — winners' rewards stay a surprise |
 | `CERTIFICATES` | Certificate names and who receives them |

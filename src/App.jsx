@@ -64,6 +64,7 @@ import {
   RESOURCES,
   COMMUNITY_EDITION,
   MANDATORY,
+  MUST_DO,
   SUBMISSION_REPO,
   SUBMISSION_ISSUES,
   SUBMIT_DATES,
@@ -1001,21 +1002,119 @@ function Video({ v }) {
   );
 }
 
-function Resources() {
-  const [group, setGroup] = useState('all');
-  const list = group === 'all' ? RESOURCES : RESOURCES.filter(r => r.group === group);
+const GROUP_ORDER = ['blog', 'start', 'docs', 'news'];
+
+function ResourceCard({ r }) {
   return (
-    <section className="section" id="resources">
+    <a className="res-card" href={r.url} {...ext}>
+      <span className={`res-thumb ${r.thumb ? '' : 'is-cover'}`}>
+        {r.thumb ? (
+          <img src={r.thumb} alt="" loading="lazy" />
+        ) : (
+          <>
+            <span className="res-cover-logo">
+              <img src={r.logo} alt="" loading="lazy" />
+            </span>
+            <span className="res-cover-src">{r.src}</span>
+          </>
+        )}
+      </span>
+      <span className="res-body">
+        <span className="res-src">{r.src}</span>
+        <span className="res-title">{r.title}</span>
+        <span className="res-go">
+          Open <ArrowUpRight />
+        </span>
+      </span>
+    </a>
+  );
+}
+
+// Compulsory checklist + community blogs — the top of /resources.
+function MustDo() {
+  const blogs = RESOURCES.filter(r => r.group === 'blog');
+  return (
+    <section className="section mustdo" id="must-do">
       <div className="container">
         <SectionHead
           num="01"
-          kicker="Watch & read · learn before you build"
+          kicker="Compulsory · do these first"
+          title={
+            <>
+              Four things before <span className="dim">you write code.</span>
+            </>
+          }
+          sub="Every Db2Hack participant should finish these. They take about an hour and make building — and judging — much easier."
+        />
+        <ol className="must-list">
+          {MUST_DO.map((m, i) => (
+            <Reveal as="li" key={m.title} delay={0.06 * i} className="must">
+              <span className="must-n">{String(i + 1).padStart(2, '0')}</span>
+              <div className="must-body">
+                <h3>{m.title}</h3>
+                <p>
+                  <b>Why it helps:</b> {m.why}
+                </p>
+                {m.cmd && <CopyCmd cmd={m.cmd} />}
+                <div className="must-links">
+                  {m.links.map(l =>
+                    l.url.startsWith('#') ? (
+                      <a key={l.label} className="mand-act" href={l.url}>
+                        {l.label} <Arrow />
+                      </a>
+                    ) : (
+                      <a key={l.label} className="mand-act" href={l.url} {...ext}>
+                        {l.label} <ArrowUpRight />
+                      </a>
+                    )
+                  )}
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </ol>
+
+        <div className="blogs" id="community-blogs">
+          <div className="learn-head">
+            <div>
+              <span className="mono-label">Must-read · IBM Db2 community</span>
+              <h3>
+                Community blogs <span className="dim">from the Db2 team.</span>
+              </h3>
+            </div>
+          </div>
+          <ul className="res-grid">
+            {blogs.map((r, i) => (
+              <Reveal as="li" key={r.url} delay={0.05 * i}>
+                <ResourceCard r={r} />
+              </Reveal>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Resources() {
+  const [group, setGroup] = useState('all');
+  const list =
+    group === 'all'
+      ? [...RESOURCES].sort((a, b) => GROUP_ORDER.indexOf(a.group) - GROUP_ORDER.indexOf(b.group))
+      : RESOURCES.filter(r => r.group === group);
+  return (
+    <section className="section" id="resources">
+      <div className="container">
+        <div id="tutorials" />
+        <SectionHead
+          num="02"
+          kicker="Official IBM tutorials & all links"
           title={
             <>
               Watch, read, <span className="dim">then ship.</span>
             </>
           }
-          sub="Official IBM tutorials, announcements, community blogs and connector docs for building AI on IBM Db2."
+          sub="IBM Product Hub tutorials, then every blog, getting-started guide, connector doc and announcement in one filterable grid."
         />
         <div className="videos">
           {VIDEOS.map((v, i) => (
@@ -1029,27 +1128,6 @@ function Resources() {
             More on the IBM Product Hub channel <ArrowUpRight />
           </a>
         </Reveal>
-
-        <div className="learn">
-          <div className="learn-head">
-            <div>
-              <span className="mono-label">Learn in Hinglish · Dhruv Insights</span>
-              <h3>
-                Python, agentic AI and MCP <span className="dim">— explained by Dhruv Chaturvedi.</span>
-              </h3>
-            </div>
-            <a className="btn btn-ghost" href={LEARN_CHANNEL} {...ext}>
-              YouTube channel <ArrowUpRight />
-            </a>
-          </div>
-          <div className="videos videos-learn">
-            {LEARN_VIDEOS.map((v, i) => (
-              <Reveal key={v.id} delay={0.06 * i}>
-                <Video v={v} />
-              </Reveal>
-            ))}
-          </div>
-        </div>
 
         <div className="res-tabs" role="tablist" aria-label="Filter resources">
           {RESOURCE_GROUPS.map(g => {
@@ -1078,30 +1156,39 @@ function Resources() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: EASE }}
             >
-              <a className="res-card" href={r.url} {...ext}>
-                <span className={`res-thumb ${r.thumb ? '' : 'is-cover'}`}>
-                  {r.thumb ? (
-                    <img src={r.thumb} alt="" loading="lazy" />
-                  ) : (
-                    <>
-                      <span className="res-cover-logo">
-                        <img src={r.logo} alt="" loading="lazy" />
-                      </span>
-                      <span className="res-cover-src">{r.src}</span>
-                    </>
-                  )}
-                </span>
-                <span className="res-body">
-                  <span className="res-src">{r.src}</span>
-                  <span className="res-title">{r.title}</span>
-                  <span className="res-go">
-                    Open <ArrowUpRight />
-                  </span>
-                </span>
-              </a>
+              <ResourceCard r={r} />
             </motion.li>
           ))}
         </motion.ul>
+      </div>
+    </section>
+  );
+}
+
+// Optional Python / agentic-AI basics — kept low on the page on purpose.
+function Prerequisites() {
+  return (
+    <section className="section" id="prerequisites">
+      <div className="container">
+        <div className="learn-head">
+          <div>
+            <span className="mono-label">Optional prerequisites · Hinglish</span>
+            <h3>
+              New to Python or agentic AI? <span className="dim">You can also watch Dhruv Chaturvedi.</span>
+            </h3>
+            <p className="prereq-sub">Beginner-friendly explainers to get the basics in place before you start building.</p>
+          </div>
+          <a className="btn btn-ghost" href={LEARN_CHANNEL} {...ext}>
+            Dhruv Insights on YouTube <ArrowUpRight />
+          </a>
+        </div>
+        <div className="videos videos-learn">
+          {LEARN_VIDEOS.map((v, i) => (
+            <Reveal key={v.id} delay={0.06 * i}>
+              <Video v={v} />
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -1914,7 +2001,9 @@ function PageHero() {
           Tutorials, the Db2 toolkit, Db2 Community Edition and every doc you need for Db2Hack — in one place.
         </Reveal>
         <Reveal delay={0.18} className="page-hero-links">
-          <a href="#resources">Videos & links</a>
+          <a href="#must-do">Compulsory first</a>
+          <a href="#community-blogs">Community blogs</a>
+          <a href="#tutorials">IBM tutorials</a>
           <a href="#toolkit">Toolkit</a>
           <a href="#community-edition">Community Edition</a>
         </Reveal>
@@ -1969,8 +2058,10 @@ function ResourcesPage() {
   return (
     <main className="page-resources">
       <PageHero />
+      <MustDo />
       <Resources />
       <Toolkit />
+      <Prerequisites />
       <FinalCta />
     </main>
   );
