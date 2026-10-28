@@ -5,7 +5,7 @@
 > Friday, 30 October 2026 · 9:00 AM – 5:00 PM IST · GL Bajaj Group of Institutions, Mathura
 > In association with IBM · Institution's Innovation Council (IIC) · NexaSphere
 
-The official one-page website for the IBM Db2 TechX Summit and the **Db2Hack** 24-hour challenge. It is a React + Vite single-page app with a pure-black IBM theme, WebGL backgrounds and animated sections built from [React Bits](https://reactbits.dev) components. Every Register button opens the event's **Luma** checkout.
+The official website for the IBM Db2 TechX Summit and the **Db2Hack** 24-hour challenge. It is a React + Vite single-page app with a pure-black IBM theme, WebGL backgrounds and animated sections built from [React Bits](https://reactbits.dev) components. Every Register button opens the event's **Luma** checkout.
 
 ---
 
@@ -29,27 +29,47 @@ The official one-page website for the IBM Db2 TechX Summit and the **Db2Hack** 2
 
 ## What's on the page
 
+The site has two pages, served by React Router:
+
+| Route | Page |
+|---|---|
+| `/` | The event landing page (sections below) |
+| `/resources` | Tutorials, Db2 toolkit, Db2 Community Edition and all docs/blog links |
+
+Nav entries with an `id` scroll to a section on `/` (from `/resources` they navigate to `/#id`); entries with a `path` open a page.
+
+### Home page (`/`)
+
 Sections in page order. The `id` is the anchor used in the nav (`/#db2hack` and so on).
 
 | # | Section | `id` | What it shows |
 |---|---|---|---|
 | — | Announcement ticker | — | Live status (registrations open / Db2Hack live / …), key dates |
-| — | Nav | — | Section links, active-section highlight, Register button, mobile menu |
+| — | Nav | — | Section links, Resources page link, active highlight, Register button, mobile menu |
 | — | Hero | `top` | ASCII WebGL background, title, tagline, Register + Explore buttons, date bar with live countdown |
 | — | Partners | `partners` | IIC · NexaSphere · IBM, hosted by GL Bajaj |
 | 01 | About | `about` | Event overview, stats, programme bento, who it's for |
 | — | Statement band | — | "Every AI app starts with data." over an ASCII background |
-| 02 | Schedule | `schedule` | Event flow for 30 Oct; the current session is tagged **Live now** on the day |
+| 02 | Schedule | `schedule` | Event flow across **28, 29 and 30 Oct**: Db2Hack kick-off, submission deadline, then the Summit day. The current item is tagged **Live now** |
 | 03 | Db2Hack | `db2hack` | 24-hour challenge: split-flap date board, steps, framework rule, rules |
-| 04 | Toolkit | `toolkit` | Db2 ecosystem orbit, 9 packages with copy-to-clipboard installs, Db2 Community Edition guide, open-source logos |
-| 05 | Resources | `resources` | 3 IBM tutorial videos, 27 links to announcements, community blogs, connector docs and getting-started pages |
-| 06 | Rewards | `rewards` | Recognition and certificates. Winners' prizes are deliberately **not** shown — "Revealed live at the finale" |
-| 07 | Speakers | `speakers` | Six IBM Db2 speakers, led by Program Director Gaurav Saxena |
+| — | Resources teaser | `resources-teaser` | Counts of videos/packages/links and a button to `/resources` |
+| 04 | Rewards | `rewards` | Recognition and certificates. Winners' prizes are deliberately **not** shown — "Revealed live at the finale" |
+| 05 | Speakers | `speakers` | Seven IBM Db2 speakers with full designations and LinkedIn / Instagram / YouTube links |
 | — | Text band | — | Scroll-speed marquee |
-| 08 | Venue | `venue` | Address, time, Google Map, directions |
-| 09 | FAQ | `faq` | 11 questions in an accordion |
+| 06 | Venue | `venue` | Address, time, Google Map, directions |
+| 07 | FAQ | `faq` | 11 questions in an accordion |
 | — | Final call to action | — | Register + WhatsApp buttons and the embedded Luma event card |
 | — | Footer | — | Links, partner logos, interactive "Db2 TechX" wordmark |
+
+### Resources page (`/resources`)
+
+| # | Section | `id` | What it shows |
+|---|---|---|---|
+| — | Page hero | — | LetterGlitch background, jump links |
+| 01 | Watch & read | `resources` | 3 IBM Product Hub tutorials, 5 Hinglish videos from Dhruv Insights, 27 filterable links |
+| 02 | Toolkit | `toolkit` | Db2 ecosystem orbit, 9 packages with copy-to-clipboard installs |
+| — | Community Edition | `community-edition` | Free Db2 Community Edition: VS Code extension, Docker, download |
+| — | Final call to action | — | Register + WhatsApp + Luma embed |
 
 ### Time-aware behaviour
 
@@ -71,6 +91,7 @@ The page reads the visitor's clock and switches state on its own. All moments ar
 |---|---|
 | Framework | React 19 |
 | Build tool | Vite 8 |
+| Routing | React Router (`react-router-dom`), `BrowserRouter` |
 | Animation | [Motion](https://motion.dev) (`motion/react`), GSAP (used by ScrollReveal) |
 | Effects | React Bits components, WebGL2 and Canvas 2D |
 | Icons | `@hugeicons/react` (pulled in by MagicBento and CardSwap) |
@@ -109,14 +130,16 @@ Open the URL Vite prints (usually http://localhost:5173).
 ```
 .
 ├── index.html                  # Page shell: meta/OG tags, fonts, Luma checkout script
+├── vercel.json                 # SPA rewrite so /resources works on refresh (Vercel)
 ├── public/                     # Static files, served as-is from /
+│   ├── _redirects              # SPA rewrite for Netlify
 │   ├── og.png                  # Link-preview image (Luma cover)
 │   ├── logos/                  # IBM, IBM Db2, IIC, NexaSphere, GL Bajaj, Db2 icons
 │   ├── fw/                     # Framework logos (LangChain, CrewAI, LlamaIndex, …)
 │   └── speakers/               # Speaker photos (transparent PNG, 600×600)
 ├── src/
 │   ├── main.jsx                # Entry point (no StrictMode, see Troubleshooting)
-│   ├── App.jsx                 # Every section of the page
+│   ├── App.jsx                 # All sections, both pages (HomePage, ResourcesPage) and the routes
 │   ├── data.js                 # ALL content: dates, links, schedule, speakers, FAQ…
 │   ├── index.css               # Theme tokens, layout and responsive rules
 │   └── components/
@@ -140,22 +163,23 @@ Open the URL Vite prints (usually http://localhost:5173).
 | `MAPS_URL`, `MAPS_EMBED` | "Get directions" link and the map iframe |
 | `MOMENTS` | The four timestamps that drive the countdown and live states (IST) |
 | `EVENT` | Name, theme, tagline, date, time, venue |
-| `NAV` | Nav links; each `id` must match a section `id` |
+| `NAV` | Nav links. `{ id }` = section on the home page (must match a section `id`); `{ path }` = separate page |
 | `PROGRAMME` | The six programme tiles (the bento order is set by `BENTO_ORDER` in `App.jsx`) |
 | `STATS` | The four counters in About |
 | `AUDIENCE` | "This summit is for" columns |
-| `SCHEDULE` | Event flow. `start`/`end` are 24-hour `HH:MM` IST; `highlight: true` marks the finale |
+| `SCHEDULE_DAYS` | Event flow by day. Each day has `date` (`YYYY-MM-DD`), `label`, `caption`, `items`. Item `start`/`end` are 24-hour `HH:MM` IST (`end: '24:00'` = until midnight; `start === end` = a single moment such as a deadline). `highlight` + `tag` add a badge (Kick-off, Deadline, Finale) |
 | `HACK_STEPS` | Build / Share / Submit / Pitch |
 | `CORE_FRAMEWORKS` | The five frameworks a Db2Hack project must use at least one of |
 | `TOOLKIT` | Package cards: name, logo file in `public/fw/`, install command, description, docs URL |
 | `ECOSYSTEM` | Logos in the orbit and the scrolling logo strip |
 | `COMMUNITY_EDITION` | Facts and the three ways to install Db2 Community Edition |
-| `VIDEOS` | YouTube tutorials: put the video **ID** in `id` (e.g. `NRo4ePT2MEE`) |
+| `VIDEOS` | IBM tutorials: put the YouTube video **ID** in `id` (e.g. `NRo4ePT2MEE`) |
+| `LEARN_VIDEOS`, `LEARN_CHANNEL` | "Learn in Hinglish" videos from the Dhruv Insights channel |
 | `RESOURCES`, `RESOURCE_GROUPS` | Resource links and their filter tabs (`news`, `blog`, `docs`, `start`) |
 | `REWARDS` | Recognition cards. **Do not add prizes here** — winners' rewards stay a surprise |
 | `CERTIFICATES` | Certificate names and who receives them |
 | `QUIZ_TOPICS` | Data & AI Quiz topic chips |
-| `SPEAKERS` | Name, role, org, photo path, optional `tag` (e.g. "Event SPOC") |
+| `SPEAKERS` | Name, role, org, photo, optional `tag` (e.g. "Event SPOC") and optional `linkedin`, `instagram`, `youtube` URLs (a button appears for each one set) |
 | `FAQ` | Questions and answers, in display order |
 
 ### Common edits
@@ -169,9 +193,11 @@ Open the URL Vite prints (usually http://localhost:5173).
 
 **Add a tutorial video:** add `{ id: '<youtube id>', title: '…', tag: 'LangChain' }` to `VIDEOS`.
 
-**Change a schedule slot:** edit `SCHEDULE`. Times use 24-hour format; the AM/PM label is worked out automatically.
+**Change a schedule slot:** edit `SCHEDULE_DAYS`. Times use 24-hour format; AM/PM and labels such as "7:00 PM onwards" or "Until 7:00 PM" are worked out automatically.
 
-**Add a speaker:** put a square PNG (600×600, transparent background) in `public/speakers/`, then add an entry to `SPEAKERS` with `photo: '/speakers/<file>.png'`.
+**Add a page:** create a `function MyPage()` in `App.jsx`, add `<Route path="/my-page" element={<MyPage />} />` in `App`, and add `{ path: '/my-page', label: 'My page' }` to `NAV`.
+
+**Add a speaker:** put a square PNG (600×600, circular crop on a transparent background) in `public/speakers/`, then add an entry to `SPEAKERS` with `photo: '/speakers/<file>.png'` and any social links.
 
 **Change the event times:** update both `EVENT.time` (the text) and `MOMENTS` (what the countdown uses). Keep the `+05:30` offset.
 
@@ -229,7 +255,7 @@ Copied from the [React Bits source](https://github.com/DavidHDev/react-bits) **w
 | LogoLoop | Open-source logo strip |
 | PixelCard | Db2Hack winners card |
 | DotGrid | Rewards background |
-| ChromaGrid | Speakers |
+| LetterGlitch | Resources page hero |
 | ScrollVelocity | Text band after Speakers |
 | Radar | Venue background |
 | StarBorder | WhatsApp button in the final section |
@@ -283,9 +309,11 @@ npm run preview    # check the build locally
 
 | Host | Settings |
 |---|---|
-| **Vercel** | Framework preset: Vite · Build: `npm run build` · Output: `dist` |
-| **Netlify** | Build: `npm run build` · Publish directory: `dist` |
-| **GitHub Pages** | Set `base: '/IBM_Db2_TechX_Summit_2026/'` in `vite.config.js`, build, then publish `dist/` (for example with the `actions/deploy-pages` workflow) |
+| **Vercel** | Framework preset: Vite · Build: `npm run build` · Output: `dist`. `vercel.json` already rewrites all paths to `index.html` |
+| **Netlify** | Build: `npm run build` · Publish directory: `dist`. `public/_redirects` already handles `/resources` |
+| **GitHub Pages** | Set `base: '/IBM_Db2_TechX_Summit_2026/'` in `vite.config.js`, add `basename` to `BrowserRouter`, and copy `dist/index.html` to `dist/404.html` so `/resources` works on refresh |
+
+Because this is a single-page app with real URLs, any other host must serve `index.html` for unknown paths.
 
 After deploying to a custom domain, update `og:image` in `index.html` to an absolute URL (`https://your-domain/og.png`) so link previews work on WhatsApp and LinkedIn.
 
@@ -308,6 +336,7 @@ After deploying to a custom domain, update `og:image` in `index.html` to an abso
 | Register opens a new tab instead of a popup | The Luma script was blocked (ad blocker or network). The fallback link still works. Check the browser console for `embed.lu.ma`. |
 | Map is blank | Some ad or privacy blockers block Google Maps embeds. "Get directions" still works. |
 | `npm install` fails | Use Node 20+ (`node -v`). Delete `node_modules` and `package-lock.json`, then retry. |
+| `/resources` shows a 404 after refresh | The host isn't rewriting paths to `index.html`. See [Build and deploy](#build-and-deploy). |
 | Lint warnings in `reactbits/` | They come from the upstream React Bits code and are expected; the components are kept unmodified. |
 
 ---

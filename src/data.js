@@ -29,12 +29,12 @@ export const EVENT = {
   venue: 'GL Bajaj Group of Institutions, NH-2 Mathura–Delhi Road, Akbarpur, Mathura, Uttar Pradesh 281406',
 };
 
+// Section anchors on the home page; `path` entries are separate pages.
 export const NAV = [
   { id: 'about', label: 'About' },
   { id: 'schedule', label: 'Schedule' },
   { id: 'db2hack', label: 'Db2Hack' },
-  { id: 'toolkit', label: 'Toolkit' },
-  { id: 'resources', label: 'Resources' },
+  { path: '/resources', label: 'Resources' },
   { id: 'rewards', label: 'Rewards' },
   { id: 'speakers', label: 'Speakers' },
   { id: 'venue', label: 'Venue' },
@@ -52,7 +52,7 @@ export const PROGRAMME = [
 
 export const STATS = [
   { value: 1, suffix: '', label: 'Day of Db2, data & AI' },
-  { value: 6, suffix: '', label: 'IBM Db2 leaders & experts' },
+  { value: 7, suffix: '', label: 'IBM Db2 leaders & experts' },
   { value: 24, suffix: 'h', label: 'Db2Hack build sprint' },
   { value: 10, suffix: '', label: 'Finalists pitch live' },
 ];
@@ -63,14 +63,39 @@ export const AUDIENCE = [
   { title: 'Data & AI enthusiasts', body: 'Vector search, RAG, agents and data for AI — explained by practitioners.' },
 ];
 
-export const SCHEDULE = [
-  { start: '09:00', end: '10:00', title: 'Reporting', detail: 'Registration and seating' },
-  { start: '10:00', end: '10:40', title: 'Inaugural ceremony', detail: 'Welcome, lamp lighting and felicitation of guests' },
-  { start: '10:40', end: '13:00', title: 'Technical session', detail: 'Talks by IBM experts' },
-  { start: '13:00', end: '14:00', title: 'Lunch break', detail: 'Refuel and network' },
-  { start: '14:00', end: '15:00', title: 'Panel discussion', detail: 'AI, data and the road ahead' },
-  { start: '15:00', end: '16:15', title: 'Db2Hack finale', detail: 'Top 10 pitch their AI use cases on IBM Db2 to IBM experts', highlight: true },
-  { start: '16:15', end: '17:00', title: 'Valedictory', detail: 'Certificates, felicitation and vote of thanks' },
+// Event flow across all three days. `date` is the IST calendar day; times are 24-hour IST.
+export const SCHEDULE_DAYS = [
+  {
+    date: '2026-10-28',
+    label: 'Wed · 28 Oct',
+    caption: 'Db2Hack · online',
+    items: [
+      { start: '19:00', end: '24:00', title: 'Db2Hack begins', detail: 'The 24-hour build sprint opens at 7:00 PM IST — start building your AI use case on IBM Db2', highlight: true, tag: 'Kick-off' },
+    ],
+  },
+  {
+    date: '2026-10-29',
+    label: 'Thu · 29 Oct',
+    caption: 'Db2Hack · online',
+    items: [
+      { start: '00:00', end: '19:00', title: 'Build, share on LinkedIn, submit', detail: 'Keep building, post your use case on LinkedIn and submit through the Google Form' },
+      { start: '19:00', end: '19:00', title: 'Submissions close', detail: 'Strict 7:00 PM IST deadline — late entries are not accepted', highlight: true, tag: 'Deadline' },
+    ],
+  },
+  {
+    date: '2026-10-30',
+    label: 'Fri · 30 Oct',
+    caption: 'Summit · GL Bajaj, Mathura',
+    items: [
+      { start: '09:00', end: '10:00', title: 'Reporting', detail: 'Registration and seating' },
+      { start: '10:00', end: '10:40', title: 'Inaugural ceremony', detail: 'Welcome, lamp lighting and felicitation of guests' },
+      { start: '10:40', end: '13:00', title: 'Technical session', detail: 'Talks by IBM experts' },
+      { start: '13:00', end: '14:00', title: 'Lunch break', detail: 'Refuel and network' },
+      { start: '14:00', end: '15:00', title: 'Panel discussion', detail: 'AI, data and the road ahead' },
+      { start: '15:00', end: '16:15', title: 'Db2Hack finale', detail: 'Top 10 pitch their AI use cases on IBM Db2 to IBM experts', highlight: true, tag: 'Finale' },
+      { start: '16:15', end: '17:00', title: 'Valedictory', detail: 'Certificates, felicitation and vote of thanks' },
+    ],
+  },
 ];
 
 export const HACK_STEPS = [
@@ -131,12 +156,13 @@ export const CERTIFICATES = [
 export const QUIZ_TOPICS = ['Databases & SQL', 'Vector search', 'RAG', 'LLMs & agents', 'Data for AI'];
 
 export const SPEAKERS = [
-  { name: 'Gaurav Saxena', role: 'Program Director, IBM Db2', org: 'IBM', photo: '/speakers/Gaurav-Saxena.png' },
-  { name: 'Daya Nand', role: 'Senior Db2 Development Manager', org: 'IBM Lucknow', photo: '/speakers/Daya-Nand.png' },
-  { name: 'Dhruv Chaturvedi', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Dhruv-Chaturvedi-light-bg.png', tag: 'Event SPOC' },
-  { name: 'Keshav Maheshwari', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Keshav-Maheshwari.png' },
-  { name: 'Kunal Gola', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Kunal-Gola.png' },
-  { name: 'Pawan Thakur', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Pawan-Thakur.png' },
+  { name: 'Gaurav Saxena', role: 'Program Director, IBM Db2', org: 'IBM', photo: '/speakers/Gaurav-Saxena.png', linkedin: 'https://www.linkedin.com/in/gaurav-saxena-95044594/' },
+  { name: 'Daya Nand', role: 'Senior Db2 Development Manager', org: 'IBM Lucknow', photo: '/speakers/Daya-Nand.png', linkedin: 'https://www.linkedin.com/in/2mrdaya/' },
+  { name: 'Dhruv Chaturvedi', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Dhruv-Chaturvedi-light-bg.png', tag: 'Event SPOC', linkedin: 'https://www.linkedin.com/in/dhruvinsights/', instagram: 'https://www.instagram.com/dhruv_insights/', youtube: 'https://www.youtube.com/@dhruv_insights' },
+  { name: 'Keshav Maheshwari', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Keshav-Maheshwari.png', linkedin: 'https://www.linkedin.com/in/keshav-maheshwari-666738186/' },
+  { name: 'Kunal Gola', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Kunal-Gola.png', linkedin: 'https://www.linkedin.com/in/kunal-gola-459030203/' },
+  { name: 'Pawan Thakur', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Pawan-Thakur.png', linkedin: 'https://www.linkedin.com/in/pawanthakurindia/' },
+  { name: 'Shaik Sadiq', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Shaik-Sadiq.png' },
 ];
 
 export const FAQ = [
@@ -160,6 +186,16 @@ export const VIDEOS = [
   { id: 'qZnhCnwGttg', title: 'Build Intelligent CrewAI Agents with IBM Db2 Vector Search', tag: 'CrewAI' },
 ];
 export const VIDEO_CHANNEL = 'https://www.youtube.com/@IBMProductHub';
+
+// Hinglish learning videos from Dhruv Insights (Dhruv Chaturvedi's channel).
+export const LEARN_VIDEOS = [
+  { id: '9GDvvZPPitI', title: 'Python in One Shot — full course with live coding', tag: 'Python' },
+  { id: 'LK_Wz39TbnQ', title: 'Agentic AI explained from beginner to advanced — Episode 01', tag: 'Agentic AI' },
+  { id: 'tgiKX3nB-ok', title: 'How Agentic AI really works — a system-level breakdown', tag: 'Agentic AI' },
+  { id: 'qEdqG7VfiRE', title: 'Foundations of MCP (Model Context Protocol) for agentic AI', tag: 'MCP' },
+  { id: '_n8kWtXdbpk', title: 'How AI agents actually make decisions', tag: 'AI agents' },
+];
+export const LEARN_CHANNEL = 'https://www.youtube.com/@dhruv_insights';
 
 // Every link here was checked to resolve (Oct 2026).
 export const RESOURCE_GROUPS = [

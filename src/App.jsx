@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useSpring, useTransform } from 'motion/react';
+import { Link, Route, Routes, useLocation } from 'react-router-dom';
 import GradientASCII from './components/GradientASCII';
 import DecryptedText from './components/reactbits/DecryptedText';
 import ShinyText from './components/reactbits/ShinyText';
@@ -16,7 +17,7 @@ import MagicBento from './components/reactbits/MagicBento';
 import SplitFlapText from './components/reactbits/SplitFlapText';
 import CardSwap, { Card } from './components/reactbits/CardSwap';
 import LaserFlow from './components/reactbits/LaserFlow';
-import ChromaGrid from './components/reactbits/ChromaGrid';
+import LetterGlitch from './components/reactbits/LetterGlitch';
 import Radar from './components/reactbits/Radar';
 import TextPressure from './components/reactbits/TextPressure';
 import PixelCard from './components/reactbits/PixelCard';
@@ -39,13 +40,14 @@ import {
   WHATSAPP_URL,
   MAPS_URL,
   MAPS_EMBED,
-  MOMENTS,
   EVENT,
   NAV,
   PROGRAMME,
   STATS,
   AUDIENCE,
-  SCHEDULE,
+  SCHEDULE_DAYS,
+  LEARN_VIDEOS,
+  LEARN_CHANNEL,
   HACK_STEPS,
   CORE_FRAMEWORKS,
   TOOLKIT,
@@ -110,7 +112,32 @@ function AnnouncementBar() {
   );
 }
 
+// A nav entry is either a home-page section (`id`) or a separate page (`path`).
+function NavItem({ n, className = '', onClick, children }) {
+  const { pathname } = useLocation();
+  if (n.path) {
+    return (
+      <Link to={n.path} className={className} onClick={onClick}>
+        {children ?? n.label}
+      </Link>
+    );
+  }
+  if (pathname === '/') {
+    return (
+      <a href={`#${n.id}`} className={className} onClick={onClick}>
+        {children ?? n.label}
+      </a>
+    );
+  }
+  return (
+    <Link to={`/#${n.id}`} className={className} onClick={onClick}>
+      {children ?? n.label}
+    </Link>
+  );
+}
+
 function Nav() {
+  const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState('');
@@ -123,30 +150,29 @@ function Nav() {
       { rootMargin: '-45% 0px -50% 0px' }
     );
     NAV.forEach(n => {
-      const el = document.getElementById(n.id);
+      const el = n.id && document.getElementById(n.id);
       if (el) io.observe(el);
     });
     return () => {
       window.removeEventListener('scroll', onScroll);
       io.disconnect();
     };
-  }, []);
+  }, [pathname]);
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
   }, [open]);
+  const isActive = n => (n.path ? pathname === n.path : pathname === '/' && active === n.id);
   return (
     <header className={`nav ${scrolled || open ? 'is-scrolled' : ''}`}>
       <div className="nav-inner">
-        <a href="#top" className="nav-brand" aria-label="IBM Db2 TechX Summit — home">
+        <Link to="/" className="nav-brand" aria-label="IBM Db2 TechX Summit — home" onClick={() => window.scrollTo(0, 0)}>
           <img src="/logos/ibm-db2-white.svg" alt="IBM Db2" />
           <span className="nav-brand-sep" />
           <span className="nav-brand-text">TechX Summit</span>
-        </a>
+        </Link>
         <nav className="nav-links" aria-label="Sections">
           {NAV.map(n => (
-            <a key={n.id} href={`#${n.id}`} className={active === n.id ? 'is-active' : ''}>
-              {n.label}
-            </a>
+            <NavItem key={n.label} n={n} className={isActive(n) ? 'is-active' : ''} />
           ))}
         </nav>
         <div className="nav-cta">
@@ -172,17 +198,17 @@ function Nav() {
         transition={{ duration: 0.3 }}
       >
         {NAV.map((n, i) => (
-          <motion.a
-            key={n.id}
-            href={`#${n.id}`}
-            onClick={() => setOpen(false)}
+          <motion.div
+            key={n.label}
             initial={false}
             animate={open ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
             transition={{ delay: open ? 0.05 * i : 0, ease: EASE }}
           >
-            <span className="mm-n">{String(i + 1).padStart(2, '0')}</span>
-            {n.label}
-          </motion.a>
+            <NavItem n={n} className="mm-link" onClick={() => setOpen(false)}>
+              <span className="mm-n">{String(i + 1).padStart(2, '0')}</span>
+              {n.label}
+            </NavItem>
+          </motion.div>
         ))}
         <RegisterButton size="btn-lg" />
       </motion.div>
@@ -490,57 +516,73 @@ const fmt = hhmm => {
   return `${((h + 11) % 12) + 1}:${String(m).padStart(2, '0')}`;
 };
 
+const at = (date, hhmm) => new Date(`${date}T00:00:00+05:30`).getTime() + toMin(hhmm) * 6e4;
+const fmt12 = hhmm => {
+  const m = toMin(hhmm) % (24 * 60);
+  const h = Math.floor(m / 60);
+  return `${((h + 11) % 12) + 1}:${String(m % 60).padStart(2, '0')} ${h < 12 ? 'AM' : 'PM'}`;
+};
+// "7:00 PM" for a moment, "7:00 PM onwards" when it runs to midnight, "Until 7:00 PM" from midnight.
+const fmtRange = ({ start, end }) => {
+  if (start === end) return fmt12(start);
+  if (end === '24:00') return `${fmt12(start)} onwards`;
+  if (start === '00:00') return `Until ${fmt12(end)}`;
+  return `${fmt(start)} – ${fmt12(end)}`;
+};
+
 function Schedule() {
-  const now = useNow(30000);
-  const ist = new Date(now.getTime() + (330 + now.getTimezoneOffset()) * 6e4);
-  const today = now >= MOMENTS.summitStart && now < MOMENTS.summitEnd;
-  const mins = ist.getHours() * 60 + ist.getMinutes();
+  const now = useNow(30000).getTime();
   const lineRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: lineRef, offset: ['start 70%', 'end 60%'] });
   const grow = useSpring(scrollYProgress, { stiffness: 80, damping: 20 });
+  let n = 0;
   return (
     <section className="section" id="schedule">
       <div className="container">
         <SectionHead
           num="02"
-          kicker="Event flow · Friday, 30 October 2026"
+          kicker="Event flow · 28 – 30 October 2026"
           title={
             <>
-              The day, <span className="dim">minute by minute.</span>
+              Three days, <span className="dim">one stage.</span>
             </>
           }
-          sub="All times are IST. Reporting opens at 9:00 AM — arrive early to get seated."
+          sub="Db2Hack runs online from 28 Oct, 7:00 PM to 29 Oct, 7:00 PM. The Summit is in person on 30 Oct — reporting opens at 9:00 AM. All times are IST."
         />
         <div className="timeline" ref={lineRef}>
           <div className="tl-rail">
             <motion.div className="tl-rail-fill" style={{ scaleY: grow }} />
           </div>
-          {SCHEDULE.map((s, i) => {
-            const live = today && mins >= toMin(s.start) && mins < toMin(s.end);
-            return (
-              <Reveal
-                key={s.title}
-                delay={0.05 * i}
-                className={`tl-item ${s.highlight ? 'is-hl' : ''} ${live ? 'is-live' : ''}`}
-              >
-                <span className="tl-node" />
-                <div className="tl-time">
-                  {fmt(s.start)}
-                  <span>–</span>
-                  {fmt(s.end)}
-                  <em>{toMin(s.end) <= 12 * 60 ? 'AM' : 'PM'}</em>
-                </div>
-                <div className="tl-body">
-                  <h3>
-                    {s.title}
-                    {live && <span className="tag tag-live">Live now</span>}
-                    {s.highlight && !live && <span className="tag">Finale</span>}
-                  </h3>
-                  <p>{s.detail}</p>
-                </div>
+          {SCHEDULE_DAYS.map(day => (
+            <div className="tl-daygroup" key={day.date}>
+              <Reveal className="tl-day">
+                <span className="tl-day-node" />
+                <strong>{day.label}</strong>
+                <span>{day.caption}</span>
               </Reveal>
-            );
-          })}
+              {day.items.map(it => {
+                const live = now >= at(day.date, it.start) && now < at(day.date, it.end);
+                return (
+                  <Reveal
+                    key={it.title}
+                    delay={0.04 * n++}
+                    className={`tl-item ${it.highlight ? 'is-hl' : ''} ${live ? 'is-live' : ''}`}
+                  >
+                    <span className="tl-node" />
+                    <div className="tl-time">{fmtRange(it)}</div>
+                    <div className="tl-body">
+                      <h3>
+                        {it.title}
+                        {live && <span className="tag tag-live">Live now</span>}
+                        {it.tag && !live && <span className="tag">{it.tag}</span>}
+                      </h3>
+                      <p>{it.detail}</p>
+                    </div>
+                  </Reveal>
+                );
+              })}
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -761,7 +803,7 @@ function Toolkit() {
       <div className="container">
         <div className="toolkit-head">
           <SectionHead
-            num="04"
+            num="02"
             kicker="Toolkit · IBM Db2 packages"
             title={
               <>
@@ -797,6 +839,7 @@ function Toolkit() {
           ))}
         </div>
 
+        <div id="community-edition" />
         <Reveal className="ce-wrap">
           <div className="ce-laser" aria-hidden="true">
             <LaserFlow color="#0f62fe" beamPosition={0.5} intensity={1.4} fog={0.15} dust={1} mouseInteraction={false} />
@@ -924,8 +967,8 @@ function Resources() {
     <section className="section" id="resources">
       <div className="container">
         <SectionHead
-          num="05"
-          kicker="Resources · learn before you build"
+          num="01"
+          kicker="Watch & read · learn before you build"
           title={
             <>
               Watch, read, <span className="dim">then ship.</span>
@@ -945,6 +988,27 @@ function Resources() {
             More on the IBM Product Hub channel <ArrowUpRight />
           </a>
         </Reveal>
+
+        <div className="learn">
+          <div className="learn-head">
+            <div>
+              <span className="mono-label">Learn in Hinglish · Dhruv Insights</span>
+              <h3>
+                Python, agentic AI and MCP <span className="dim">— explained by Dhruv Chaturvedi.</span>
+              </h3>
+            </div>
+            <a className="btn btn-ghost" href={LEARN_CHANNEL} {...ext}>
+              YouTube channel <ArrowUpRight />
+            </a>
+          </div>
+          <div className="videos videos-learn">
+            {LEARN_VIDEOS.map((v, i) => (
+              <Reveal key={v.id} delay={0.06 * i}>
+                <Video v={v} />
+              </Reveal>
+            ))}
+          </div>
+        </div>
 
         <div className="res-tabs" role="tablist" aria-label="Filter resources">
           {RESOURCE_GROUPS.map(g => {
@@ -1010,7 +1074,7 @@ function Rewards() {
       </div>
       <div className="container">
         <SectionHead
-          num="06"
+          num="04"
           kicker="Rewards & recognition"
           title={
             <>
@@ -1092,12 +1156,39 @@ function Rewards() {
   );
 }
 
+const Social = {
+  linkedin: (
+    <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4v11H3v-11Zm6.5 0h3.83v1.5h.06c.53-1 1.84-2.06 3.79-2.06 4.05 0 4.8 2.66 4.8 6.13v5.43h-4v-4.82c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.9h-4v-11Z"
+      />
+    </svg>
+  ),
+  instagram: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="2" />
+      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2" />
+      <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
+    </svg>
+  ),
+  youtube: (
+    <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8ZM9.75 15.02V8.98L15.5 12l-5.75 3.02Z"
+      />
+    </svg>
+  ),
+};
+const SOCIAL_LABEL = { linkedin: 'LinkedIn', instagram: 'Instagram', youtube: 'YouTube' };
+
 function Speakers() {
   return (
     <section className="section" id="speakers">
       <div className="container">
         <SectionHead
-          num="07"
+          num="05"
           kicker="Speakers · IBM Db2"
           title={
             <>
@@ -1106,22 +1197,38 @@ function Speakers() {
           }
           sub="IBM Db2 leadership and engineers lead the talks, the workshop and the Db2Hack finale."
         />
-        <Reveal>
-          <ChromaGrid
-            items={SPEAKERS.map(sp => ({
-              image: sp.photo,
-              title: sp.name,
-              subtitle: sp.tag ? `${sp.role} · ${sp.tag}` : sp.role,
-              alt: sp.name,
-              borderColor: '#0f62fe',
-            }))}
-            columns={6}
-            minCardWidth={160}
-            aspectRatio="1 / 1"
-            cardRadius={24}
-            radius={280}
-          />
-        </Reveal>
+        <div className="speakers">
+          {SPEAKERS.map((sp, i) => (
+            <Reveal key={sp.name} delay={0.06 * i} className="speaker-wrap">
+              <Spotlight className="speaker">
+                <div className="sp-photo">
+                  <img src={sp.photo} alt={sp.name} loading="lazy" />
+                </div>
+                <div className="sp-meta">
+                  <h3>{sp.name}</h3>
+                  <p>{sp.role}</p>
+                  <span className="sp-org">
+                    <img src="/logos/ibm-8bar-white.svg" alt="IBM" />
+                    {sp.org === 'IBM' ? 'IBM' : sp.org.replace('IBM ', '')}
+                  </span>
+                  {sp.tag && <span className="tag tag-sm">{sp.tag}</span>}
+                </div>
+                {(sp.linkedin || sp.instagram || sp.youtube) && (
+                <div className="sp-social">
+                  {['linkedin', 'instagram', 'youtube']
+                    .filter(k => sp[k])
+                    .map(k => (
+                      <a key={k} href={sp[k]} {...ext} aria-label={`${sp.name} on ${SOCIAL_LABEL[k]}`}>
+                        {Social[k]}
+                        <span>{SOCIAL_LABEL[k]}</span>
+                      </a>
+                    ))}
+                </div>
+                )}
+              </Spotlight>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -1151,7 +1258,7 @@ function Venue() {
       <div className="container venue">
         <div>
           <SectionHead
-            num="08"
+            num="06"
             kicker="Venue"
             title={
               <>
@@ -1200,7 +1307,7 @@ function Faq() {
     <section className="section" id="faq">
       <div className="container faq-wrap">
         <SectionHead
-          num="09"
+          num="07"
           kicker="FAQ"
           title={
             <>
@@ -1299,17 +1406,13 @@ function Footer() {
             <div>
               <span className="mono-label">Event</span>
               {NAV.slice(0, 4).map(n => (
-                <a key={n.id} href={`#${n.id}`}>
-                  {n.label}
-                </a>
+                <NavItem key={n.label} n={n} />
               ))}
             </div>
             <div>
               <span className="mono-label">More</span>
               {NAV.slice(4).map(n => (
-                <a key={n.id} href={`#${n.id}`}>
-                  {n.label}
-                </a>
+                <NavItem key={n.label} n={n} />
               ))}
             </div>
             <div>
@@ -1364,35 +1467,157 @@ function ScrollProgress() {
   return <motion.div className="progress" style={{ scaleX: x }} />;
 }
 
+// Home-page teaser for the separate /resources page.
+function ResourcesTeaser() {
+  return (
+    <section className="section teaser" id="resources-teaser">
+      <div className="container">
+        <Reveal className="teaser-card">
+          <div className="teaser-copy">
+            <span className="mono-label">Resources · toolkit · tutorials</span>
+            <h2>
+              Everything you need <span className="dim">to build on Db2.</span>
+            </h2>
+            <p>
+              {VIDEOS.length + LEARN_VIDEOS.length} tutorial videos, {TOOLKIT.length} Db2 packages, the free Db2
+              Community Edition and {RESOURCES.length} hand-picked docs and blogs — all on one page.
+            </p>
+            <Link className="btn btn-primary btn-lg" to="/resources">
+              Open resources <Arrow />
+            </Link>
+          </div>
+          <div className="teaser-logos">
+            <LogoLoop
+              logos={ECOSYSTEM.map(e => ({
+                title: e.name,
+                node: (
+                  <span className="mq-item">
+                    <span className="mq-logo">
+                      <img src={`/fw/${e.logo}`} alt="" />
+                    </span>
+                    {e.name}
+                  </span>
+                ),
+              }))}
+              speed={60}
+              logoHeight={46}
+              gap={10}
+              pauseOnHover
+              ariaLabel="IBM Db2 ecosystem integrations"
+            />
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function PageHero() {
+  return (
+    <section className="page-hero">
+      <div className="page-hero-bg" aria-hidden="true">
+        <LetterGlitch
+          glitchColors={['#0f62fe', '#4589ff', '#a6c8ff']}
+          characters="=+xX0S8#@SELECTFROMDb2"
+          fontSize={15}
+          speed={0.8}
+        />
+      </div>
+      <div className="container page-hero-inner">
+        <Reveal as="span" className="kicker">
+          <span className="kicker-dot" />
+          IBM Db2 TechX Summit · Resources
+        </Reveal>
+        <Reveal delay={0.06} as="h1">
+          Learn it. <span className="dim">Then build it on Db2.</span>
+        </Reveal>
+        <Reveal delay={0.12} as="p">
+          Tutorials, the Db2 toolkit, Db2 Community Edition and every doc you need for Db2Hack — in one place.
+        </Reveal>
+        <Reveal delay={0.18} className="page-hero-links">
+          <a href="#resources">Videos & links</a>
+          <a href="#toolkit">Toolkit</a>
+          <a href="#community-edition">Community Edition</a>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+// Scroll to the #hash after navigating (e.g. /resources → /#faq), otherwise to the top.
+function useHashScroll() {
+  const { pathname, hash } = useLocation();
+  useEffect(() => {
+    if (!hash) {
+      window.scrollTo(0, 0);
+      return undefined;
+    }
+    const t = setTimeout(() => document.getElementById(hash.slice(1))?.scrollIntoView(), 80);
+    return () => clearTimeout(t);
+  }, [pathname, hash]);
+}
+
+function HomePage() {
+  useHashScroll();
+  return (
+    <main>
+      <Hero />
+      <Partners />
+      <About />
+      <Statement />
+      <Schedule />
+      <Db2Hack />
+      <ResourcesTeaser />
+      <Rewards />
+      <Speakers />
+      <Band />
+      <Venue />
+      <Faq />
+      <FinalCta />
+    </main>
+  );
+}
+
+function ResourcesPage() {
+  useHashScroll();
+  useEffect(() => {
+    document.title = 'Resources · IBM Db2 TechX Summit';
+    return () => {
+      document.title = 'IBM Db2 TechX Summit · 30 Oct 2026 · GL Bajaj, Mathura';
+    };
+  }, []);
+  return (
+    <main className="page-resources">
+      <PageHero />
+      <Resources />
+      <Toolkit />
+      <FinalCta />
+    </main>
+  );
+}
+
 export default function App() {
+  const { pathname } = useLocation();
   useEffect(() => {
     const bind = () => window.luma?.initCheckout?.();
-    bind();
+    const t = setTimeout(bind, 50);
     const script = document.getElementById('luma-checkout');
     script?.addEventListener('load', bind);
-    return () => script?.removeEventListener('load', bind);
-  }, []);
+    return () => {
+      clearTimeout(t);
+      script?.removeEventListener('load', bind);
+    };
+  }, [pathname]);
   return (
     <ClickSpark sparkColor="#78a9ff" sparkSize={10} sparkRadius={22} sparkCount={9} duration={450}>
       <ScrollProgress />
       <AnnouncementBar />
       <Nav />
-      <main>
-        <Hero />
-        <Partners />
-        <About />
-        <Statement />
-        <Schedule />
-        <Db2Hack />
-        <Toolkit />
-        <Resources />
-        <Rewards />
-        <Speakers />
-        <Band />
-        <Venue />
-        <Faq />
-        <FinalCta />
-      </main>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/resources" element={<ResourcesPage />} />
+        <Route path="*" element={<HomePage />} />
+      </Routes>
       <Footer />
       <FloatCta />
     </ClickSpark>
