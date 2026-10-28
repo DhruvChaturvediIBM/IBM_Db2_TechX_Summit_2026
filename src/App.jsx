@@ -18,6 +18,7 @@ import SplitFlapText from './components/reactbits/SplitFlapText';
 import CardSwap, { Card } from './components/reactbits/CardSwap';
 import LaserFlow from './components/reactbits/LaserFlow';
 import LetterGlitch from './components/reactbits/LetterGlitch';
+import LightRays from './components/reactbits/LightRays';
 import Radar from './components/reactbits/Radar';
 import TextPressure from './components/reactbits/TextPressure';
 import PixelCard from './components/reactbits/PixelCard';
@@ -62,6 +63,15 @@ import {
   RESOURCE_GROUPS,
   RESOURCES,
   COMMUNITY_EDITION,
+  MANDATORY,
+  SUBMISSION_REPO,
+  SUBMISSION_ISSUES,
+  SUBMIT_DATES,
+  SUBMIT_REQUIREMENTS,
+  SUBMIT_STEPS,
+  SUBMIT_NAMING,
+  JUDGING,
+  PENALTIES,
 } from './data';
 
 const EASE = [0.22, 1, 0.36, 1];
@@ -81,6 +91,25 @@ function useWide(min = 900) {
   return wide;
 }
 
+const WaIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+    <path
+      fill="currentColor"
+      d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.5 5 5.2-1.4A9.9 9.9 0 1 0 12.04 2Zm0 18.1a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.1.82.83-3-.2-.31a8.2 8.2 0 1 1 6.97 3.82Zm4.5-6.14c-.25-.12-1.46-.72-1.69-.8-.23-.08-.39-.12-.56.13-.16.25-.64.8-.79.96-.14.17-.29.19-.54.06a6.7 6.7 0 0 1-3.32-2.9c-.25-.43.25-.4.72-1.33.08-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48a.92.92 0 0 0-.67.31 2.8 2.8 0 0 0-.87 2.08 4.9 4.9 0 0 0 1.02 2.58c.13.16 1.76 2.7 4.28 3.78 1.6.69 2.22.75 3.02.63.49-.07 1.46-.6 1.67-1.18.2-.58.2-1.07.15-1.18-.06-.1-.22-.16-.47-.29Z"
+    />
+  </svg>
+);
+
+function WhatsAppButton({ size = '', label = 'Join WhatsApp community', tag = true }) {
+  return (
+    <a className={`btn btn-wa ${size}`} href={WHATSAPP_URL} {...ext}>
+      <WaIcon />
+      {label}
+      {tag && <span className="wa-tag">Mandatory</span>}
+    </a>
+  );
+}
+
 function RegisterButton({ size = '', label = 'Register on Luma' }) {
   return (
     <a className={`btn btn-primary ${size}`} {...luma}>
@@ -94,6 +123,12 @@ function AnnouncementBar() {
   const phase = phaseAt(useNow(30000));
   return (
     <div className="announce">
+      <a className="announce-wa" href={WHATSAPP_URL} {...ext}>
+        <WaIcon />
+        <span>
+          Join the WhatsApp community <b>· mandatory</b>
+        </span>
+      </a>
       <div className="announce-track">
         {Array.from({ length: 2 }).map((_, k) => (
           <div className="announce-row" key={k} aria-hidden={k === 1}>
@@ -104,6 +139,8 @@ function AnnouncementBar() {
             <span>Summit · Fri 30 Oct · 9:00 AM – 5:00 PM IST</span>
             <span>GL Bajaj Group of Institutions, Mathura</span>
             <span>Free · In person · Registration on Luma</span>
+            <span>WhatsApp community is mandatory for every participant</span>
+            <span>Submit: GitHub pull request + Google Form</span>
             <span>Event details are emailed to registered participants before the start</span>
           </div>
         ))}
@@ -287,10 +324,13 @@ function Hero() {
             <RegisterButton size="btn-xl" label="Register free on Luma" />
           </Magnet>
           <Magnet padding={70} magnetStrength={4}>
-            <a className="btn btn-ghost btn-xl" href="#db2hack">
-              Explore Db2Hack
-            </a>
+            <WhatsAppButton size="btn-xl" />
           </Magnet>
+        </motion.div>
+        <motion.div className="hero-sublinks" {...rise(1.2, 14)}>
+          <Link to="/submit">How to submit your project →</Link>
+          <a href="#mandatory">What's mandatory →</a>
+          <Link to="/resources">Resources & toolkit →</Link>
         </motion.div>
       </motion.div>
 
@@ -752,7 +792,8 @@ function Db2Hack() {
             <span className="mono-label">Good to know</span>
             <ul className="checks">
               <li>Individual participation — no teams</li>
-              <li>Submission via Google Form — link emailed to registered participants</li>
+              <li>Submit a GitHub pull request, then the PR link via Google Form</li>
+              <li>Joining the WhatsApp community is mandatory</li>
               <li>Deadline 29 Oct, 7:00 PM IST — late entries are not accepted</li>
               <li>Post your use case on LinkedIn and tag the organising team</li>
               <li>Top 10 pitch live to IBM experts on 30 Oct</li>
@@ -761,9 +802,10 @@ function Db2Hack() {
         </div>
         <Reveal className="hack-cta">
           <RegisterButton size="btn-lg" label="Register to get the Db2Hack brief" />
-          <a className="btn btn-ghost btn-lg" href={WHATSAPP_URL} {...ext}>
-            Join the WhatsApp community <ArrowUpRight />
-          </a>
+          <Link className="btn btn-ghost btn-lg" to="/submit">
+            Submission guide & judging <Arrow />
+          </Link>
+          <WhatsAppButton size="btn-lg" />
         </Reveal>
       </div>
     </section>
@@ -874,10 +916,9 @@ function Toolkit() {
                 </div>
                 <h4>{w.title}</h4>
                 <p>{w.body}</p>
-                {w.cmd ? (
-                  <CopyCmd cmd={w.cmd} />
-                ) : (
-                  <a className="btn btn-ghost ce-link" href={w.link} {...ext}>
+                {w.cmd && <CopyCmd cmd={w.cmd} />}
+                {w.link && (
+                  <a className={`btn btn-ghost ce-link ${w.cmd ? 'ce-link-sub' : ''}`} href={w.link} {...ext}>
                     {w.linkLabel} <ArrowUpRight />
                   </a>
                 )}
@@ -1434,6 +1475,7 @@ function Footer() {
               <a {...luma}>
                 Register on Luma
               </a>
+              <Link to="/submit">Submission guide</Link>
               <a href={WHATSAPP_URL} {...ext}>
                 WhatsApp community
               </a>
@@ -1479,6 +1521,329 @@ function ScrollProgress() {
   const { scrollYProgress } = useScroll();
   const x = useSpring(scrollYProgress, { stiffness: 120, damping: 24 });
   return <motion.div className="progress" style={{ scaleX: x }} />;
+}
+
+function MandatoryAction({ action }) {
+  if (action === 'register')
+    return (
+      <a className="mand-act" {...luma}>
+        Register <Arrow />
+      </a>
+    );
+  if (action === 'whatsapp')
+    return (
+      <a className="mand-act mand-act-wa" href={WHATSAPP_URL} {...ext}>
+        Join now <ArrowUpRight />
+      </a>
+    );
+  if (action === 'submit')
+    return (
+      <Link className="mand-act" to="/submit">
+        How to submit <Arrow />
+      </Link>
+    );
+  return null;
+}
+
+// "What's mandatory" checklist — sits right under the hero and on /submit.
+function Mandatory({ compact = false }) {
+  return (
+    <section className={`mandatory ${compact ? 'is-compact' : ''}`} id="mandatory">
+      <div className="container">
+        <Reveal className="mand-card">
+          <div className="mand-head">
+            <div>
+              <span className="mono-label">Before you start · mandatory</span>
+              <h2>
+                Six things every participant <span className="dim">must do.</span>
+              </h2>
+            </div>
+            <WhatsAppButton size="btn-lg" />
+          </div>
+          <ol className="mand-list">
+            {MANDATORY.map((m, i) => (
+              <li key={m.title} className={m.action === 'whatsapp' ? 'is-wa' : ''}>
+                <span className="mand-n">{String(i + 1).padStart(2, '0')}</span>
+                <div>
+                  <h3>{m.title}</h3>
+                  <p>{m.body}</p>
+                </div>
+                <MandatoryAction action={m.action} />
+              </li>
+            ))}
+          </ol>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function CodeBlock({ code }) {
+  const [done, setDone] = useState(false);
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setDone(true);
+      setTimeout(() => setDone(false), 1400);
+    } catch {
+      /* clipboard blocked — text stays selectable */
+    }
+  };
+  return (
+    <div className="codeblock">
+      <button type="button" onClick={copy} className={done ? 'is-done' : ''}>
+        {done ? 'Copied' : 'Copy'}
+      </button>
+      <pre>
+        <code>{code}</code>
+      </pre>
+    </div>
+  );
+}
+
+function SubmitHero() {
+  return (
+    <section className="page-hero submit-hero">
+      <div className="page-hero-bg submit-hero-bg" aria-hidden="true">
+        <LightRays raysOrigin="top-center" raysColor="#4589ff" raysSpeed={0.8} lightSpread={0.9} rayLength={2.4} intensity={1.2} followMouse mouseInfluence={0.08} />
+      </div>
+      <div className="container page-hero-inner">
+        <Reveal as="span" className="kicker">
+          <span className="kicker-dot" />
+          Db2Hack · submission guide
+        </Reveal>
+        <Reveal delay={0.06} as="h1">
+          Ship it right. <span className="dim">Get judged fairly.</span>
+        </Reveal>
+        <Reveal delay={0.12} as="p">
+          Everything you need to submit your Db2Hack project: deadlines, requirements, the 8-step GitHub + Google Form
+          flow, naming rules and the 100-point judging rubric.
+        </Reveal>
+        <Reveal delay={0.18} className="page-hero-ctas">
+          <a className="btn btn-primary btn-lg" href={SUBMISSION_REPO} {...ext}>
+            Open submission repo <ArrowUpRight />
+          </a>
+          <WhatsAppButton size="btn-lg" />
+        </Reveal>
+        <Reveal delay={0.24} className="page-hero-links">
+          <a href="#submit-dates">Deadlines</a>
+          <a href="#submit-steps">Steps</a>
+          <a href="#judging">Judging</a>
+          <a href="#submit-help">Help</a>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function SubmitGuide() {
+  return (
+    <>
+      <section className="section" id="submit-dates">
+        <div className="container">
+          <SectionHead
+            num="01"
+            kicker="Important dates"
+            title={
+              <>
+                24 hours. <span className="dim">One hard deadline.</span>
+              </>
+            }
+            sub="If the organising committee adjusts any timing, it is announced first in the WhatsApp community."
+          />
+          <div className="sdates">
+            {SUBMIT_DATES.map((d, i) => (
+              <Reveal key={d.what} delay={0.08 * i} className={`sdate ${i === 1 ? 'is-deadline' : ''}`}>
+                <span className="mono-label">{d.what}</span>
+                <strong>{d.when}</strong>
+                <p>{d.note}</p>
+              </Reveal>
+            ))}
+          </div>
+
+          <div className="sreq">
+            {SUBMIT_REQUIREMENTS.map((r, i) => (
+              <Reveal key={r.title} delay={0.06 * i}>
+                <Spotlight className="sreq-card">
+                  <span className="step-n">{String(i + 1).padStart(2, '0')}</span>
+                  <h3>{r.title}</h3>
+                  <p>{r.body}</p>
+                </Spotlight>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section" id="submit-steps">
+        <div className="container">
+          <SectionHead
+            num="02"
+            kicker="Step-by-step"
+            title={
+              <>
+                From fork <span className="dim">to finale.</span>
+              </>
+            }
+            sub="Steps 6 and 7 are both mandatory: a pull request alone does not complete your submission."
+          />
+          <ol className="ssteps">
+            {SUBMIT_STEPS.map((st, i) => (
+              <Reveal as="li" key={st.title} delay={0.04 * i} className="sstep">
+                <span className="sstep-n">{String(i + 1).padStart(2, '0')}</span>
+                <div className="sstep-body">
+                  <h3>{st.title}</h3>
+                  <p>{st.body}</p>
+                  {st.code && <CodeBlock code={st.code} />}
+                </div>
+              </Reveal>
+            ))}
+          </ol>
+
+          <Reveal className="snaming">
+            <span className="mono-label">Naming conventions</span>
+            <div className="snaming-table" role="table">
+              {SUBMIT_NAMING.map(n => (
+                <div className="snaming-row" role="row" key={n.asset}>
+                  <span role="cell">{n.asset}</span>
+                  <code role="cell">{n.format}</code>
+                  <code role="cell" className="dimcode">
+                    {n.example}
+                  </code>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="section" id="judging">
+        <div className="container">
+          <SectionHead
+            num="03"
+            kicker="Judging · 100 points"
+            title={
+              <>
+                How projects <span className="dim">are scored.</span>
+              </>
+            }
+            sub="A panel of IBM engineers, subject-matter experts and academic mentors scores every submission on five dimensions."
+          />
+          <div className="judging">
+            {JUDGING.map((j, i) => (
+              <Reveal key={j.name} delay={0.06 * i} className="judge">
+                <div className="judge-top">
+                  <h3>{j.name}</h3>
+                  <span className="judge-w">{j.weight}%</span>
+                </div>
+                <div className="judge-bar">
+                  <motion.span
+                    initial={{ scaleX: 0 }}
+                    whileInView={{ scaleX: j.weight / 30 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.1, delay: 0.15 + 0.08 * i, ease: EASE }}
+                  />
+                </div>
+                <ul>
+                  {j.points.map(pt => (
+                    <li key={pt}>{pt}</li>
+                  ))}
+                </ul>
+              </Reveal>
+            ))}
+          </div>
+
+          <div className="penalties">
+            <Reveal className="pen-head">
+              <span className="mono-label">Disqualification & penalties</span>
+              <h3>Avoid these.</h3>
+              <p>
+                Zero-secrets policy: keep real keys in a local <code>.env</code>, commit only <code>.env.example</code>.
+                Follow the Code of Conduct and declare third-party licences.
+              </p>
+            </Reveal>
+            {PENALTIES.map((pn, i) => (
+              <Reveal key={pn.title} delay={0.06 * i} className="pen">
+                <span className="pen-x" aria-hidden="true">
+                  ×
+                </span>
+                <h4>{pn.title}</h4>
+                <p>{pn.body}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section" id="submit-help">
+        <div className="container">
+          <SectionHead
+            num="04"
+            kicker="Need help?"
+            title={
+              <>
+                Stuck? <span className="dim">We've got you.</span>
+              </>
+            }
+          />
+          <div className="shelp">
+            <Reveal>
+              <a className="shelp-card" href={SUBMISSION_ISSUES} {...ext}>
+                <span className="mono-label">GitHub</span>
+                <h3>Open a submission-help issue</h3>
+                <p>Templates for setup, PR and validation questions.</p>
+                <span className="res-go">
+                  Open issue <ArrowUpRight />
+                </span>
+              </a>
+            </Reveal>
+            <Reveal delay={0.06}>
+              <a className="shelp-card is-wa" href={WHATSAPP_URL} {...ext}>
+                <span className="mono-label">WhatsApp · mandatory</span>
+                <h3>Ask in the community</h3>
+                <p>Live updates, the Google Form link and quick answers from the organisers.</p>
+                <span className="res-go">
+                  Join now <ArrowUpRight />
+                </span>
+              </a>
+            </Reveal>
+            <Reveal delay={0.12}>
+              <Link className="shelp-card" to="/resources">
+                <span className="mono-label">Resources</span>
+                <h3>Db2 setup & connector docs</h3>
+                <p>Db2 Community Edition, the VS Code extension, toolkit packages and tutorials.</p>
+                <span className="res-go">
+                  Open resources <Arrow />
+                </span>
+              </Link>
+            </Reveal>
+          </div>
+          <Reveal className="shelp-spoc">
+            Event SPOC: <b>Dhruv Chaturvedi</b>, Db2 Software Engineer, IBM Lucknow · Submission repo maintained by{' '}
+            <b>Kunal Gola</b>, IBM
+          </Reveal>
+        </div>
+      </section>
+    </>
+  );
+}
+
+function SubmitPage() {
+  useHashScroll();
+  useEffect(() => {
+    document.title = 'Submit your project · Db2Hack · IBM Db2 TechX Summit';
+    return () => {
+      document.title = 'IBM Db2 TechX Summit · 30 Oct 2026 · GL Bajaj, Mathura';
+    };
+  }, []);
+  return (
+    <main className="page-submit">
+      <SubmitHero />
+      <Mandatory compact />
+      <SubmitGuide />
+      <FinalCta />
+    </main>
+  );
 }
 
 // Home-page teaser for the separate /resources page.
@@ -1576,6 +1941,7 @@ function HomePage() {
   return (
     <main>
       <Hero />
+      <Mandatory />
       <Partners />
       <About />
       <Statement />
@@ -1630,6 +1996,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/resources" element={<ResourcesPage />} />
+        <Route path="/submit" element={<SubmitPage />} />
         <Route path="*" element={<HomePage />} />
       </Routes>
       <Footer />

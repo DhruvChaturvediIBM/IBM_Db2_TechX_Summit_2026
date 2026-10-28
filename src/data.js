@@ -34,6 +34,7 @@ export const NAV = [
   { id: 'about', label: 'About' },
   { id: 'schedule', label: 'Schedule' },
   { id: 'db2hack', label: 'Db2Hack' },
+  { path: '/submit', label: 'Submit' },
   { path: '/resources', label: 'Resources' },
   { id: 'rewards', label: 'Rewards' },
   { id: 'speakers', label: 'Speakers' },
@@ -101,7 +102,7 @@ export const SCHEDULE_DAYS = [
 export const HACK_STEPS = [
   { n: '01', title: 'Build', when: '28 Oct · 7:00 PM onwards', body: 'Create your AI use case on IBM Db2 with the toolkit packages.' },
   { n: '02', title: 'Share', when: 'During the 24 hours', body: 'Post your use case on LinkedIn, explain it clearly and tag the organising team.' },
-  { n: '03', title: 'Submit', when: 'Before 29 Oct · 7:00 PM', body: 'Submit through the Google Form. Strict deadline — late entries are not accepted.' },
+  { n: '03', title: 'Submit', when: 'Before 29 Oct · 7:00 PM', body: 'Open a pull request on the submission GitHub repo, then send the PR link through the Google Form. Strict deadline — late entries are not accepted.' },
   { n: '04', title: 'Pitch', when: '30 Oct · 3:00 – 4:15 PM', body: 'The Top 10 present live to IBM experts at the Summit.' },
 ];
 
@@ -171,7 +172,8 @@ export const FAQ = [
   { q: 'What is Db2Hack?', a: 'A 24-hour challenge to build an AI use case on IBM Db2. It runs from Wednesday 28 October, 7:00 PM IST to Thursday 29 October, 7:00 PM IST. The Top 10 pitch live to IBM experts at the Summit on 30 October.' },
   { q: 'Can I participate as a team?', a: 'No — Db2Hack is individual participation. Your idea matters most.' },
   { q: 'Which frameworks can I use?', a: 'Every project must use at least one of LangChain, Haystack, CrewAI, LlamaIndex or the no-code Langflow. One is enough; combining several (for example LangChain + CrewAI) is also allowed.' },
-  { q: 'How do I submit my project?', a: 'Through a Google Form. The link is shared with registered participants by email before the hack starts. The deadline — 29 October, 7:00 PM IST — is strict; late entries are not accepted.' },
+  { q: 'Is joining the WhatsApp community mandatory?', a: 'Yes. Every participant must join the IBM Db2 TechX WhatsApp community — all live updates, the Google Form link and any timing changes are shared there first.' },
+  { q: 'How do I submit my project?', a: 'Two steps, both mandatory: open a pull request with your project folder on the official submission repo (github.com/KunalGolaIBM/IBM_Db2_TechX_Project_Submission), then paste the PR link into the Google Form. The full walkthrough is on the Submit page. The deadline — 29 October, 7:00 PM IST — is strict; late entries are not accepted.' },
   { q: 'Do I need to post on LinkedIn?', a: 'Yes, sharing is part of the challenge: post your use case on LinkedIn, explain it clearly and tag the organising team. The best posts get appreciation from IBM experts.' },
   { q: 'Do I need prior Db2 experience?', a: 'No. The toolkit gives you ready-made Db2 integrations — vector stores, document stores and agent tools — for the frameworks you may already know.' },
   { q: 'Which Db2 should I build on?', a: 'Db2 Community Edition — it is free with full Db2 features (up to 4 cores and 16 GB RAM). The quickest start is the IBM Db2 Developer Extension for VS Code, which can create a Community Edition instance with a sample database. You can also use the Docker image (icr.io/db2_community/db2) or the installer from ibm.com/db2/get-started.' },
@@ -234,6 +236,10 @@ export const RESOURCES = [
   { group: 'start', src: 'IBM', title: 'Get started with IBM Db2 — free Community Edition', url: 'https://www.ibm.com/db2/get-started', thumb: '/res/r21.jpg' },
   { group: 'start', src: 'IBM Docs', title: 'IBM Db2 12.1 documentation', url: 'https://www.ibm.com/docs/en/db2/12.1.x', logo: '/logos/db-cyl-blue.svg' },
   { group: 'start', src: 'IBM Docs', title: 'VECTOR_DISTANCE — vector similarity in Db2 SQL', url: 'https://www.ibm.com/docs/en/db2/12.1.x?topic=functions-vector-distance', logo: '/logos/db-cyl-blue.svg' },
+  { group: 'start', src: 'IBM Db2 Extension Docs', title: 'IBM Db2 Developer Extension — complete documentation', url: 'https://ibm.github.io/db2developerextension-about/', logo: '/fw/vscode-db2.png' },
+  { group: 'start', src: 'IBM Db2 Extension Docs', title: 'Getting started with the Db2 Developer Extension', url: 'https://ibm.github.io/db2developerextension-about/docs/the-basics/getting-started-extension', logo: '/fw/vscode-db2.png' },
+  { group: 'start', src: 'IBM Db2 Extension Docs', title: 'Create a Db2 Community Edition instance from VS Code', url: 'https://ibm.github.io/db2developerextension-about/docs/the-basics/creating-db2-instance', logo: '/logos/db-cyl-blue.svg' },
+  { group: 'start', src: 'IBM Db2 Extension Docs', title: 'Troubleshooting Docker and Colima runtime issues', url: 'https://ibm.github.io/db2developerextension-about/docs/troubleshooting/docker-colima-troubleshooting', logo: '/fw/vscode-db2.png' },
   { group: 'start', src: 'VS Code Marketplace', title: 'IBM Db2 Developer Extension for VS Code', url: 'https://marketplace.visualstudio.com/items?itemName=IBM.db2-for-luw', logo: '/fw/vscode-db2.png' },
   { group: 'start', src: 'GitHub · ibmdb', title: 'Db2 VS Code extension wiki', url: 'https://github.com/ibmdb/vscode-extension/wiki', thumb: '/res/r25.jpg' },
   { group: 'start', src: 'GitHub · ibmdb', title: 'python-ibmdb — the ibm_db Python driver', url: 'https://github.com/ibmdb/python-ibmdb', thumb: '/res/r26.jpg' },
@@ -247,7 +253,9 @@ export const COMMUNITY_EDITION = {
     {
       n: '01',
       title: 'VS Code extension',
-      body: 'Install the IBM Db2 Developer Extension, create a Community Edition instance and query a ready-to-use sample database.',
+      body: 'Install the IBM Db2 Developer Extension, click "Create Db2 instance" and get testdb + SAMPLE databases ready to query. Needs VS Code 1.103+, Java 17+, Docker (Colima on macOS, Docker Desktop + WSL 2 on Windows) and 4 GB free RAM.',
+      link: 'https://ibm.github.io/db2developerextension-about/docs/the-basics/creating-db2-instance',
+      linkLabel: 'Step-by-step guide',
       cmd: 'code --install-extension IBM.db2-for-luw',
       tag: 'Easiest',
     },
@@ -266,3 +274,92 @@ export const COMMUNITY_EDITION = {
     },
   ],
 };
+
+// Shown at the top of the home page and the Submit page. Keep in sync with the master doc.
+export const MANDATORY = [
+  { title: 'Register on Luma', body: 'Free, approval-based. Your confirmation email carries every detail.', action: 'register' },
+  { title: 'Join the WhatsApp community', body: 'Compulsory for every participant — live updates, the Google Form link and any timing changes land here first.', action: 'whatsapp' },
+  { title: 'Participate individually', body: 'Db2Hack is individual — no teams.' },
+  { title: 'Build on IBM Db2 + 1 framework', body: 'Real Db2 integration in code, using at least one of LangChain, Haystack, CrewAI, LlamaIndex or Langflow.' },
+  { title: 'Open a GitHub pull request', body: 'Your project folder on the official submission repo, following the template.', action: 'submit' },
+  { title: 'Submit the Google Form + post on LinkedIn', body: 'Paste your PR link in the form before 29 Oct, 7:00 PM IST, and share your use case on LinkedIn tagging the organisers.' },
+];
+
+// Db2Hack submission guide (/submit) — from the official submission repo README and docs.
+export const SUBMISSION_REPO = 'https://github.com/KunalGolaIBM/IBM_Db2_TechX_Project_Submission';
+export const SUBMISSION_ISSUES = `${SUBMISSION_REPO}/issues/new/choose`;
+
+export const SUBMIT_DATES = [
+  { what: 'Kick-off · submissions open', when: '28 Oct 2026 · 7:00 PM IST', note: 'Pull requests and the Google Form open' },
+  { what: 'Submission deadline', when: '29 Oct 2026 · 7:00 PM IST', note: 'Hard deadline for the PR and the Google Form' },
+  { what: 'Finale · Top 10 pitch', when: '30 Oct 2026 · 3:00 – 4:15 PM IST', note: 'Live at GL Bajaj Group of Institutions, Mathura' },
+];
+
+export const SUBMIT_REQUIREMENTS = [
+  { title: 'Meaningful IBM Db2 usage', body: 'Your code must actually talk to IBM Db2 — Db2 Community Edition (Docker or the VS Code extension), Db2 on Cloud or watsonx.data. Mentioning Db2 only in the docs is ineligible.' },
+  { title: 'At least one Db2Hack framework', body: 'LangChain, Haystack, CrewAI, LlamaIndex or the no-code Langflow. Combining several is allowed. Drivers like ibm_db and SQLAlchemy are welcome on top.' },
+  { title: 'Any language, AI optional', body: 'Python, TypeScript, Java, Go, Rust… AI/LLM workflows (RAG, text-to-SQL, agents) with watsonx.ai, OpenAI, Gemini, OpenRouter or Ollama are encouraged, not required.' },
+  { title: 'Four required files', body: 'README.md, architecture.md, submission.json and .env.example — all copied from the template and filled in.' },
+];
+
+export const SUBMIT_STEPS = [
+  {
+    title: 'Fork & clone',
+    body: 'Fork the submission repo to your GitHub account, then clone your fork.',
+    code: 'git clone https://github.com/<your-username>/IBM_Db2_TechX_Project_Submission.git\ncd IBM_Db2_TechX_Project_Submission\ngit remote add upstream https://github.com/KunalGolaIBM/IBM_Db2_TechX_Project_Submission.git',
+  },
+  {
+    title: 'Create your branch',
+    body: 'Branch name: submission/<project-slug> — lowercase letters, numbers and hyphens only.',
+    code: 'git fetch upstream main\ngit checkout -b submission/<project-slug> upstream/main',
+  },
+  {
+    title: 'Copy the template',
+    body: 'Your folder gets README.md, architecture.md, submission.json, .env.example, src/ and docs/screenshots/.',
+    code: 'cp -r submissions/_template submissions/<project-slug>',
+  },
+  {
+    title: 'Build, document, validate',
+    body: 'Code in src/, fill submission.json, explain setup in README.md and your design in architecture.md, put only dummy keys in .env.example. Then run the validator.',
+    code: 'python scripts/validate_submission.py submissions/<project-slug>',
+  },
+  {
+    title: 'Commit & push',
+    body: 'Stage only your own project folder.',
+    code: 'git add submissions/<project-slug>\ngit commit -m "feat(<project-slug>): add hackathon submission"\ngit push -u origin submission/<project-slug>',
+  },
+  {
+    title: 'Open a pull request',
+    body: 'Base: KunalGolaIBM/IBM_Db2_TechX_Project_Submission · main. Title: [Submission] <project-slug>: <Short Project Title>. Complete every checklist in the PR template.',
+  },
+  {
+    title: 'Fill the Google Form',
+    body: 'A PR alone does not complete your submission. Paste your PR URL into the official Google Form (link shared on WhatsApp and by email) before 29 Oct, 7:00 PM IST.',
+  },
+  {
+    title: 'Post on LinkedIn',
+    body: 'Explain your use case clearly and tag the organising team. The best posts get appreciation from IBM experts.',
+  },
+];
+
+export const SUBMIT_NAMING = [
+  { asset: 'Branch', format: 'submission/<project-slug>', example: 'submission/db2-support-rag' },
+  { asset: 'Folder', format: 'submissions/<project-slug>/', example: 'submissions/db2-support-rag/' },
+  { asset: 'PR title', format: '[Submission] <project-slug>: <Project Title>', example: '[Submission] db2-support-rag: Db2 Support RAG Agent' },
+  { asset: 'Commit', format: 'feat(<project-slug>): <message>', example: 'feat(db2-support-rag): implement vector search chain' },
+];
+
+export const JUDGING = [
+  { name: 'IBM Db2 integration & depth', weight: 30, points: ['Substantive use of Db2: storage, querying, indexing, stored procedures, vector / JSON', 'Correct drivers, connectors or framework integrations', 'Clean schema design, efficient queries, reliable data'] },
+  { name: 'Innovation & real-world impact', weight: 25, points: ['Original solution to a real problem', 'Practical for enterprise, developer tooling, analytics or AI automation', 'Clear value for the end user'] },
+  { name: 'Technical architecture & AI', weight: 20, points: ['Modular, clean engineering', 'Well-designed RAG / agents / embeddings / prompts, if used', 'Clear, complete architecture.md'] },
+  { name: 'Reproducibility & code quality', weight: 15, points: ['Easy setup by following README.md', 'Working .env.example with prerequisites', 'Tests, input validation and error handling'] },
+  { name: 'Documentation & presentation', weight: 10, points: ['Templates filled — no placeholders left', 'Screenshots, demo URL or video walkthrough', 'Naming rules followed, zero secrets committed'] },
+];
+
+export const PENALTIES = [
+  { title: 'Zero Db2 integration', body: 'Db2 mentioned in text but never used in code.' },
+  { title: 'Committed secrets', body: 'Real passwords, API keys or tokens pushed to GitHub.' },
+  { title: 'Plagiarism', body: 'Copying uncredited third-party repos without real innovation.' },
+  { title: 'Tampering', body: "Changing repo root config, scripts or another participant's folder." },
+];
