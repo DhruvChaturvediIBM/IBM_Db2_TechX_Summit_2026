@@ -162,7 +162,7 @@ export const SPEAKERS = [
   { name: 'Keshav Maheshwari', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Keshav-Maheshwari.png', linkedin: 'https://www.linkedin.com/in/keshav-maheshwari-666738186/' },
   { name: 'Kunal Gola', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Kunal-Gola.png', linkedin: 'https://www.linkedin.com/in/kunal-gola-459030203/' },
   { name: 'Pawan Thakur', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Pawan-Thakur.png', linkedin: 'https://www.linkedin.com/in/pawanthakurindia/' },
-  { name: 'Shaik Sadiq', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Shaik-Sadiq.png' },
+  { name: 'Shaik Sadiq', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Shaik-Sadiq.png', linkedin: 'https://www.linkedin.com/in/shaik-sadiq-068a39242/' },
 ];
 
 export const FAQ = [
