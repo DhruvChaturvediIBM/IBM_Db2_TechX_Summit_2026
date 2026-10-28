@@ -1,8 +1,10 @@
 // Single place to edit every link and fact on the page.
 // Source of truth: IBM-Db2-TechX-Summit-Master-Document (v1.0, 28 Oct 2026).
 
-// TODO: paste the real Luma event URL here — every "Register" button uses it.
-export const LUMA_URL = 'https://luma.com/';
+// Luma event — every Register button opens Luma's checkout popup for this event.
+export const LUMA_EVENT_ID = 'evt-rKKaLkPzJFs05n9';
+export const LUMA_URL = `https://luma.com/event/${LUMA_EVENT_ID}`;
+export const LUMA_EMBED = `https://luma.com/embed/event/${LUMA_EVENT_ID}/simple`;
 export const WHATSAPP_URL = 'https://chat.whatsapp.com/L5EwLpFMmqa179MsOgi9fu';
 export const MAPS_URL =
   'https://www.google.com/maps/search/?api=1&query=GL+Bajaj+Group+of+Institutions+Mathura';
@@ -137,7 +139,7 @@ export const SPEAKERS = [
 ];
 
 export const FAQ = [
-  { q: 'Is the Summit free?', a: 'Yes. The IBM Db2 TechX Summit is free and in person. Register on Luma to reserve your seat.' },
+  { q: 'Is the Summit free?', a: 'Yes. The IBM Db2 TechX Summit is free and in person. Register on Luma — registrations are reviewed by the organisers, and you get a confirmation once approved.' },
   { q: 'When and where is it?', a: 'Friday, 30 October 2026, 9:00 AM – 5:00 PM IST at GL Bajaj Group of Institutions, NH-2 Mathura–Delhi Road, Akbarpur, Mathura. Reporting starts at 9:00 AM.' },
   { q: 'What is Db2Hack?', a: 'A 24-hour challenge to build an AI use case on IBM Db2. It runs from Wednesday 28 October, 7:00 PM IST to Thursday 29 October, 7:00 PM IST. The Top 10 pitch live to IBM experts at the Summit on 30 October.' },
   { q: 'Can I participate as a team?', a: 'No — Db2Hack is individual participation. Your idea matters most.' },

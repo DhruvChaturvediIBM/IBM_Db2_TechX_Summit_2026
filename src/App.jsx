@@ -34,6 +34,8 @@ import {
 } from './components/ui';
 import {
   LUMA_URL,
+  LUMA_EVENT_ID,
+  LUMA_EMBED,
   WHATSAPP_URL,
   MAPS_URL,
   MAPS_EMBED,
@@ -62,6 +64,8 @@ import {
 
 const EASE = [0.22, 1, 0.36, 1];
 const ext = { target: '_blank', rel: 'noopener noreferrer' };
+// Luma's checkout script (index.html) turns these links into its popup; without it they open the event page.
+const luma = { href: LUMA_URL, ...ext, 'data-luma-action': 'checkout', 'data-luma-event-id': LUMA_EVENT_ID };
 const MONO = '"IBM Plex Mono", ui-monospace, monospace';
 const ASCII_COLORS = ['#1e3fd8', '#f6f8ff', '#a5d8ff', '#38bdf8'];
 
@@ -77,7 +81,7 @@ function useWide(min = 900) {
 
 function RegisterButton({ size = '', label = 'Register on Luma' }) {
   return (
-    <a className={`btn btn-primary ${size}`} href={LUMA_URL} {...ext}>
+    <a className={`btn btn-primary ${size}`} {...luma}>
       {label}
       <Arrow />
     </a>
@@ -146,7 +150,7 @@ function Nav() {
           ))}
         </nav>
         <div className="nav-cta">
-          <a className="btn btn-primary btn-sm" href={LUMA_URL} {...ext}>
+          <a className="btn btn-primary btn-sm" {...luma}>
             Register <Arrow />
           </a>
           <button
@@ -1270,6 +1274,9 @@ function FinalCta() {
             WhatsApp community <ArrowUpRight />
           </StarBorder>
         </Reveal>
+        <Reveal delay={0.24} className="luma-embed">
+          <iframe src={LUMA_EMBED} title="Register for IBM Db2 TechX Summit on Luma" allow="fullscreen; payment" loading="lazy" />
+        </Reveal>
       </div>
     </section>
   );
@@ -1307,7 +1314,7 @@ function Footer() {
             </div>
             <div>
               <span className="mono-label">Connect</span>
-              <a href={LUMA_URL} {...ext}>
+              <a {...luma}>
                 Register on Luma
               </a>
               <a href={WHATSAPP_URL} {...ext}>
@@ -1345,7 +1352,7 @@ function FloatCta() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
   return (
-    <a className={`float-cta ${on ? 'is-on' : ''}`} href={LUMA_URL} {...ext}>
+    <a className={`float-cta ${on ? 'is-on' : ''}`} {...luma}>
       Register <Arrow />
     </a>
   );
@@ -1358,6 +1365,13 @@ function ScrollProgress() {
 }
 
 export default function App() {
+  useEffect(() => {
+    const bind = () => window.luma?.initCheckout?.();
+    bind();
+    const script = document.getElementById('luma-checkout');
+    script?.addEventListener('load', bind);
+    return () => script?.removeEventListener('load', bind);
+  }, []);
   return (
     <ClickSpark sparkColor="#78a9ff" sparkSize={10} sparkRadius={22} sparkCount={9} duration={450}>
       <ScrollProgress />
