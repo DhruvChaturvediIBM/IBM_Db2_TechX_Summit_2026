@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, useInView, animate } from 'motion/react';
 import { MOMENTS } from '../data';
 import DecryptedText from './reactbits/DecryptedText';
+import Counter from './reactbits/Counter';
 
 const EASE = [0.22, 1, 0.36, 1];
 
@@ -104,15 +105,7 @@ export function Countdown() {
         <div className="countdown-grid">
           {parts.map(([k, n]) => (
             <div className="countdown-cell" key={k}>
-              <motion.span
-                key={n}
-                className="countdown-num"
-                initial={{ y: -12, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.35, ease: EASE }}
-              >
-                {String(n).padStart(2, '0')}
-              </motion.span>
+              <Counter value={n} minDigits={2} fontSize={30} fontWeight={500} className="countdown-num" />
               <span className="countdown-unit">{k}</span>
             </div>
           ))}

@@ -1776,6 +1776,176 @@ p {
   -webkit-mask-image: radial-gradient(70% 60% at 50% 30%, #000 20%, transparent 80%);
 }
 
+/* ---------- react bits, round 2 ---------- */
+.lead-reveal {
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.lead-reveal .lead {
+  display: block;
+}
+.programme-bento {
+  margin-top: 96px;
+}
+.programme-bento .magic-bento__title {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.programme-bento .magic-bento__description {
+  color: var(--ink-2);
+  font-size: 15.5px;
+  line-height: 1.5;
+}
+.programme-bento .magic-bento__label {
+  font-family: var(--mono);
+  color: var(--ink-2);
+}
+.flap-board {
+  margin-top: 64px;
+  overflow: hidden;
+}
+.swap-row {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 32px;
+  align-items: center;
+  min-height: 520px;
+  padding: 40px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: rgba(11, 11, 11, 0.9);
+  overflow: hidden;
+}
+.swap-copy h3 {
+  margin-top: 14px;
+  font-size: clamp(32px, 3.6vw, 52px);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+.swap-copy p {
+  margin-top: 16px;
+  color: var(--ink-2);
+  max-width: 420px;
+}
+.swap-stage {
+  position: relative;
+  height: 440px;
+}
+.swap-card {
+  padding: 28px;
+  background: #111 !important;
+  border: 1px solid var(--line-3) !important;
+  display: flex;
+  flex-direction: column;
+}
+.swap-card h3 {
+  margin-top: auto;
+  font-size: 38px;
+  font-weight: 600;
+}
+.swap-card p {
+  margin-top: 10px;
+  color: var(--ink-2);
+}
+.hack-steps.is-hidden {
+  display: none;
+}
+.ce-wrap {
+  position: relative;
+  padding-top: 200px;
+  margin-top: 0 !important;
+}
+.ce-laser {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 260px;
+  pointer-events: none;
+}
+.ce-wrap > .ce {
+  position: relative;
+  z-index: 1;
+}
+.reward-mystery-wrap {
+  grid-row: span 2;
+}
+.reward-mystery-wrap .pixel-card {
+  height: 100%;
+}
+.venue-sec {
+  overflow: hidden;
+  isolation: isolate;
+}
+.venue-radar {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  mask-image: linear-gradient(to right, #000 30%, transparent 75%);
+  -webkit-mask-image: linear-gradient(to right, #000 30%, transparent 75%);
+}
+.venue-card {
+  background: rgba(11, 11, 11, 0.85);
+}
+.footer-giant {
+  height: clamp(120px, 18vw, 260px);
+}
+
+.bento-faces {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
+}
+.bento-faces img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 3px solid #0b0b0b;
+  margin-left: -16px;
+  filter: grayscale(1);
+  transition: filter 0.4s, transform 0.4s var(--ease);
+}
+.bento-faces img:first-child {
+  margin-left: 0;
+}
+.bento-faces img:hover {
+  filter: none;
+  transform: translateY(-6px);
+}
+.bento-faces span {
+  margin-left: 16px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.bento-top10 strong {
+  display: block;
+  font-size: clamp(64px, 8vw, 128px);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+  color: #fff;
+}
+.bento-top10 span {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue-light);
+}
+.reward-mystery-wrap .pixel-card {
+  width: 100%;
+  place-items: stretch;
+}
+
 /* ---------- rewards ---------- */
 .rewards-grid {
   display: grid;
@@ -1784,8 +1954,8 @@ p {
   gap: 12px;
 }
 .reward-mystery {
-  grid-row: span 2;
   position: relative;
+  height: 100%;
   padding: 34px;
   border-radius: var(--r);
   background: var(--blue);
@@ -2211,14 +2381,7 @@ p {
 }
 .footer-giant {
   margin-top: 30px;
-  font-size: clamp(64px, 15.5vw, 232px);
-  font-weight: 700;
-  letter-spacing: -0.06em;
-  line-height: 0.78;
-  text-align: center;
-  color: var(--surface-2);
   user-select: none;
-  white-space: nowrap;
 }
 
 /* ---------- floating cta ---------- */
@@ -2287,10 +2450,18 @@ p {
   .rewards-grid {
     grid-template-columns: 1fr 1fr;
   }
-  .reward-mystery {
+  .reward-mystery-wrap {
     grid-row: auto;
     grid-column: 1 / -1;
+  }
+  .reward-mystery {
     min-height: 0;
+  }
+  .ce-wrap {
+    padding-top: 140px;
+  }
+  .ce-laser {
+    height: 190px;
   }
   .hero-bar {
     grid-template-columns: 1fr 1fr;

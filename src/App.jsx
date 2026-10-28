@@ -11,6 +11,15 @@ import StarBorder from './components/reactbits/StarBorder';
 import DotGrid from './components/reactbits/DotGrid';
 import BorderGlow from './components/reactbits/BorderGlow';
 import ClickSpark from './components/reactbits/ClickSpark';
+import ScrollReveal from './components/reactbits/ScrollReveal';
+import MagicBento from './components/reactbits/MagicBento';
+import SplitFlapText from './components/reactbits/SplitFlapText';
+import CardSwap, { Card } from './components/reactbits/CardSwap';
+import LaserFlow from './components/reactbits/LaserFlow';
+import ChromaGrid from './components/reactbits/ChromaGrid';
+import Radar from './components/reactbits/Radar';
+import TextPressure from './components/reactbits/TextPressure';
+import PixelCard from './components/reactbits/PixelCard';
 import {
   Reveal,
   SectionHead,
@@ -55,6 +64,16 @@ const EASE = [0.22, 1, 0.36, 1];
 const ext = { target: '_blank', rel: 'noopener noreferrer' };
 const MONO = '"IBM Plex Mono", ui-monospace, monospace';
 const ASCII_COLORS = ['#1e3fd8', '#f6f8ff', '#a5d8ff', '#38bdf8'];
+
+function useWide(min = 900) {
+  const [wide, setWide] = useState(() => window.innerWidth >= min);
+  useEffect(() => {
+    const onResize = () => setWide(window.innerWidth >= min);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [min]);
+  return wide;
+}
 
 function RegisterButton({ size = '', label = 'Register on Luma' }) {
   return (
@@ -300,6 +319,32 @@ function Partners() {
   );
 }
 
+// Big tiles (positions 3 and 4) carry a visual; the rest are text-only.
+const BENTO_ORDER = [
+  'Hands-on workshop',
+  'Knowledge sharing',
+  'Talks by IBM experts',
+  'Db2Hack finale',
+  'Panel discussion',
+  'Data & AI Quiz',
+];
+const BENTO_VISUALS = {
+  'Talks by IBM experts': (
+    <div className="bento-faces">
+      {SPEAKERS.map(sp => (
+        <img key={sp.name} src={sp.photo} alt="" />
+      ))}
+      <span>5 IBM Db2 experts</span>
+    </div>
+  ),
+  'Db2Hack finale': (
+    <div className="bento-top10">
+      <strong>TOP 10</strong>
+      <span>3:00 – 4:15 PM · live pitch</span>
+    </div>
+  ),
+};
+
 function About() {
   return (
     <section className="section" id="about">
@@ -315,11 +360,17 @@ function About() {
                 </>
               }
             />
-            <Reveal delay={0.1} as="p" className="lead">
+            <ScrollReveal
+              containerClassName="lead-reveal"
+              textClassName="lead"
+              baseOpacity={0.15}
+              baseRotation={0}
+              blurStrength={3}
+            >
               IBM Db2 TechX Summit is a one-day event on IBM Db2, data and AI at GL Bajaj Group of Institutions,
               Mathura. Hear directly from IBM Db2 experts, learn how modern AI applications are built on data, and
               build real AI use cases on IBM Db2 with popular open-source frameworks.
-            </Reveal>
+            </ScrollReveal>
             <Reveal delay={0.18} as="p" className="body">
               The day brings together expert talks, a hands-on workshop, knowledge sharing, a panel discussion and
               the Data &amp; AI Quiz — and ends with the Db2Hack finale, where the Top 10 builders pitch live to IBM
@@ -354,17 +405,29 @@ function About() {
           </div>
         </div>
 
-        <div className="programme">
-          {PROGRAMME.map((p, i) => (
-            <Reveal key={p.code} delay={0.06 * i}>
-              <Spotlight className="prog-card">
-                <span className="prog-code">{p.code}</span>
-                <h3>{p.title}</h3>
-                <p>{p.body}</p>
-              </Spotlight>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal className="programme-bento">
+          <MagicBento
+            items={BENTO_ORDER.map((k, i) => {
+              const p = PROGRAMME.find(x => x.title === k);
+              return {
+                label: String(i + 1).padStart(2, '0'),
+                title: p.title,
+                description: p.body,
+                visual: BENTO_VISUALS[k],
+                ...(i === 2 || i === 3 ? { colSpan: 2, rowSpan: 2 } : {}),
+              };
+            })}
+            columns={4}
+            rowHeight={210}
+            gap={12}
+            radius={24}
+            glowColor="#0f62fe"
+            textAutoHide={false}
+            enableStars
+            particleCount={14}
+            enableTilt={false}
+          />
+        </Reveal>
 
         <div className="audience">
           <Reveal as="span" className="mono-label audience-title">
@@ -481,6 +544,8 @@ function Schedule() {
 }
 
 function Db2Hack() {
+  const wide = useWide();
+  const flap = wide ? 44 : 15;
   return (
     <section className="section hack" id="db2hack">
       <div className="hack-bg">
@@ -535,6 +600,20 @@ function Db2Hack() {
           </Reveal>
         </div>
 
+        <Reveal className="flap-board">
+          <SplitFlapText
+            words={['STARTS 28 OCT 7PM', 'DEADLINE 29 OCT 7PM', 'FINALE 30 OCT 3PM']}
+            padTo={19}
+            fontSize={flap}
+            gap={wide ? 5 : 3}
+            tileColor="#111111"
+            textColor="#ffffff"
+            tileRadius={wide ? 6 : 4}
+            cycleDelay={2600}
+            align="left"
+          />
+        </Reveal>
+
         <Reveal className="hack-window">
           <div className="hw-point">
             <span className="mono-label">Starts</span>
@@ -560,7 +639,32 @@ function Db2Hack() {
           </div>
         </Reveal>
 
-        <div className="hack-steps">
+        {wide && (
+          <div className="swap-row">
+            <Reveal className="swap-copy">
+              <span className="mono-label">How it works</span>
+              <h3>
+                Build. Share. Submit. <span className="dim">Pitch.</span>
+              </h3>
+              <p>Four steps from your first commit to the Db2Hack finale stage. Hover to pause, drag to flip.</p>
+            </Reveal>
+            <div className="swap-stage">
+              <CardSwap width={440} height={300} cardDistance={56} verticalDistance={64} delay={3600} skewAmount={4}>
+                {HACK_STEPS.map(s => (
+                  <Card key={s.n} customClass="swap-card">
+                    <div className="step-top">
+                      <span className="step-n">{s.n}</span>
+                      <span className="step-when">{s.when}</span>
+                    </div>
+                    <h3>{s.title}</h3>
+                    <p>{s.body}</p>
+                  </Card>
+                ))}
+              </CardSwap>
+            </div>
+          </div>
+        )}
+        <div className={`hack-steps ${wide ? 'is-hidden' : ''}`}>
           {HACK_STEPS.map((s, i) => (
             <Reveal key={s.n} delay={0.08 * i}>
               <Spotlight className="step">
@@ -690,6 +794,9 @@ function Toolkit() {
         </div>
 
         <Reveal className="ce-wrap">
+          <div className="ce-laser" aria-hidden="true">
+            <LaserFlow color="#0f62fe" beamPosition={0.5} intensity={1.4} fog={0.15} dust={1} mouseInteraction={false} />
+          </div>
           <BorderGlow
             className="ce"
             backgroundColor="#0b0b0b"
@@ -908,7 +1015,14 @@ function Rewards() {
           }
         />
         <div className="rewards-grid">
-          <Reveal className="reward-mystery">
+          <Reveal className="reward-mystery-wrap">
+            <PixelCard
+              className="reward-mystery"
+              colors={['#0f62fe', '#4589ff', '#a6c8ff']}
+              glowColor="#78a9ff"
+              radius={24}
+              trigger="hover"
+            >
             <span className="mono-label">Db2Hack winners</span>
             <div className="mystery-glyphs" aria-hidden="true">
               <LoopScramble />
@@ -917,6 +1031,7 @@ function Rewards() {
               Revealed live <span className="dim">at the finale.</span>
             </h3>
             <p>What the winners take home stays under wraps until 30 October.</p>
+            </PixelCard>
           </Reveal>
           {REWARDS.map((r, i) => (
             <Reveal key={r.who} delay={0.06 * (i + 1)}>
@@ -987,26 +1102,22 @@ function Speakers() {
           }
           sub="Five IBM Db2 experts from IBM Lucknow lead the talks, the workshop and the Db2Hack finale."
         />
-        <div className="speakers">
-          {SPEAKERS.map((s, i) => (
-            <Reveal key={s.name} delay={0.07 * i}>
-              <Spotlight className="speaker">
-                <div className="sp-photo">
-                  <img src={s.photo} alt={s.name} loading="lazy" />
-                </div>
-                <div className="sp-meta">
-                  <h3>{s.name}</h3>
-                  <p>{s.role}</p>
-                  <span className="sp-org">
-                    <img src="/logos/ibm-8bar-white.svg" alt="IBM" />
-                    {s.org.replace('IBM ', '')}
-                  </span>
-                  {s.tag && <span className="tag tag-sm">{s.tag}</span>}
-                </div>
-              </Spotlight>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal>
+          <ChromaGrid
+            items={SPEAKERS.map(sp => ({
+              image: sp.photo,
+              title: sp.name,
+              subtitle: sp.tag ? `${sp.role} · ${sp.tag}` : sp.role,
+              alt: sp.name,
+              borderColor: '#0f62fe',
+            }))}
+            columns={5}
+            minCardWidth={200}
+            aspectRatio="1 / 1"
+            cardRadius={24}
+            radius={280}
+          />
+        </Reveal>
       </div>
     </section>
   );
@@ -1029,7 +1140,10 @@ function Band() {
 
 function Venue() {
   return (
-    <section className="section" id="venue">
+    <section className="section venue-sec" id="venue">
+      <div className="venue-radar" aria-hidden="true">
+        <Radar color="#0f62fe" centerX={0.22} centerY={0.42} scale={0.8} targets={3} clutter={0.2} opacity={0.55} mouseInteraction={false} />
+      </div>
       <div className="container venue">
         <div>
           <SectionHead
@@ -1216,7 +1330,7 @@ function Footer() {
           <span>In association with IBM · IIC · NexaSphere</span>
         </div>
         <div className="footer-giant" aria-hidden="true">
-          Db2 TechX
+          <TextPressure text="Db2 TechX" textColor="#2a2a2a" pressureColor="#0f62fe" minFontSize={48} italic={false} idle="wave" />
         </div>
       </div>
     </footer>
