@@ -135,7 +135,8 @@ Open the URL Vite prints (usually http://localhost:5173).
 ├── vercel.json                 # SPA rewrite so /resources works on refresh (Vercel)
 ├── public/                     # Static files, served as-is from /
 │   ├── _redirects              # SPA rewrite for Netlify
-│   ├── og.png                  # Link-preview image (Luma cover)
+│   ├── og-banner.png           # Link-preview banner, 1200×630 (WhatsApp, LinkedIn, X)
+│   ├── og.png                  # Luma cover (square)
 │   ├── logos/                  # IBM, IBM Db2, IIC, NexaSphere, GL Bajaj, Db2 icons
 │   ├── fw/                     # Framework logos (LangChain, CrewAI, LlamaIndex, …)
 │   ├── res/                    # Resource card thumbnails (each page's og:image, r<N>.jpg)
@@ -321,7 +322,7 @@ npm run preview    # check the build locally
 
 Because this is a single-page app with real URLs, any other host must serve `index.html` for unknown paths.
 
-After deploying to a custom domain, update `og:image` in `index.html` to an absolute URL (`https://your-domain/og.png`) so link previews work on WhatsApp and LinkedIn.
+Link previews use `public/og-banner.png` (1200×630) via absolute URLs on `https://ibmdb2techxsummit.glbajajgroup.ac.in/` in `index.html`. If the domain changes, update `og:url`, `og:image`, `twitter:image` and `canonical`.
 
 ---
 
