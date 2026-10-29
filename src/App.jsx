@@ -217,7 +217,7 @@ function Nav() {
         </Link>
         <nav className="nav-links" aria-label="Sections">
           {NAV.map(n => (
-            <NavItem key={n.label} n={n} className={isActive(n) ? 'is-active' : ''} />
+            <NavItem key={n.label} n={n} className={`${isActive(n) ? 'is-active' : ''} ${n.highlight ? 'nav-hl' : ''}`} />
           ))}
         </nav>
         <div className="nav-cta">
@@ -249,7 +249,7 @@ function Nav() {
             animate={open ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
             transition={{ delay: open ? 0.05 * i : 0, ease: EASE }}
           >
-            <NavItem n={n} className="mm-link" onClick={() => setOpen(false)}>
+            <NavItem n={n} className={`mm-link ${n.highlight ? 'mm-hl' : ''}`} onClick={() => setOpen(false)}>
               <span className="mm-n">{String(i + 1).padStart(2, '0')}</span>
               {n.label}
             </NavItem>

@@ -3024,6 +3024,35 @@ p {
   font-size: 15.5px;
 }
 
+.nav-links a.nav-hl {
+  position: relative;
+  color: #04210f;
+  background: #42be65;
+  font-weight: 600;
+  margin: 0 4px;
+  box-shadow: 0 0 0 0 rgba(66, 190, 101, 0.6);
+  animation: navPulse 2.4s infinite;
+}
+.nav-links a.nav-hl:hover,
+.nav-links a.nav-hl.is-active {
+  color: #04210f;
+  background: #6fdc8c;
+}
+@keyframes navPulse {
+  70% {
+    box-shadow: 0 0 0 8px rgba(66, 190, 101, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(66, 190, 101, 0);
+  }
+}
+.mobile-menu .mm-link.mm-hl {
+  color: #42be65;
+}
+.mobile-menu .mm-link.mm-hl .mm-n {
+  color: #42be65;
+}
+
 /* ---------- rewards ---------- */
 .rewards-grid {
   display: grid;

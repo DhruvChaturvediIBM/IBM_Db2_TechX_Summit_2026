@@ -35,7 +35,7 @@ export const NAV = [
   { id: 'about', label: 'About' },
   { id: 'schedule', label: 'Schedule' },
   { id: 'db2hack', label: 'Db2Hack' },
-  { path: '/submit', label: 'Submit' },
+  { path: '/submit', label: 'Submit project', highlight: true },
   { path: '/resources', label: 'Resources' },
   { id: 'rewards', label: 'Rewards' },
   { id: 'speakers', label: 'Speakers' },
