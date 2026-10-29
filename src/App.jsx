@@ -71,6 +71,7 @@ import {
   IBM_BOB,
   QUICK_EXAMPLE,
   LOCAL_DB2,
+  EXTENSION_DOCS,
   SUBMISSION_REPO,
   SUBMISSION_ISSUES,
   SUBMIT_DATES,
@@ -1759,6 +1760,7 @@ function QuickStart() {
                 {q.bob && (
                   <div className="qbob">
                     <a className="btn btn-primary" href={IBM_BOB.trial} {...ext}>
+                      <img className="btn-bob" src="/logos/ibm-bob.png" alt="" />
                       Start the IBM Bob free trial <ArrowUpRight />
                     </a>
                     <a className="btn btn-ghost" href="#ibm-bob">
@@ -1797,7 +1799,12 @@ function IbmBob() {
       <div className="container">
         <Reveal className="bob-card">
           <div className="bob-copy">
-            <span className="mono-label">Build faster · IBM Bob</span>
+            <span className="bob-brand">
+              <span className="bob-logo">
+                <img src="/logos/ibm-bob.png" alt="IBM Bob" />
+              </span>
+              <span className="mono-label">Build faster · IBM Bob</span>
+            </span>
             <h2>
               Your AI-powered <span className="dim">development partner.</span>
             </h2>
@@ -1812,6 +1819,7 @@ function IbmBob() {
             </div>
             <div className="qbob">
               <a className="btn btn-primary btn-lg" href={IBM_BOB.trial} {...ext}>
+                <img className="btn-bob" src="/logos/ibm-bob.png" alt="" />
                 Get free trial <ArrowUpRight />
               </a>
               <a className="btn btn-ghost btn-lg" href={IBM_BOB.download} {...ext}>
@@ -1843,26 +1851,45 @@ function LocalDb2() {
           kicker="Free Db2 on your laptop"
           title={
             <>
-              Db2 in three clicks <span className="dim">with VS Code.</span>
+              The easiest way to use <span className="dim">Db2 Community Edition — free.</span>
             </>
           }
-          sub="The IBM Db2 Developer Extension installs free Db2 Community Edition locally — no cloud account or credit card."
+          sub="The IBM Db2 Developer Extension for VS Code is the easiest way for developers to run Db2 Community Edition for free, right on your laptop — no cloud account or credit card."
         />
-        <div className="local-steps">
+        <Reveal className="ext-docs">
+          <img src="/fw/vscode-db2.png" alt="" />
+          <div>
+            <span className="mono-label">Everything about the extension</span>
+            <h3>IBM Db2 Developer Extension documentation</h3>
+            <p>Setup, connections, SQL editor, procedures, troubleshooting — all in one place.</p>
+          </div>
+          <a className="btn btn-primary" href={EXTENSION_DOCS} {...ext}>
+            Open the docs <ArrowUpRight />
+          </a>
+        </Reveal>
+        <ol className="local-guide">
           {LOCAL_DB2.map((st, i) => (
-            <Reveal key={st.title} delay={0.08 * i}>
-              <Spotlight className="local-step">
-                <span className="step-n">{String(i + 1).padStart(2, '0')}</span>
+            <Reveal as="li" key={st.title} delay={0.05 * i} className={`lg-step ${st.img ? '' : 'no-img'}`}>
+              <div className="lg-copy">
+                <span className="sstep-n">{String(i + 1).padStart(2, '0')}</span>
                 <h3>{st.title}</h3>
                 <p>{st.body}</p>
                 {st.cmd && <CopyCmd cmd={st.cmd} />}
-              </Spotlight>
+              </div>
+              {st.img && (
+                <figure className="lg-shot">
+                  <img src={st.img} alt={st.alt} loading="lazy" />
+                </figure>
+              )}
             </Reveal>
           ))}
-        </div>
+        </ol>
         <Reveal className="local-links">
+          <a className="mand-act" href={EXTENSION_DOCS} {...ext}>
+            Extension docs home <ArrowUpRight />
+          </a>
           <a className="mand-act" href="https://ibm.github.io/db2developerextension-about/docs/the-basics/creating-db2-instance" {...ext}>
-            Official step-by-step guide <ArrowUpRight />
+            Official create-instance guide <ArrowUpRight />
           </a>
           <a className="mand-act" href="https://ibm.github.io/db2developerextension-about/docs/troubleshooting/docker-colima-troubleshooting" {...ext}>
             Docker / Colima troubleshooting <ArrowUpRight />

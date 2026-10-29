@@ -477,8 +477,30 @@ for doc in store.similarity_search("How does RAG work?", k=2):
 };
 
 // Free local Db2 with the VS Code extension.
+export const EXTENSION_DOCS = 'https://ibm.github.io/db2developerextension-about/';
+
 export const LOCAL_DB2 = [
-  { title: 'Download the extension', body: 'In VS Code open Extensions, search "IBM Db2 Developer Extension" and click Install — or run the command below. Needs VS Code 1.103+, Java 17+ and Docker (Colima on macOS, Docker Desktop + WSL 2 on Windows).', cmd: 'code --install-extension IBM.db2-for-luw' },
-  { title: 'Create a Db2 instance', body: 'Open the Db2 icon in the Activity Bar → DB2 CONNECTIONS → Create Db2 instance. Enter host (localhost), port (50000), a username and password, and click Create. Free Db2 Community Edition, running on your laptop.' },
-  { title: 'Connect locally', body: 'When setup finishes, the extension creates the testdb and SAMPLE databases and connects to them. Browse tables, open the SQL editor, and use the same host, port, user and password in your Python code.' },
+  {
+    title: 'Download the extension',
+    body: 'In VS Code open Extensions, search "IBM Db2 Developer Extension" (by IBM, verified) and click Install — or run the command below. Needs VS Code 1.103+, Java 17+ and Docker (Colima on macOS, Docker Desktop + WSL 2 on Windows).',
+    cmd: 'code --install-extension IBM.db2-for-luw',
+    img: '/guide/marketplace.jpg',
+    alt: 'IBM Db2 Developer Extension in the VS Code Marketplace',
+  },
+  {
+    title: 'Click "Create Db2 instance"',
+    body: 'Open the IBM Db2 Developer Extension panel. In Db2 Connections, click the highlighted Create Db2 instance icon.',
+    img: '/guide/toolbar.png',
+    alt: 'Db2 Connections toolbar with the Create Db2 instance icon highlighted',
+  },
+  {
+    title: 'Fill the form and create',
+    body: 'Host localhost, port 50000, username (e.g. db2inst1), a password and database name testdb, then click Create Db2 instance. It sets up the container, engine and sample data in a few minutes — free Db2 Community Edition.',
+    img: '/guide/create-instance.png',
+    alt: 'Create Db2 instance form in the IBM Db2 Developer Extension',
+  },
+  {
+    title: 'Connect locally',
+    body: 'When it finishes, the extension creates the testdb and SAMPLE databases and connects to them. Browse tables, run SQL, and use the same host, port, username and password in your Python code.',
+  },
 ];
