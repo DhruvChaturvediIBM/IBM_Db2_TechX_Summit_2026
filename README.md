@@ -181,6 +181,11 @@ Open the URL Vite prints (usually http://localhost:5173).
 | `COMMUNITY_EDITION` | Facts and the three ways to install Db2 Community Edition |
 | `VIDEOS` | IBM tutorials: put the YouTube video **ID** in `id` (e.g. `NRo4ePT2MEE`) |
 | `MUST_DO` | The compulsory checklist at the top of `/resources` |
+| `MANDATORY` | "Six things every participant must do" (home page and `/submit`) |
+| `ELIGIBILITY` | Who can join, the current plan and IBM's goal (OpenCall section) |
+| `QUICKSTART`, `QUICK_PACKAGES`, `QUICK_EXAMPLE`, `IBM_BOB` | 6-step quick start, connector installs, the LangChain + Db2 example and IBM Bob trial link on `/submit` |
+| `LOCAL_DB2` | Free local Db2 with the VS Code extension (`/submit#local-db2`) |
+| `SUBMIT_*`, `JUDGING`, `PENALTIES` | Submission timeline, steps, naming rules, judging rubric and penalties on `/submit` |
 | `LEARN_VIDEOS`, `LEARN_CHANNEL` | Optional prerequisite videos (Python, agentic AI) from the Dhruv Insights channel |
 | `RESOURCES`, `RESOURCE_GROUPS` | Resource links and their filter tabs (`news`, `blog`, `docs`, `start`) |
 | `REWARDS` | Recognition cards. **Do not add prizes here** — winners' rewards stay a surprise |
