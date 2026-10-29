@@ -1760,8 +1760,8 @@ function QuickStart() {
                     <a className="btn btn-primary" href={IBM_BOB.trial} {...ext}>
                       Start the IBM Bob free trial <ArrowUpRight />
                     </a>
-                    <a className="btn btn-ghost" href={IBM_BOB.site} {...ext}>
-                      What is IBM Bob? <ArrowUpRight />
+                    <a className="btn btn-ghost" href="#ibm-bob">
+                      More about IBM Bob <Arrow />
                     </a>
                   </div>
                 )}
@@ -1784,6 +1784,49 @@ function QuickStart() {
             Swap the notes for your own data, add an LLM for step 5, and you have a submission. Use the same host, port,
             username and password you set when creating the Db2 instance below.
           </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function IbmBob() {
+  return (
+    <section className="section bob-sec" id="ibm-bob">
+      <div className="container">
+        <Reveal className="bob-card">
+          <div className="bob-copy">
+            <span className="mono-label">Build faster · IBM Bob</span>
+            <h2>
+              Your AI-powered <span className="dim">development partner.</span>
+            </h2>
+            <p>
+              IBM Bob works right alongside you in your codebase and helps you build quality software faster — perfect for
+              getting your Db2Hack project from idea to pull request.
+            </p>
+            <div className="bob-offer">
+              <span className="mono-label">Start your free trial</span>
+              <strong>Get {IBM_BOB.offer}</strong>
+              <span>Experience the full power of IBM Bob — free.</span>
+            </div>
+            <div className="qbob">
+              <a className="btn btn-primary btn-lg" href={IBM_BOB.trial} {...ext}>
+                Get free trial <ArrowUpRight />
+              </a>
+              <a className="btn btn-ghost btn-lg" href={IBM_BOB.download} {...ext}>
+                Download IBM Bob <ArrowUpRight />
+              </a>
+            </div>
+          </div>
+          <ul className="bob-uses">
+            {IBM_BOB.uses.map((u, i) => (
+              <li key={u.title}>
+                <span className="step-n">{String(i + 1).padStart(2, '0')}</span>
+                <h3>{u.title}</h3>
+                <p>{u.body}</p>
+              </li>
+            ))}
+          </ul>
         </Reveal>
       </div>
     </section>
@@ -1878,6 +1921,7 @@ function SubmitHero() {
         </Reveal>
         <Reveal delay={0.24} className="page-hero-links">
           <a href="#quick-start">Quick start</a>
+          <a href="#ibm-bob">IBM Bob</a>
           <a href="#local-db2">Free local Db2</a>
           <a href="#submit-dates">Timeline</a>
           <a href="#submit-steps">Submit steps</a>
@@ -2095,6 +2139,7 @@ function SubmitPage() {
       <OpenCall />
       <Mandatory compact />
       <QuickStart />
+      <IbmBob />
       <LocalDb2 />
       <SubmitGuide />
       <FinalCta />

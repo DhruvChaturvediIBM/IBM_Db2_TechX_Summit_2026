@@ -414,7 +414,7 @@ export const QUICKSTART = [
   { title: 'Design a solution that needs AI + a database', body: 'AI understands and generates; Db2 stores your data and its vector embeddings and finds the most relevant rows. Most strong ideas are RAG apps, AI agents or text-to-SQL.' },
   { title: 'Pick one framework, with Db2 as the database', body: 'LangChain, LlamaIndex, Haystack, CrewAI or no-code Langflow — at least one is required. Db2 is your vector store and data store.' },
   { title: 'Install the Db2 connector for that framework', body: 'These packages connect your AI framework to Db2 — no custom glue code needed.', packages: true },
-  { title: 'Build it — free help from IBM Bob', body: 'Start from the example below. IBM Bob, IBM\'s AI coding assistant, has a free trial and can help you scaffold, debug and document your project.', bob: true },
+  { title: 'Build it — free help from IBM Bob', body: 'Start from the example below. IBM Bob, IBM\'s AI-powered development partner, helps you scaffold, debug and document your project — the free trial gives you 50 Bobcoins for 30 days.', bob: true },
   { title: 'Submit your pull request', body: 'Copy the template into the submission repo, fill README.md, architecture.md and submission.json, open the PR and paste its link in the Google Form.' },
 ];
 
@@ -424,7 +424,17 @@ export const QUICK_PACKAGES = [
   { name: 'Haystack', cmd: 'pip install ibm-db-haystack', note: 'Db2 document store' },
 ];
 
-export const IBM_BOB = { trial: 'https://bob.ibm.com/trial', site: 'https://www.ibm.com/products/bob' };
+export const IBM_BOB = {
+  trial: 'https://bob.ibm.com/trial',
+  download: 'https://bob.ibm.com/download',
+  site: 'https://www.ibm.com/products/bob',
+  offer: '50 Bobcoins for 30 days',
+  uses: [
+    { title: 'Scaffold your project', body: 'Describe your idea and let Bob set up the folders, Db2 connection and framework code.' },
+    { title: 'Write and fix code', body: 'Bob works right alongside you in your codebase — explain errors, fix bugs, refactor.' },
+    { title: 'Document for judging', body: 'Draft README.md and architecture.md so your submission scores well on documentation.' },
+  ],
+};
 
 // Example: "Ask my notes" — a RAG app with LangChain + Db2 (from the langchain-db2 notebook).
 export const QUICK_EXAMPLE = {
