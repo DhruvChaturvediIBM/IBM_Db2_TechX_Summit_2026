@@ -47,6 +47,8 @@ Sections in page order. The `id` is the anchor used in the nav (`/#db2hack` and 
 | — | Announcement ticker | — | Live status (registrations open / Db2Hack live / …), key dates |
 | — | Nav | — | Section links, Resources page link, active highlight, Register button, mobile menu |
 | — | Hero | `top` | ASCII WebGL background, title, tagline, Register + Explore buttons, date bar with live countdown |
+| — | Open call | `open-call` | "Db2Hack is still open" banner, eligibility (open to everyone), how it works now, IBM's goal |
+| — | Mandatory | `mandatory` | Six things every participant must do |
 | — | Partners | `partners` | IIC · NexaSphere · IBM, hosted by GL Bajaj |
 | 01 | About | `about` | Event overview, stats, programme bento, who it's for |
 | — | Statement band | — | "Every AI app starts with data." over an ASCII background |
@@ -356,3 +358,4 @@ Link previews use `public/og-banner.png` (1200×630) via absolute URLs on `https
 - Fonts: IBM Plex (SIL Open Font License), Roboto Flex (SIL Open Font License).
 
 **Event SPOC:** Dhruv Chaturvedi, Db2 Software Engineer, IBM Lucknow.
+

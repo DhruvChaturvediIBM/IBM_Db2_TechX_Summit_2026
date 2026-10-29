@@ -65,6 +65,12 @@ import {
   COMMUNITY_EDITION,
   MANDATORY,
   MUST_DO,
+  ELIGIBILITY,
+  QUICKSTART,
+  QUICK_PACKAGES,
+  IBM_BOB,
+  QUICK_EXAMPLE,
+  LOCAL_DB2,
   SUBMISSION_REPO,
   SUBMISSION_ISSUES,
   SUBMIT_DATES,
@@ -136,7 +142,8 @@ function AnnouncementBar() {
             <span>
               <b>{phase.status}</b>
             </span>
-            <span>Db2Hack · 28 Oct 7:00 PM → 29 Oct 7:00 PM IST</span>
+            <span>Open to everyone · solo or as a team</span>
+            <span>Top 10 present 30 Oct · 4:00 – 4:30 PM</span>
             <span>Summit · Fri 30 Oct · 9:00 AM – 5:00 PM IST</span>
             <span>GL Bajaj Group of Institutions, Mathura</span>
             <span>Free · In person · Registration on Luma</span>
@@ -411,7 +418,7 @@ const BENTO_VISUALS = {
   'Db2Hack finale': (
     <div className="bento-top10">
       <strong>TOP 10</strong>
-      <span>3:00 – 4:15 PM · live pitch</span>
+      <span>4:00 – 4:30 PM · live pitch</span>
     </div>
   ),
 };
@@ -588,7 +595,7 @@ function Schedule() {
               Three days, <span className="dim">one stage.</span>
             </>
           }
-          sub="Db2Hack runs online from 28 Oct, 7:00 PM to 29 Oct, 7:00 PM. The Summit is in person on 30 Oct — reporting opens at 9:00 AM. All times are IST."
+          sub="Db2Hack opened on 28 Oct at 7:00 PM and stays open — no deadline today. The Summit is in person on 30 Oct: reporting at 9:00 AM, final build hour after the workshop, Top 10 on stage at 4:00 PM. All times are IST."
         />
         <div className="timeline" ref={lineRef}>
           <div className="tl-rail">
@@ -683,13 +690,13 @@ function Db2Hack() {
             on IBM Db2
           </Reveal>
           <Reveal delay={0.14} as="p" className="hack-lead">
-            Build an AI use case on IBM Db2 in 24 hours. Individual participation — <b>your idea matters most.</b>
+            Build an AI use case on IBM Db2. Open to everyone, solo or as a team — <b>and submissions are still open.</b>
           </Reveal>
         </div>
 
         <Reveal className="flap-board">
           <SplitFlapText
-            words={['STARTS 28 OCT 7PM', 'DEADLINE 29 OCT 7PM', 'FINALE 30 OCT 3PM']}
+            words={['SUBMISSIONS OPEN NOW', 'NO DEADLINE TODAY', 'TOP 10 · 30 OCT 4PM']}
             padTo={19}
             fontSize={flap}
             gap={wide ? 5 : 3}
@@ -703,18 +710,18 @@ function Db2Hack() {
 
         <Reveal className="hack-window">
           <div className="hw-point">
-            <span className="mono-label">Starts</span>
+            <span className="mono-label">Opened</span>
             <strong>Wed, 28 Oct</strong>
             <span>7:00 PM IST</span>
           </div>
           <div className="hw-line">
             <span className="hw-line-fill" />
-            <span className="hw-line-label">24 hours · build · share · submit</span>
+            <span className="hw-line-label">still open · build · share · submit</span>
           </div>
           <div className="hw-point">
-            <span className="mono-label">Deadline</span>
-            <strong>Thu, 29 Oct</strong>
-            <span>7:00 PM IST · strict</span>
+            <span className="mono-label">Submissions close</span>
+            <strong>Fri, 30 Oct</strong>
+            <span>3:30 PM IST · after the workshop</span>
           </div>
           <div className="hw-line hw-line-short">
             <span className="hw-line-fill" />
@@ -722,7 +729,7 @@ function Db2Hack() {
           <div className="hw-point hw-final">
             <span className="mono-label">Finale</span>
             <strong>Fri, 30 Oct</strong>
-            <span>3:00 – 4:15 PM · Top 10 pitch</span>
+            <span>4:00 – 4:30 PM · Top 10 present</span>
           </div>
         </Reveal>
 
@@ -792,10 +799,10 @@ function Db2Hack() {
           <Reveal delay={0.1} className="rule">
             <span className="mono-label">Good to know</span>
             <ul className="checks">
-              <li>Individual participation — no teams</li>
+              <li>Open to everyone — solo or as a team</li>
               <li>Submit a GitHub pull request, then the PR link via Google Form</li>
               <li>Joining the WhatsApp community is mandatory</li>
-              <li>Deadline 29 Oct, 7:00 PM IST — late entries are not accepted</li>
+              <li>No deadline today — submissions close 30 Oct, 3:30 PM</li>
               <li>Post your use case on LinkedIn and tag the organising team</li>
               <li>Top 10 pitch live to IBM experts on 30 Oct</li>
             </ul>
@@ -1380,7 +1387,7 @@ function Band() {
   return (
     <section className="band" aria-hidden="true">
       <ScrollVelocity
-        texts={['IBM Db2 TechX Summit', 'Db2Hack · 24 hours · Build on Db2']}
+        texts={['IBM Db2 TechX Summit', 'Db2Hack · still open · Build on Db2']}
         velocity={60}
         separator="✦"
         outlineAlternate
@@ -1623,6 +1630,12 @@ function MandatoryAction({ action }) {
         Join now <ArrowUpRight />
       </a>
     );
+  if (action === 'setup')
+    return (
+      <Link className="mand-act" to="/submit#local-db2">
+        Setup guide <Arrow />
+      </Link>
+    );
   if (action === 'submit')
     return (
       <Link className="mand-act" to="/submit">
@@ -1659,6 +1672,156 @@ function Mandatory({ compact = false }) {
               </li>
             ))}
           </ol>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+// Still-open notice, eligibility, the plan and IBM's goal.
+function OpenCall() {
+  return (
+    <section className="opencall" id="open-call">
+      <div className="container">
+        <Reveal className="oc-card">
+          <div className="oc-banner">
+            <span className="live-dot" />
+            <strong>Db2Hack is still open.</strong>
+            <span>No deadline today — start or keep building, and submit anytime until 3:30 PM on 30 Oct.</span>
+            <Link className="btn btn-primary btn-sm" to="/submit#quick-start">
+              Start in 6 steps <Arrow />
+            </Link>
+          </div>
+          <div className="oc-grid">
+            <div className="oc-col">
+              <span className="mono-label">Eligibility</span>
+              <h3>Open to everyone.</h3>
+              <p>{ELIGIBILITY.who}</p>
+            </div>
+            <div className="oc-col">
+              <span className="mono-label">How it works now</span>
+              <ul className="checks">
+                {ELIGIBILITY.plan.map(pt => (
+                  <li key={pt}>{pt}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="oc-col oc-goal">
+              <span className="mono-label">IBM's goal</span>
+              <h3>Learn. Build. Stay.</h3>
+              <p>{ELIGIBILITY.goal}</p>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function QuickStart() {
+  return (
+    <section className="section" id="quick-start">
+      <div className="container">
+        <SectionHead
+          num="01"
+          kicker="Quick start · idea to PR"
+          title={
+            <>
+              Build your project <span className="dim">in six steps.</span>
+            </>
+          }
+          sub="Never built with AI and a database before? Follow this path — most people go from idea to a working prototype in an afternoon."
+        />
+        <ol className="ssteps qsteps">
+          {QUICKSTART.map((q, i) => (
+            <Reveal as="li" key={q.title} delay={0.04 * i} className="sstep">
+              <span className="sstep-n">{String(i + 1).padStart(2, '0')}</span>
+              <div className="sstep-body">
+                <h3>{q.title}</h3>
+                <p>{q.body}</p>
+                {q.packages && (
+                  <div className="qpkgs">
+                    {QUICK_PACKAGES.map(pk => (
+                      <div className="qpkg" key={pk.name}>
+                        <span className="mono-label">
+                          {pk.name} · {pk.note}
+                        </span>
+                        <CopyCmd cmd={pk.cmd} />
+                      </div>
+                    ))}
+                    <Link className="qmore" to="/resources#toolkit">
+                      CrewAI, Langflow and more in the toolkit <Arrow />
+                    </Link>
+                  </div>
+                )}
+                {q.bob && (
+                  <div className="qbob">
+                    <a className="btn btn-primary" href={IBM_BOB.trial} {...ext}>
+                      Start the IBM Bob free trial <ArrowUpRight />
+                    </a>
+                    <a className="btn btn-ghost" href={IBM_BOB.site} {...ext}>
+                      What is IBM Bob? <ArrowUpRight />
+                    </a>
+                  </div>
+                )}
+              </div>
+            </Reveal>
+          ))}
+        </ol>
+
+        <Reveal className="qexample">
+          <span className="mono-label">Worked example</span>
+          <h3>{QUICK_EXAMPLE.title}</h3>
+          <ol className="qex-steps">
+            {QUICK_EXAMPLE.steps.map(st => (
+              <li key={st}>{st}</li>
+            ))}
+          </ol>
+          <CodeBlock code={QUICK_EXAMPLE.install} />
+          <CodeBlock code={QUICK_EXAMPLE.code} />
+          <p className="qex-note">
+            Swap the notes for your own data, add an LLM for step 5, and you have a submission. Use the same host, port,
+            username and password you set when creating the Db2 instance below.
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function LocalDb2() {
+  return (
+    <section className="section" id="local-db2">
+      <div className="container">
+        <SectionHead
+          num="02"
+          kicker="Free Db2 on your laptop"
+          title={
+            <>
+              Db2 in three clicks <span className="dim">with VS Code.</span>
+            </>
+          }
+          sub="The IBM Db2 Developer Extension installs free Db2 Community Edition locally — no cloud account or credit card."
+        />
+        <div className="local-steps">
+          {LOCAL_DB2.map((st, i) => (
+            <Reveal key={st.title} delay={0.08 * i}>
+              <Spotlight className="local-step">
+                <span className="step-n">{String(i + 1).padStart(2, '0')}</span>
+                <h3>{st.title}</h3>
+                <p>{st.body}</p>
+                {st.cmd && <CopyCmd cmd={st.cmd} />}
+              </Spotlight>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal className="local-links">
+          <a className="mand-act" href="https://ibm.github.io/db2developerextension-about/docs/the-basics/creating-db2-instance" {...ext}>
+            Official step-by-step guide <ArrowUpRight />
+          </a>
+          <a className="mand-act" href="https://ibm.github.io/db2developerextension-about/docs/troubleshooting/docker-colima-troubleshooting" {...ext}>
+            Docker / Colima troubleshooting <ArrowUpRight />
+          </a>
         </Reveal>
       </div>
     </section>
@@ -1703,7 +1866,7 @@ function SubmitHero() {
           Ship it right. <span className="dim">Get judged fairly.</span>
         </Reveal>
         <Reveal delay={0.12} as="p">
-          Everything you need to submit your Db2Hack project: deadlines, requirements, the 8-step GitHub + Google Form
+          Open to everyone and still open for submissions. A 6-step quick start, free local Db2, the GitHub + Google Form
           flow, naming rules and the 100-point judging rubric.
         </Reveal>
         <Reveal delay={0.18} className="page-hero-ctas">
@@ -1713,8 +1876,10 @@ function SubmitHero() {
           <WhatsAppButton size="btn-lg" />
         </Reveal>
         <Reveal delay={0.24} className="page-hero-links">
-          <a href="#submit-dates">Deadlines</a>
-          <a href="#submit-steps">Steps</a>
+          <a href="#quick-start">Quick start</a>
+          <a href="#local-db2">Free local Db2</a>
+          <a href="#submit-dates">Timeline</a>
+          <a href="#submit-steps">Submit steps</a>
           <a href="#judging">Judging</a>
           <a href="#submit-help">Help</a>
         </Reveal>
@@ -1729,14 +1894,14 @@ function SubmitGuide() {
       <section className="section" id="submit-dates">
         <div className="container">
           <SectionHead
-            num="01"
+            num="03"
             kicker="Important dates"
             title={
               <>
-                24 hours. <span className="dim">One hard deadline.</span>
+                Open now. <span className="dim">Finale on 30 Oct.</span>
               </>
             }
-            sub="If the organising committee adjusts any timing, it is announced first in the WhatsApp community."
+            sub="There is no deadline today. Any change to timings is announced first in the WhatsApp community."
           />
           <div className="sdates">
             {SUBMIT_DATES.map((d, i) => (
@@ -1765,7 +1930,7 @@ function SubmitGuide() {
       <section className="section" id="submit-steps">
         <div className="container">
           <SectionHead
-            num="02"
+            num="04"
             kicker="Step-by-step"
             title={
               <>
@@ -1807,7 +1972,7 @@ function SubmitGuide() {
       <section className="section" id="judging">
         <div className="container">
           <SectionHead
-            num="03"
+            num="05"
             kicker="Judging · 100 points"
             title={
               <>
@@ -1865,7 +2030,7 @@ function SubmitGuide() {
       <section className="section" id="submit-help">
         <div className="container">
           <SectionHead
-            num="04"
+            num="06"
             kicker="Need help?"
             title={
               <>
@@ -1926,7 +2091,10 @@ function SubmitPage() {
   return (
     <main className="page-submit">
       <SubmitHero />
+      <OpenCall />
       <Mandatory compact />
+      <QuickStart />
+      <LocalDb2 />
       <SubmitGuide />
       <FinalCta />
     </main>
@@ -2030,6 +2198,7 @@ function HomePage() {
   return (
     <main>
       <Hero />
+      <OpenCall />
       <Mandatory />
       <Partners />
       <About />
