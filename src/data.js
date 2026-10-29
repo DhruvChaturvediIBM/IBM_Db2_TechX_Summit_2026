@@ -127,8 +127,6 @@ export const ECOSYSTEM = [
   { name: 'LlamaIndex', logo: 'llamaindex.png' },
   { name: 'Haystack', logo: 'haystack-icon.png' },
   { name: 'Langflow', logo: 'langflow.png' },
-  { name: 'MS Agent Framework', logo: 'ms-agent-t.png' },
-  { name: 'n8n', logo: 'n8n-t.png' },
   { name: 'Apache Airflow', logo: 'airflow-t.png' },
   { name: 'dbt', logo: 'dbt-icon.png' },
   { name: 'SQLMesh', logo: 'sqlmesh.png' },
@@ -159,7 +157,7 @@ export const CERTIFICATES = [
 export const QUIZ_TOPICS = ['Databases & SQL', 'Vector search', 'RAG', 'LLMs & agents', 'Data for AI'];
 
 export const SPEAKERS = [
-  { name: 'Gaurav Saxena', role: 'Program Director, IBM Db2', org: 'IBM', photo: '/speakers/Gaurav-Saxena.png', linkedin: 'https://www.linkedin.com/in/gaurav-saxena-95044594/' },
+  { name: 'Gaurav Saxena', role: 'Program Director, IBM Db2', org: 'IBM Lucknow', photo: '/speakers/Gaurav-Saxena.png', linkedin: 'https://www.linkedin.com/in/gaurav-saxena-95044594/' },
   { name: 'Daya Nand', role: 'Senior Db2 Development Manager', org: 'IBM Lucknow', photo: '/speakers/Daya-Nand.png', linkedin: 'https://www.linkedin.com/in/2mrdaya/' },
   { name: 'Dhruv Chaturvedi', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Dhruv-Chaturvedi-light-bg.png', tag: 'Event SPOC', linkedin: 'https://www.linkedin.com/in/dhruvinsights/', instagram: 'https://www.instagram.com/dhruv_insights/', youtube: 'https://www.youtube.com/@dhruv_insights' },
   { name: 'Keshav Maheshwari', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Keshav-Maheshwari.png', linkedin: 'https://www.linkedin.com/in/keshav-maheshwari-666738186/' },
