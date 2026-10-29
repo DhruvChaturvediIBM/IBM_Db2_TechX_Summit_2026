@@ -55,7 +55,7 @@ Sections in page order. The `id` is the anchor used in the nav (`/#db2hack` and 
 | 02 | Schedule | `schedule` | Event flow across **28, 29 and 30 Oct**: Db2Hack kick-off, submission deadline, then the Summit day. The current item is tagged **Live now** |
 | 03 | Db2Hack | `db2hack` | 24-hour challenge: split-flap date board, steps, framework rule, rules |
 | — | Resources teaser | `resources-teaser` | Counts of videos/packages/links and a button to `/resources` |
-| 04 | Rewards | `rewards` | Recognition and certificates. Winners' prizes are deliberately **not** shown — "Revealed live at the finale" |
+| 04 | Rewards | `rewards` | Top 10 get Db2 goodies, Top 3 recognised on stage, certificates for all; specific prize items are not listed |
 | 05 | Speakers | `speakers` | Seven IBM Db2 speakers with full designations and LinkedIn / Instagram / YouTube links |
 | — | Text band | — | Scroll-speed marquee |
 | 06 | Venue | `venue` | Address, time, Google Map, directions |
@@ -188,7 +188,7 @@ Open the URL Vite prints (usually http://localhost:5173).
 | `SUBMIT_*`, `JUDGING`, `PENALTIES` | Submission timeline, steps, naming rules, judging rubric and penalties on `/submit` |
 | `LEARN_VIDEOS`, `LEARN_CHANNEL` | Optional prerequisite videos (Python, agentic AI) from the Dhruv Insights channel |
 | `RESOURCES`, `RESOURCE_GROUPS` | Resource links and their filter tabs (`news`, `blog`, `docs`, `start`) |
-| `REWARDS` | Recognition cards. **Do not add prizes here** — winners' rewards stay a surprise |
+| `REWARDS` | Recognition cards (Top 10 goodies, Top 3 recognition). Don't list specific prize items |
 | `CERTIFICATES` | Certificate names and who receives them |
 | `QUIZ_TOPICS` | Data & AI Quiz topic chips |
 | `SPEAKERS` | Name, role, org, photo, optional `tag` (e.g. "Event SPOC") and optional `linkedin`, `instagram`, `youtube` URLs (a button appears for each one set) |

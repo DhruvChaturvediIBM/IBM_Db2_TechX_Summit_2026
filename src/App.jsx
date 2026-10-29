@@ -573,6 +573,7 @@ const fmt12 = hhmm => {
 // "7:00 PM" for a moment, "7:00 PM onwards" when it runs to midnight, "Until 7:00 PM" from midnight.
 const fmtRange = ({ start, end }) => {
   if (start === end) return fmt12(start);
+  if (start === '00:00' && end === '24:00') return 'All day';
   if (end === '24:00') return `${fmt12(start)} onwards`;
   if (start === '00:00') return `Until ${fmt12(end)}`;
   return `${fmt(start)} – ${fmt12(end)}`;
@@ -595,7 +596,7 @@ function Schedule() {
               Three days, <span className="dim">one stage.</span>
             </>
           }
-          sub="Db2Hack opened on 28 Oct at 7:00 PM and stays open — no deadline today. The Summit is in person on 30 Oct: reporting at 9:00 AM, final build hour after the workshop, Top 10 on stage at 4:00 PM. All times are IST."
+          sub="Db2Hack opened on 28 Oct at 7:00 PM and is still open — submissions are not strict and the closing time will be announced. On 30 Oct you can learn in the workshop, build on campus and submit; the Top 10 are on stage at 4:00 PM. All times are IST."
         />
         <div className="timeline" ref={lineRef}>
           <div className="tl-rail">
@@ -696,7 +697,7 @@ function Db2Hack() {
 
         <Reveal className="flap-board">
           <SplitFlapText
-            words={['SUBMISSIONS OPEN NOW', 'NO DEADLINE TODAY', 'TOP 10 · 30 OCT 4PM']}
+            words={['SUBMISSIONS OPEN NOW', 'BUILD AFTER WORKSHOP', 'TOP 10 · 30 OCT 4PM']}
             padTo={19}
             fontSize={flap}
             gap={wide ? 5 : 3}
@@ -719,9 +720,9 @@ function Db2Hack() {
             <span className="hw-line-label">still open · build · share · submit</span>
           </div>
           <div className="hw-point">
-            <span className="mono-label">Submissions close</span>
+            <span className="mono-label">Build offline</span>
             <strong>Fri, 30 Oct</strong>
-            <span>3:30 PM IST · after the workshop</span>
+            <span>After the workshop · close time TBA</span>
           </div>
           <div className="hw-line hw-line-short">
             <span className="hw-line-fill" />
@@ -802,9 +803,9 @@ function Db2Hack() {
               <li>Open to everyone — solo or as a team</li>
               <li>Submit a GitHub pull request, then the PR link via Google Form</li>
               <li>Joining the WhatsApp community is mandatory</li>
-              <li>No deadline today — submissions close 30 Oct, 3:30 PM</li>
+              <li>Not strict — closing time will be announced, so submit early</li>
               <li>Post your use case on LinkedIn and tag the organising team</li>
-              <li>Top 10 pitch live to IBM experts on 30 Oct</li>
+              <li>Top 10 get Db2 goodies and pitch live; Top 3 recognised on stage</li>
             </ul>
           </Reveal>
         </div>
@@ -1246,9 +1247,9 @@ function Rewards() {
               <LoopScramble />
             </div>
             <h3>
-              Revealed live <span className="dim">at the finale.</span>
+              Top 10 get goodies. <span className="dim">Top 3 take the stage.</span>
             </h3>
-            <p>What the winners take home stays under wraps until 30 October.</p>
+            <p>The Top 10 receive Db2 goodies and the Top 3 are specially recognised by IBM — but everyone gets to learn and contribute.</p>
             </PixelCard>
           </Reveal>
           {REWARDS.map((r, i) => (
@@ -1688,7 +1689,7 @@ function OpenCall() {
           <div className="oc-banner">
             <span className="live-dot" />
             <strong>Db2Hack is still open.</strong>
-            <span>No deadline today — start or keep building, and submit anytime until 3:30 PM on 30 Oct.</span>
+            <span>Not strict — start or keep building, online or after the workshop. The closing time will be announced, so submit early.</span>
             <Link className="btn btn-primary btn-sm" to="/submit#quick-start">
               Start in 6 steps <Arrow />
             </Link>
