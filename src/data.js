@@ -141,7 +141,7 @@ export const ECOSYSTEM = [
 // Winners' rewards stay a surprise until the finale — do not list prizes here.
 export const REWARDS = [
   { who: 'Top 10', what: 'Live pitch to IBM experts on 30 October' },
-  { who: 'Every eligible participant', what: 'Chance to contribute to IBM Db2 AI use cases (open source)' },
+  { who: 'Everyone', what: 'Open-source contribution to IBM Db2 AI use cases — open for all, with guidance from the IBM team' },
   { who: 'Best posts', what: 'Appreciation from IBM experts on social media' },
   { who: 'All participants', what: 'Certificates' },
 ];
@@ -180,7 +180,8 @@ export const FAQ = [
   { q: 'Do I need to post on LinkedIn?', a: 'Yes, sharing is part of the challenge: post your use case on LinkedIn, explain it clearly and tag the organising team. The best posts get appreciation from IBM experts.' },
   { q: 'Do I need prior Db2 experience?', a: 'No. The toolkit gives you ready-made Db2 integrations — vector stores, document stores and agent tools — for the frameworks you may already know.' },
   { q: 'Which Db2 should I build on?', a: 'Db2 Community Edition — it is free with full Db2 features (up to 4 cores and 16 GB RAM). The quickest start is the IBM Db2 Developer Extension for VS Code, which can create a Community Edition instance with a sample database. You can also use the Docker image (icr.io/db2_community/db2) or the installer from ibm.com/db2/get-started.' },
-  { q: 'What do participants get?', a: 'All participants receive certificates. The Top 10 pitch live to IBM experts, and every eligible participant gets the chance to contribute to IBM Db2 AI use cases (open source). What the winners take home is revealed on stage at the finale.' },
+  { q: 'What do participants get?', a: 'All participants receive certificates. The Top 10 present live to IBM experts. Open-source contribution to IBM Db2 AI use cases is open for everyone — not only the Top 10 — and the IBM team will guide you on how to contribute. What the winners take home is revealed on stage at the finale.' },
+  { q: 'Can I contribute to IBM Db2 open source?', a: 'Yes — open-source contribution is open for all. The IBM team will share guidance on how it works: where to contribute, how to pick an issue or use case, and how to open your contribution.' },
   { q: 'Where will I get further updates?', a: 'All event and Db2Hack details are emailed to registered participants before the start. Join the WhatsApp community for live updates.' },
 ];
 
@@ -402,6 +403,7 @@ export const ELIGIBILITY = {
     'IBM experts shortlist the Top 10, who present from 4:00 to 4:30 PM',
     'Fully transparent: we share the judging sheet and feedback on why a submission was not in the Top 10',
     'The IBM team is adding sample submissions to the repo so you have clear references to learn from',
+    'Open-source contribution to IBM Db2 AI use cases is open for all — the IBM team will guide you on how',
   ],
   goal: 'The goal is not just to pick winners. IBM wants you to learn AI and Db2, build something meaningful, and stay part of the ecosystem long after the event — walking away with real experience and the confidence to keep building and contributing.',
 };

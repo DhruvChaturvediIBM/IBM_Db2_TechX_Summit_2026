@@ -943,8 +943,9 @@ function Toolkit() {
               Become a contributor <span className="dim">to IBM Db2 AI use cases.</span>
             </h3>
             <p>
-              Every eligible participant — not only the Top 10 — gets the chance to contribute to IBM Db2 AI use
-              cases (open source), building on IBM Db2 integrations across the AI and data ecosystem.
+              Open for all — not only the Top 10. Anyone can contribute to IBM Db2 AI use cases (open source),
+              building on IBM Db2 integrations across the AI and data ecosystem. The IBM team will share guidance on
+              how to contribute: where to start, how to pick a use case and how to open your contribution.
             </p>
           </div>
           <div className="logo-loops">
