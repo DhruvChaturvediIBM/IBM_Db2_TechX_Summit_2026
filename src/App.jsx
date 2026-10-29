@@ -1681,6 +1681,46 @@ function Mandatory({ compact = false }) {
   );
 }
 
+// Showreel right under the hero — autoplays muted, with a sound toggle.
+function Showreel() {
+  const ref = useRef(null);
+  const [muted, setMuted] = useState(true);
+  const toggle = () => {
+    const v = ref.current;
+    if (!v) return;
+    v.muted = !v.muted;
+    setMuted(v.muted);
+    if (!v.muted) v.play().catch(() => {});
+  };
+  return (
+    <section className="showreel" id="showreel">
+      <Reveal className="sr-frame">
+        <div className="sr-head">
+          <span className="sr-tag">
+            <span className="live-dot" />
+            Watch · IBM Db2 TechX Summit 2026
+          </span>
+          <button type="button" className="sr-sound" onClick={toggle} aria-pressed={!muted}>
+            {muted ? 'Tap for sound' : 'Mute'}
+          </button>
+        </div>
+        <video
+          ref={ref}
+          className="sr-video"
+          src="/video/showreel.mp4"
+          poster="/video/showreel-poster.jpg"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          controls
+        />
+      </Reveal>
+    </section>
+  );
+}
+
 // Still-open notice, eligibility, the plan and IBM's goal.
 function OpenCall() {
   return (
@@ -2052,7 +2092,7 @@ function SubmitGuide() {
                 How projects <span className="dim">are scored.</span>
               </>
             }
-            sub="A panel of IBM engineers, subject-matter experts and academic mentors scores every submission on five dimensions."
+            sub="A panel of IBM engineers, subject-matter experts and academic mentors scores every submission on six dimensions — including security."
           />
           <div className="judging">
             {JUDGING.map((j, i) => (
@@ -2272,6 +2312,7 @@ function HomePage() {
   return (
     <main>
       <Hero />
+      <Showreel />
       <OpenCall />
       <Mandatory />
       <Partners />

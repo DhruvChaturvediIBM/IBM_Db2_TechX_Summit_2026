@@ -351,11 +351,12 @@ export const SUBMIT_NAMING = [
 ];
 
 export const JUDGING = [
-  { name: 'IBM Db2 integration & depth', weight: 30, points: ['Substantive use of Db2: storage, querying, indexing, stored procedures, vector / JSON', 'Correct drivers, connectors or framework integrations', 'Clean schema design, efficient queries, reliable data'] },
-  { name: 'Innovation & real-world impact', weight: 25, points: ['Original solution to a real problem', 'Practical for enterprise, developer tooling, analytics or AI automation', 'Clear value for the end user'] },
-  { name: 'Technical architecture & AI', weight: 20, points: ['Modular, clean engineering', 'Well-designed RAG / agents / embeddings / prompts, if used', 'Clear, complete architecture.md'] },
+  { name: 'IBM Db2 integration & depth', weight: 25, points: ['Substantive use of Db2: storage, querying, indexing, stored procedures, vector / JSON', 'Correct drivers, connectors or framework integrations', 'Clean schema design, efficient queries, reliable data'] },
+  { name: 'Innovation & real-world impact', weight: 20, points: ['Original solution to a real problem', 'Practical for enterprise, developer tooling, analytics or AI automation', 'Clear value for the end user'] },
+  { name: 'Technical architecture & AI', weight: 15, points: ['Modular, clean engineering', 'Well-designed RAG / agents / embeddings / prompts, if used', 'Clear, complete architecture.md'] },
+  { name: 'Security', weight: 15, points: ['No secrets in code — credentials via .env, with .env in .gitignore', 'Parameterised SQL (no string-built queries), input validation, least-privilege Db2 users', 'Safe handling of user data, prompts and LLM output (no prompt-injection shortcuts)'] },
   { name: 'Reproducibility & code quality', weight: 15, points: ['Easy setup by following README.md', 'Working .env.example with prerequisites', 'Tests, input validation and error handling'] },
-  { name: 'Documentation & presentation', weight: 10, points: ['Templates filled — no placeholders left', 'Screenshots, demo URL or video walkthrough', 'Naming rules followed, zero secrets committed'] },
+  { name: 'Documentation & presentation', weight: 10, points: ['Templates filled — no placeholders left', 'Screenshots, demo URL or video walkthrough', 'Naming rules followed, clean commit history'] },
 ];
 
 export const PENALTIES = [
