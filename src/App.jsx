@@ -311,7 +311,7 @@ function Hero() {
 
         <h1 className="hero-title">
           <motion.span className="ht-line ht-ibm" {...rise(0.35)}>
-            IBM <b>Db2</b>
+            IBM <b>Db2</b> TechX
           </motion.span>
           <motion.span className="ht-line ht-x" {...rise(0.55)}>
             Db2Hack

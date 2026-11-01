@@ -427,14 +427,16 @@ p {
 }
 .ht-ibm {
   font-weight: 300;
-  font-size: clamp(64px, min(11vw, 17vh), 172px);
+  font-size: clamp(34px, min(5.4vw, 8.5vh), 88px);
+  letter-spacing: -0.03em;
+  color: #c6c6c6;
 }
 .ht-ibm b {
   font-weight: 700;
 }
 .ht-x {
   font-weight: 700;
-  font-size: clamp(56px, min(10.6vw, 16.5vh), 166px);
+  font-size: clamp(72px, min(15vw, 23vh), 240px);
   padding-bottom: 0.06em;
 }
 .hero-tagline {
@@ -3780,10 +3782,10 @@ p {
     padding-top: 112px;
   }
   .ht-ibm {
-    font-size: 17vw;
+    font-size: 9.5vw;
   }
   .ht-x {
-    font-size: 12.6vw;
+    font-size: 21vw;
     white-space: nowrap;
   }
   .hero-ctas,
