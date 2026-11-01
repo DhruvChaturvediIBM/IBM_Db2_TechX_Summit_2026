@@ -77,11 +77,12 @@ export function useNow(interval = 1000) {
 
 // Which milestone the countdown should point at right now.
 export function phaseAt(now) {
-  const { hackStart, summitStart, summitEnd, hackEnd } = MOMENTS;
+  const { hackStart, summitStart, summitEnd, hackEnd, resultsEnd } = MOMENTS;
   if (now < hackStart) return { label: 'Db2Hack goes live in', target: hackStart, status: 'Registrations open' };
   if (now < summitStart) return { label: 'Summit begins in', target: summitStart, status: 'Db2Hack is live · submissions open, not strict' };
   if (now < summitEnd) return { label: 'Happening now', target: null, status: 'Live at GL Bajaj · build after the workshop and submit' };
-  if (now < hackEnd) return { label: 'Db2Hack submissions close in', target: hackEnd, status: 'Workshop done · Db2Hack still live — submit by 5:00 PM IST, 1 Nov' };
+  if (now < hackEnd) return { label: 'Db2Hack submissions close in', target: hackEnd, status: 'Workshop done · Db2Hack still live — submit by 5:00 PM IST, 10 Nov' };
+  if (now < resultsEnd) return { label: 'Submissions closed', target: null, status: 'Results on Wed 11 Nov — Top 3, Top 10 and projects with potential' };
   return { label: "That's a wrap", target: null, status: 'Thank you, builders — keep building on Db2' };
 }
 

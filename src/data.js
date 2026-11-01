@@ -15,7 +15,9 @@ export const MAPS_EMBED =
 export const MOMENTS = {
   hackStart: new Date('2026-10-28T19:00:00+05:30'),
   // Workshop is over; Db2Hack stays open until this moment.
-  hackEnd: new Date('2026-11-01T17:00:00+05:30'),
+  hackEnd: new Date('2026-11-10T17:00:00+05:30'),
+  // Winners (Top 3, Top 10, high-potential projects) are announced on this day.
+  resultsEnd: new Date('2026-11-12T00:00:00+05:30'),
   summitStart: new Date('2026-10-30T09:00:00+05:30'),
   summitEnd: new Date('2026-10-30T17:00:00+05:30'),
 };
@@ -99,20 +101,28 @@ export const SCHEDULE_DAYS = [
     ],
   },
   {
-    date: '2026-11-01',
-    label: 'Sun · 1 Nov',
+    date: '2026-11-10',
+    label: 'Tue · 10 Nov',
     caption: 'Db2Hack · online · last day',
     items: [
       { start: '00:00', end: '17:00', title: 'Final submissions', detail: 'The workshop has ended but Db2Hack is still live. Open your PR and fill the Google Form before 5:00 PM IST — for a chance to win IBM goodies and to contribute your use case to IBM open-source projects', highlight: true, tag: 'Closes 5 PM' },
     ],
   },
+  {
+    date: '2026-11-11',
+    label: 'Wed · 11 Nov',
+    caption: 'Db2Hack · results',
+    items: [
+      { start: '00:00', end: '24:00', title: 'Winners announced', detail: 'We close Db2Hack by announcing the Top 3, the Top 10 and the projects with real potential', highlight: true, tag: 'Results' },
+    ],
+  },
 ];
 
 export const HACK_STEPS = [
-  { n: '01', title: 'Build', when: 'Still live · until 1 Nov, 5 PM', body: 'Create your AI use case on IBM Db2 with the toolkit packages.' },
+  { n: '01', title: 'Build', when: 'Still live · until 10 Nov, 5 PM', body: 'Create your AI use case on IBM Db2 with the toolkit packages.' },
   { n: '02', title: 'Share', when: 'While you build', body: 'Post your use case on LinkedIn, explain it clearly and tag the organising team.' },
-  { n: '03', title: 'Submit', when: 'By 5:00 PM IST · Sun 1 Nov', body: 'Open a pull request on the submission GitHub repo, then send the PR link through the Google Form before 5:00 PM.' },
-  { n: '04', title: 'Contribute', when: 'After you submit', body: 'Win IBM goodies and get the chance to work with IBM open-source projects — contribute your use case there.' },
+  { n: '03', title: 'Submit', when: 'By 5:00 PM IST · Tue 10 Nov', body: 'Open a pull request on the submission GitHub repo, then send the PR link through the Google Form before 5:00 PM.' },
+  { n: '04', title: 'Results', when: 'Wed 11 Nov', body: 'Top 3, Top 10 and the projects with potential are announced — with IBM goodies and the chance to contribute your use case to IBM open-source projects.' },
 ];
 
 export const CORE_FRAMEWORKS = ['LangChain', 'Haystack', 'CrewAI', 'LlamaIndex', 'Langflow'];
@@ -146,9 +156,10 @@ export const ECOSYSTEM = [
 
 // IBM goodies for the best submissions — don't list specific prize items.
 export const REWARDS = [
-  { who: 'Best submissions', what: 'IBM goodies for the best Db2Hack use cases — submit by 5:00 PM IST, 1 Nov' },
+  { who: 'Best submissions', what: 'IBM goodies for the best Db2Hack use cases — submit by 5:00 PM IST, 10 Nov' },
   { who: 'Open source', what: 'A chance to work with IBM open-source projects and contribute your use case there' },
-  { who: 'Top 3', what: 'Special recognition and appreciation from IBM' },
+  { who: 'Top 3 · Top 10', what: 'Winners announced on Wed 11 Nov, with special recognition from IBM' },
+  { who: 'High potential', what: 'Projects with real potential are called out on 11 Nov too' },
   { who: 'Best posts', what: 'Appreciation from IBM experts on social media' },
   { who: 'All participants', what: 'Certificates' },
 ];
@@ -177,13 +188,14 @@ export const SPEAKERS = [
 export const FAQ = [
   { q: 'Is the Summit free?', a: 'Yes. The IBM Db2 TechX Summit is free and in person. Register on Luma — registrations are reviewed by the organisers, and you get a confirmation once approved.' },
   { q: 'When and where is it?', a: 'Friday, 30 October 2026, 9:00 AM – 5:00 PM IST at GL Bajaj Group of Institutions, NH-2 Mathura–Delhi Road, Akbarpur, Mathura. Reporting starts at 9:00 AM.' },
-  { q: 'What is Db2Hack?', a: 'A build challenge to create an AI use case on IBM Db2. It opened on 28 October, 7:00 PM IST. The workshop has ended, but Db2Hack is still live — submissions close at 5:00 PM IST on Sunday, 1 November. Submit for a chance to win IBM goodies and to contribute your use case to IBM open-source projects.' },
+  { q: 'What is Db2Hack?', a: 'A build challenge to create an AI use case on IBM Db2. It opened on 28 October, 7:00 PM IST. The workshop has ended, but Db2Hack is still live — submissions close at 5:00 PM IST on Tuesday, 10 November. Submit for a chance to win IBM goodies and to contribute your use case to IBM open-source projects.' },
   { q: 'Who can participate? Can I join as a team?', a: 'Everyone — there are no restrictions. Students, developers and anyone curious can build a solution with IBM Db2, on their own or as a team. List every team member in your submission.' },
-  { q: 'I missed the start. Can I still join?', a: 'Yes. Db2Hack is still live until 5:00 PM IST on Sunday, 1 November — start now with the 6-step quick start on the Submit page and submit before the deadline.' },
+  { q: 'I missed the start. Can I still join?', a: 'Yes. Db2Hack is still live until 5:00 PM IST on Tuesday, 10 November — start now with the 6-step quick start on the Submit page and submit before the deadline.' },
+  { q: 'When are the results?', a: 'Submissions close at 5:00 PM IST on Tuesday, 10 November. On Wednesday, 11 November we close Db2Hack by announcing the Top 3, the Top 10 and the projects with real potential.' },
   { q: 'How are the Top 10 chosen?', a: 'IBM experts score every submission with the 100-point rubric on the Submit page. To keep it transparent, we share the judging sheet and feedback explaining why a submission was not selected for the Top 10.' },
   { q: 'Which frameworks can I use?', a: 'Every project must use at least one of LangChain, Haystack, CrewAI, LlamaIndex or the no-code Langflow. One is enough; combining several (for example LangChain + CrewAI) is also allowed.' },
   { q: 'Is joining the WhatsApp community mandatory?', a: 'Yes. Every participant must join the IBM Db2 TechX WhatsApp community — all live updates, the Google Form link and any timing changes are shared there first.' },
-  { q: 'How do I submit my project?', a: 'Two steps, both mandatory: open a pull request with your project folder on the official submission repo (github.com/KunalGolaIBM/IBM_Db2_TechX_Project_Submission), then paste the PR link into the Google Form. The full walkthrough is on the Submit page. Submissions close at 5:00 PM IST on Sunday, 1 November.' },
+  { q: 'How do I submit my project?', a: 'Two steps, both mandatory: open a pull request with your project folder on the official submission repo (github.com/KunalGolaIBM/IBM_Db2_TechX_Project_Submission), then paste the PR link into the Google Form. The full walkthrough is on the Submit page. Submissions close at 5:00 PM IST on Tuesday, 10 November.' },
   { q: 'Do I need to post on LinkedIn?', a: 'Yes, sharing is part of the challenge: post your use case on LinkedIn, explain it clearly and tag the organising team. The best posts get appreciation from IBM experts.' },
   { q: 'Do I need prior Db2 experience?', a: 'No. The toolkit gives you ready-made Db2 integrations — vector stores, document stores and agent tools — for the frameworks you may already know.' },
   { q: 'Which Db2 should I build on?', a: 'Db2 Community Edition — it is free with full Db2 features (up to 4 cores and 16 GB RAM). The quickest start is the IBM Db2 Developer Extension for VS Code, which can create a Community Edition instance with a sample database. You can also use the Docker image (icr.io/db2_community/db2) or the installer from ibm.com/db2/get-started.' },
@@ -291,7 +303,7 @@ export const MANDATORY = [
   { title: 'Get Db2 free on your laptop', body: 'Install the IBM Db2 Developer Extension in VS Code and create a local Db2 Community Edition instance — it takes minutes.', action: 'setup' },
   { title: 'Build on IBM Db2 + 1 framework', body: 'Real Db2 integration in code, using at least one of LangChain, Haystack, CrewAI, LlamaIndex or Langflow.' },
   { title: 'Open a GitHub pull request', body: 'Your project folder on the official submission repo, following the template.', action: 'submit' },
-  { title: 'Submit the Google Form + post on LinkedIn', body: 'Paste your PR link in the form before 5:00 PM IST on Sun 1 Nov, and share your use case on LinkedIn tagging the organisers.' },
+  { title: 'Submit the Google Form + post on LinkedIn', body: 'Paste your PR link in the form before 5:00 PM IST on Tue 10 Nov, and share your use case on LinkedIn tagging the organisers.' },
 ];
 
 // Db2Hack submission guide (/submit) — from the official submission repo README and docs.
@@ -300,8 +312,8 @@ export const SUBMISSION_ISSUES = `${SUBMISSION_REPO}/issues/new/choose`;
 
 export const SUBMIT_DATES = [
   { what: 'Submissions open', when: 'Still live', note: 'Started 28 Oct, 7:00 PM IST. The workshop has ended — keep building and submit' },
-  { what: 'Submissions close', when: 'Sun 1 Nov · 5:00 PM IST', note: 'PR + Google Form must both be in before 5:00 PM' },
-  { what: 'After you submit', when: 'IBM goodies + open source', note: 'Best submissions win IBM goodies, with a chance to contribute your use case to IBM open-source projects' },
+  { what: 'Submissions close', when: 'Tue 10 Nov · 5:00 PM IST', note: 'PR + Google Form must both be in before 5:00 PM' },
+  { what: 'Results', when: 'Wed 11 Nov', note: 'Top 3, Top 10 and the projects with potential are announced. Best submissions win IBM goodies and a chance to contribute to IBM open-source projects' },
 ];
 
 export const SUBMIT_REQUIREMENTS = [
@@ -343,7 +355,7 @@ export const SUBMIT_STEPS = [
   },
   {
     title: 'Fill the Google Form',
-    body: 'A PR alone does not complete your submission. Paste your PR URL into the official Google Form (link shared on WhatsApp and by email). Submissions close at 5:00 PM IST on Sun 1 Nov.',
+    body: 'A PR alone does not complete your submission. Paste your PR URL into the official Google Form (link shared on WhatsApp and by email). Submissions close at 5:00 PM IST on Tue 10 Nov.',
   },
   {
     title: 'Post on LinkedIn',
@@ -406,8 +418,8 @@ export const MUST_DO = [
 export const ELIGIBILITY = {
   who: 'Open to everyone — no restrictions. Students, developers and anyone curious can build a solution with IBM Db2, solo or as a team.',
   plan: [
-    'The workshop has ended, but Db2Hack is still live — submissions close at 5:00 PM IST on Sun 1 Nov',
-    'IBM experts review every submission — the best win IBM goodies, and the Top 3 are recognised',
+    'The workshop has ended, but Db2Hack is still live — submissions close at 5:00 PM IST on Tue 10 Nov',
+    'IBM experts review every submission — on Wed 11 Nov we announce the Top 3, the Top 10 and the projects with potential',
     'Submit and get the chance to work with IBM open-source projects and contribute your use case there',
     'Fully transparent: we share the judging sheet and feedback on why a submission was not in the Top 10',
     'The IBM team is adding sample submissions to the repo so you have clear references to learn from',
