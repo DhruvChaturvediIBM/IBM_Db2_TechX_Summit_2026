@@ -140,7 +140,7 @@ function AnnouncementBar() {
             <span>
               <b>{phase.status}</b>
             </span>
-            <span>Db2Hack is online · open to everyone · solo or as a team</span>
+            <span>Db2Hack is online · open to everyone · solo participation only</span>
             <span>Submissions close Tue 10 Nov · 5:00 PM IST</span>
             <span>Results Wed 11 Nov · Top 3 · Top 10 · projects with potential</span>
             <span>Get Db2 free: IBM Db2 Developer Extension for VS Code</span>
@@ -320,7 +320,7 @@ function Hero() {
 
         <motion.p className="hero-tagline" {...rise(0.85, 20)}>
           <ShinyText
-            text="Build an AI app on an enterprise database — free, online, solo or as a team."
+            text="Build an AI app on an enterprise database — free, online, open to everyone. Solo only."
             color="#c6c6c6"
             shineColor="#ffffff"
             speed={3}
@@ -854,7 +854,7 @@ function Db2Hack() {
             on IBM Db2
           </Reveal>
           <Reveal delay={0.14} as="p" className="hack-lead">
-            Build an AI use case on IBM Db2. Open to everyone, solo or as a team — <b>the workshop has ended, but Db2Hack is still live until 5:00 PM IST, Tue 10 Nov.</b>
+            Build an AI use case on IBM Db2. Open to everyone — solo participation only. <b>the workshop has ended, but Db2Hack is still live until 5:00 PM IST, Tue 10 Nov.</b>
           </Reveal>
         </div>
 
@@ -923,7 +923,7 @@ function Db2Hack() {
           <Reveal delay={0.1} className="rule">
             <span className="mono-label">Good to know</span>
             <ul className="checks">
-              <li>Open to everyone — solo or as a team</li>
+              <li>Open to everyone — solo participation only, no teams</li>
               <li>Submit a GitHub pull request, then the PR link via Google Form</li>
               <li>Joining the WhatsApp community is mandatory</li>
               <li>Submissions close at 5:00 PM IST on Tue 10 Nov</li>
