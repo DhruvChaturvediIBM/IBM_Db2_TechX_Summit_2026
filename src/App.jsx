@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useSpring, useTransform } from 'motion/react';
 import { Link, Route, Routes, useLocation } from 'react-router-dom';
 import GradientASCII from './components/GradientASCII';
@@ -12,20 +12,14 @@ import StarBorder from './components/reactbits/StarBorder';
 import DotGrid from './components/reactbits/DotGrid';
 import BorderGlow from './components/reactbits/BorderGlow';
 import ClickSpark from './components/reactbits/ClickSpark';
-import ScrollReveal from './components/reactbits/ScrollReveal';
-import MagicBento from './components/reactbits/MagicBento';
 import SplitFlapText from './components/reactbits/SplitFlapText';
-import CardSwap, { Card } from './components/reactbits/CardSwap';
 import LaserFlow from './components/reactbits/LaserFlow';
 import LetterGlitch from './components/reactbits/LetterGlitch';
 import LightRays from './components/reactbits/LightRays';
-import Radar from './components/reactbits/Radar';
 import TextPressure from './components/reactbits/TextPressure';
-import PixelCard from './components/reactbits/PixelCard';
 import {
   Reveal,
   SectionHead,
-  CountUp,
   Countdown,
   Spotlight,
   CopyCmd,
@@ -35,27 +29,24 @@ import {
   phaseAt,
 } from './components/ui';
 import {
-  LUMA_URL,
-  LUMA_EVENT_ID,
-  LUMA_EMBED,
   WHATSAPP_URL,
-  MAPS_URL,
-  MAPS_EMBED,
   EVENT,
   NAV,
-  PROGRAMME,
-  STATS,
-  AUDIENCE,
+  VSCODE_EXT,
+  START_STEPS,
+  AGENTIC,
+  AI_SKILL,
+  COMING_SOON,
+  RECAP_HIGHLIGHTS,
+  GALLERY_TABS,
+  GALLERY,
   SCHEDULE_DAYS,
   LEARN_VIDEOS,
   LEARN_CHANNEL,
-  HACK_STEPS,
   CORE_FRAMEWORKS,
   TOOLKIT,
   ECOSYSTEM,
   REWARDS,
-  CERTIFICATES,
-  QUIZ_TOPICS,
   SPEAKERS,
   FAQ,
   VIDEOS,
@@ -63,9 +54,7 @@ import {
   RESOURCE_GROUPS,
   RESOURCES,
   COMMUNITY_EDITION,
-  MANDATORY,
   MUST_DO,
-  ELIGIBILITY,
   QUICKSTART,
   QUICK_PACKAGES,
   IBM_BOB,
@@ -84,8 +73,6 @@ import {
 
 const EASE = [0.22, 1, 0.36, 1];
 const ext = { target: '_blank', rel: 'noopener noreferrer' };
-// Luma's checkout script (index.html) turns these links into its popup; without it they open the event page.
-const luma = { href: LUMA_URL, ...ext, 'data-luma-action': 'checkout', 'data-luma-event-id': LUMA_EVENT_ID };
 const MONO = '"IBM Plex Mono", ui-monospace, monospace';
 const ASCII_COLORS = ['#1e3fd8', '#f6f8ff', '#a5d8ff', '#38bdf8'];
 
@@ -118,14 +105,24 @@ function WhatsAppButton({ size = '', label = 'Join WhatsApp community', tag = tr
   );
 }
 
-function RegisterButton({ size = '', label = 'Register on Luma' }) {
+function StartButton({ size = '', label = 'Start in 4 steps' }) {
   return (
-    <a className={`btn btn-primary ${size}`} {...luma}>
+    <NavItem n={{ id: 'start' }} className={`btn btn-primary ${size}`}>
       {label}
       <Arrow />
-    </a>
+    </NavItem>
   );
 }
+
+function VsCodeIcon() {
+  return <img className="btn-ext" src="/fw/vscode-db2.png" alt="" />;
+}
+
+const Star = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill="currentColor" d="m12 2.5 2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8L12 2.5Z" />
+  </svg>
+);
 
 function AnnouncementBar() {
   const phase = phaseAt(useNow(30000));
@@ -143,14 +140,13 @@ function AnnouncementBar() {
             <span>
               <b>{phase.status}</b>
             </span>
-            <span>Open to everyone · solo or as a team</span>
-            <span>Top 10 present 30 Oct · 4:00 – 4:30 PM</span>
-            <span>Summit · Fri 30 Oct · 9:00 AM – 5:00 PM IST</span>
-            <span>GL Bajaj Group of Institutions, Mathura</span>
-            <span>Free · In person · Registration on Luma</span>
-            <span>WhatsApp community is mandatory for every participant</span>
+            <span>Db2Hack is online · open to everyone · solo or as a team</span>
+            <span>Submissions close Tue 10 Nov · 5:00 PM IST</span>
+            <span>Results Wed 11 Nov · Top 3 · Top 10 · projects with potential</span>
+            <span>Get Db2 free: IBM Db2 Developer Extension for VS Code</span>
+            <span>Live online workshop + doubt-solving session · dates announced soon</span>
+            <span>Summit at GL Bajaj, Mathura · done on 30 Oct · thank you!</span>
             <span>Submit: GitHub pull request + Google Form</span>
-            <span>Event details are emailed to registered participants before the start</span>
           </div>
         ))}
       </div>
@@ -222,9 +218,7 @@ function Nav() {
           ))}
         </nav>
         <div className="nav-cta">
-          <a className="btn btn-primary btn-sm" {...luma}>
-            Register <Arrow />
-          </a>
+          <StartButton size="btn-sm" label="Start building" />
           <button
             type="button"
             className={`burger ${open ? 'is-open' : ''}`}
@@ -256,7 +250,7 @@ function Nav() {
             </NavItem>
           </motion.div>
         ))}
-        <RegisterButton size="btn-lg" />
+        <StartButton size="btn-lg" />
       </motion.div>
     </header>
   );
@@ -306,7 +300,7 @@ function Hero() {
         <motion.div className="hero-pill" {...rise(0.2, 16)}>
           <span className="live-dot" />
           <DecryptedText
-            text="A DAY OF IBM DB2 — DATA AND AI"
+            text="DB2HACK IS LIVE · ONLINE · OPEN TO EVERYONE"
             animateOn="view"
             sequential
             speed={35}
@@ -320,26 +314,38 @@ function Hero() {
             IBM <b>Db2</b>
           </motion.span>
           <motion.span className="ht-line ht-x" {...rise(0.55)}>
-            TechX Summit
+            Db2Hack
           </motion.span>
         </h1>
 
         <motion.p className="hero-tagline" {...rise(0.85, 20)}>
-          <ShinyText text={EVENT.tagline} color="#c6c6c6" shineColor="#ffffff" speed={3} delay={1.5} />
+          <ShinyText
+            text="Build an AI app on an enterprise database — free, online, solo or as a team."
+            color="#c6c6c6"
+            shineColor="#ffffff"
+            speed={3}
+            delay={1.5}
+          />
         </motion.p>
 
         <motion.div className="hero-ctas" {...rise(1.05, 20)}>
           <Magnet padding={70} magnetStrength={4}>
-            <RegisterButton size="btn-xl" label="Register free on Luma" />
+            <StartButton size="btn-xl" />
           </Magnet>
           <Magnet padding={70} magnetStrength={4}>
-            <WhatsAppButton size="btn-xl" />
+            <a className="btn btn-ghost btn-xl" href={VSCODE_EXT.url} {...ext}>
+              <VsCodeIcon />
+              Get Db2 free in VS Code
+            </a>
           </Magnet>
         </motion.div>
         <motion.div className="hero-sublinks" {...rise(1.2, 14)}>
-          <Link to="/submit">How to submit your project →</Link>
-          <a href="#mandatory">What's mandatory →</a>
-          <Link to="/resources">Resources & toolkit →</Link>
+          <a href={WHATSAPP_URL} {...ext}>
+            Join WhatsApp (mandatory) ↗
+          </a>
+          <a href="#ai-skill">AI skill for your assistant →</a>
+          <Link to="/submit">How to submit →</Link>
+          <a href="#recap">30 Oct Summit recap →</a>
         </motion.div>
       </motion.div>
 
@@ -350,17 +356,17 @@ function Hero() {
         transition={{ duration: 1, delay: 1.35, ease: EASE }}
       >
         <div className="hb-date">
-          <span className="hb-day">30</span>
+          <span className="hb-day">10</span>
           <span className="hb-month">
-            <b>October</b>
-            <span>Friday · 2026</span>
+            <b>November</b>
+            <span>Tue · closes 5:00 PM IST</span>
           </span>
         </div>
         <Countdown />
         <div className="hb-venue">
-          <span className="mono-label">9:00 AM – 5:00 PM IST</span>
-          <span>GL Bajaj Group of Institutions,</span>
-          <span>Mathura</span>
+          <span className="mono-label">Results · Wed 11 Nov</span>
+          <span>Top 3 · Top 10 ·</span>
+          <span>projects with potential</span>
         </div>
       </motion.div>
     </section>
@@ -392,164 +398,6 @@ function Partners() {
               <img src="/logos/gl-bajaj.png" alt="GL Bajaj Group of Institutions, Mathura" />
             </span>
           </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-// Big tiles (positions 3 and 4) carry a visual; the rest are text-only.
-const BENTO_ORDER = [
-  'Hands-on workshop',
-  'Knowledge sharing',
-  'Talks by IBM experts',
-  'Db2Hack finale',
-  'Panel discussion',
-  'Data & AI Quiz',
-];
-const BENTO_VISUALS = {
-  'Talks by IBM experts': (
-    <div className="bento-faces">
-      {SPEAKERS.map(sp => (
-        <img key={sp.name} src={sp.photo} alt="" />
-      ))}
-      <span>{SPEAKERS.length} IBM Db2 speakers</span>
-    </div>
-  ),
-  'Db2Hack finale': (
-    <div className="bento-top10">
-      <strong>TOP 10</strong>
-      <span>Db2Hack still live · closes 10 Nov, 5 PM</span>
-    </div>
-  ),
-};
-
-function About() {
-  return (
-    <section className="section" id="about">
-      <div className="container">
-        <div className="about-grid">
-          <div>
-            <SectionHead
-              num="01"
-              kicker="About the event"
-              title={
-                <>
-                  One day. <span className="dim">IBM Db2, data and AI.</span>
-                </>
-              }
-            />
-            <ScrollReveal
-              containerClassName="lead-reveal"
-              textClassName="lead"
-              baseOpacity={0.15}
-              baseRotation={0}
-              blurStrength={3}
-            >
-              IBM Db2 TechX Summit is a one-day event on IBM Db2, data and AI at GL Bajaj Group of Institutions,
-              Mathura. Hear directly from IBM Db2 experts, learn how modern AI applications are built on data, and
-              build real AI use cases on IBM Db2 with popular open-source frameworks.
-            </ScrollReveal>
-            <Reveal delay={0.18} as="p" className="body">
-              The day brings together expert talks, a hands-on workshop, knowledge sharing, a panel discussion and
-              the Data &amp; AI Quiz — and ends with the Db2Hack finale, where the Top 10 builders pitch live to IBM
-              experts.
-            </Reveal>
-            <Reveal delay={0.24} className="about-facts">
-              <div>
-                <span className="mono-label">Format</span>In person · Free
-              </div>
-              <div>
-                <span className="mono-label">Registration</span>On Luma
-              </div>
-              <div>
-                <span className="mono-label">Community</span>
-                <a href={WHATSAPP_URL} {...ext}>
-                  WhatsApp group <ArrowUpRight />
-                </a>
-              </div>
-            </Reveal>
-          </div>
-          <div className="stats">
-            {STATS.map((s, i) => (
-              <Reveal key={s.label} delay={0.08 * i}>
-                <Spotlight className="stat">
-                  <span className="stat-num">
-                    <CountUp to={s.value} suffix={s.suffix} />
-                  </span>
-                  <span className="stat-label">{s.label}</span>
-                </Spotlight>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-
-        <Reveal className="programme-bento">
-          <MagicBento
-            items={BENTO_ORDER.map((k, i) => {
-              const p = PROGRAMME.find(x => x.title === k);
-              return {
-                label: String(i + 1).padStart(2, '0'),
-                title: p.title,
-                description: p.body,
-                visual: BENTO_VISUALS[k],
-                ...(i === 2 || i === 3 ? { colSpan: 2, rowSpan: 2 } : {}),
-              };
-            })}
-            columns={4}
-            rowHeight={210}
-            gap={12}
-            radius={24}
-            glowColor="#0f62fe"
-            textAutoHide={false}
-            enableStars
-            particleCount={14}
-            enableTilt={false}
-          />
-        </Reveal>
-
-        <div className="audience">
-          <Reveal as="span" className="mono-label audience-title">
-            This summit is for
-          </Reveal>
-          <div className="audience-grid">
-            {AUDIENCE.map((a, i) => (
-              <Reveal key={a.title} delay={0.08 * i} className="audience-card">
-                <span className="aud-idx">/{String(i + 1).padStart(2, '0')}</span>
-                <h4>{a.title}</h4>
-                <p>{a.body}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Statement() {
-  return (
-    <section className="statement" aria-label="Data and AI">
-      <div className="statement-bg">
-        <GradientASCII
-          colors={ASCII_COLORS}
-          shape="pinch"
-          characters=" =+xX0S8#@"
-          cellSize={16}
-          glyphOpacity={0.85}
-          glow={0.25}
-          flicker={0.25}
-          flow={0.6}
-          gradientOpacity={0.75}
-          fontFamily={MONO}
-        />
-      </div>
-      <div className="container statement-inner">
-        <Reveal as="p" className="statement-text">
-          Every AI app <span className="dim">starts with</span> data.
-        </Reveal>
-        <Reveal delay={0.1} as="code" className="statement-code">
-          $ pip install ibm_db
         </Reveal>
       </div>
     </section>
@@ -590,7 +438,7 @@ function Schedule() {
     <section className="section" id="schedule">
       <div className="container">
         <SectionHead
-          num="02"
+          num="08"
           kicker="Event flow · 28 Oct – 11 Nov 2026"
           title={
             <>
@@ -639,6 +487,320 @@ function Schedule() {
   );
 }
 
+// The one path to a submission — used on the home page and /submit.
+function StartStep({ step }) {
+  if (step.key === 'whatsapp') return <WhatsAppButton size="btn-lg" />;
+  if (step.key === 'db2')
+    return (
+      <div className="ext-hl">
+        <div className="ext-hl-head">
+          <span className="ext-hl-logo">
+            <img src="/fw/vscode-db2.png" alt="" />
+          </span>
+          <div>
+            <strong>IBM Db2 Developer Extension</strong>
+            <span>for VS Code · by IBM · free</span>
+          </div>
+        </div>
+        <ol className="ext-flow">
+          <li>Install</li>
+          <li>Click the Db2 icon</li>
+          <li>Create Db2 instance</li>
+          <li>testdb + SAMPLE ready</li>
+        </ol>
+        <div className="ext-hl-btns">
+          <a className="btn btn-primary btn-lg" href={VSCODE_EXT.vscode}>
+            <VsCodeIcon />
+            Install in VS Code
+          </a>
+          <a className="btn btn-ghost btn-lg" href={VSCODE_EXT.url} {...ext}>
+            Marketplace page <ArrowUpRight />
+          </a>
+        </div>
+        <CopyCmd cmd={`code --install-extension ${VSCODE_EXT.id}`} />
+        <p className="ext-hl-note">
+          Needs VS Code 1.103+, Java 17+ and 4 GB free RAM. The extension sets up Docker for you (Colima on macOS, WSL 2
+          on Windows). <Link to="/submit#local-db2">Screenshot guide →</Link>
+        </p>
+        <a className="ext-rate" href={VSCODE_EXT.review} {...ext}>
+          <span className="ext-stars" aria-hidden="true">
+            <Star />
+            <Star />
+            <Star />
+            <Star />
+            <Star />
+          </span>
+          <span>
+            <b>Like it? Rate it and leave a comment</b> on the Marketplace — it helps the Db2 team.
+          </span>
+          <ArrowUpRight />
+        </a>
+      </div>
+    );
+  if (step.key === 'framework')
+    return (
+      <div className="fw-hl">
+        <span className="mono-label">Agentic AI packages for Db2 · pick one</span>
+        <div className="fw-hl-grid">
+          {AGENTIC.map(a => (
+            <div className="fw-hl-item" key={a.name}>
+              <div className="fw-hl-top">
+                <span className="fw-pill-logo">
+                  <img src={`/fw/${a.logo}`} alt="" />
+                </span>
+                <strong>{a.name}</strong>
+              </div>
+              <p>{a.does}</p>
+              <CopyCmd cmd={a.cmd} />
+            </div>
+          ))}
+        </div>
+        <Link className="qmore" to="/resources#toolkit">
+          Docs for every package, plus dbt, SQLGlot and the Python driver <Arrow />
+        </Link>
+      </div>
+    );
+  return (
+    <div className="start-btns">
+      <Link className="btn btn-primary btn-lg" to="/submit#submit-steps">
+        Submission steps <Arrow />
+      </Link>
+      <a className="btn btn-ghost btn-lg" href={SUBMISSION_REPO} {...ext}>
+        Submission repo <ArrowUpRight />
+      </a>
+    </div>
+  );
+}
+
+function StartHere({ num = '01' }) {
+  return (
+    <section className="section start-sec" id="start">
+      <div className="container">
+        <SectionHead
+          num={num}
+          kicker="Start here · 4 steps"
+          title={
+            <>
+              From zero to submitted. <span className="dim">Four steps.</span>
+            </>
+          }
+          sub="That's the whole path. Do them in order — each step has its button right here. Deadline: 5:00 PM IST, Tue 10 Nov."
+        />
+        <ol className="start-list">
+          {START_STEPS.map((st, i) => (
+            <Reveal as="li" key={st.key} delay={0.05 * i} className={`start-step is-${st.key}`}>
+              <div className="start-copy">
+                <span className="start-n">{i + 1}</span>
+                <div>
+                  <span className="start-time">{st.time}</span>
+                  <h3>{st.title}</h3>
+                  <p>{st.body}</p>
+                </div>
+              </div>
+              <div className="start-act">
+                <StartStep step={st} />
+              </div>
+            </Reveal>
+          ))}
+        </ol>
+        <Reveal className="start-help">
+          <span>Stuck anywhere?</span>
+          <a href="#ai-skill">Give your AI the Db2 skill →</a>
+          <a href={WHATSAPP_URL} {...ext}>
+            Ask in WhatsApp ↗
+          </a>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function CopyText({ text, label = 'Copy prompt' }) {
+  const [done, setDone] = useState(false);
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setDone(true);
+      setTimeout(() => setDone(false), 1400);
+    } catch {
+      /* clipboard blocked — the text stays selectable */
+    }
+  };
+  return (
+    <div className="copytext">
+      <p>{text}</p>
+      <button type="button" className={`btn btn-ghost btn-sm ${done ? 'is-done' : ''}`} onClick={copy}>
+        {done ? 'Copied' : label}
+      </button>
+    </div>
+  );
+}
+
+const SKILL_INSIDE = [
+  'Free Db2 setup for Windows (WSL 2), macOS and Linux',
+  'How the VS Code extension helps while you build — tables, SQL editor, history, DDL',
+  'How to fit your own idea onto Db2: RAG, vector search, agents or text-to-SQL',
+  'All five Db2 framework packages with their official docs',
+  'A Python connection test and RAG pattern code',
+  'Submission steps, naming rules and the judging rubric',
+  'Fixes for Docker, Colima, WSL and port errors',
+];
+function AiSkill() {
+  return (
+    <section className="section skill-sec" id="ai-skill">
+      <div className="container">
+        <Reveal className="skill-card">
+          <div className="skill-copy">
+            <span className="kicker">
+              <span className="kicker-num">02</span>
+              For your AI assistant
+            </span>
+            <h2>
+              Give your AI <span className="dim">the Db2 playbook.</span>
+            </h2>
+            <p>
+              Download the IBM Db2 builder skill and hand it to Claude, Cursor, Copilot, IBM Bob, ChatGPT or Gemini.
+              It doesn't hand you an idea — it helps your AI fit <b>your</b> idea onto IBM Db2 with RAG, agents or
+              vector search, set up Db2 free in VS Code, and get you to a clean submission, step by step.
+            </p>
+            <div className="skill-btns">
+              <a className="btn btn-primary btn-lg" href={AI_SKILL.zip} download>
+                Download skill (.zip) <Arrow />
+              </a>
+              <a className="btn btn-ghost btn-lg" href={AI_SKILL.md} download="AGENTS.md">
+                Download as AGENTS.md
+              </a>
+              <a className="skill-view" href={AI_SKILL.md} {...ext}>
+                Read SKILL.md ↗
+              </a>
+            </div>
+            <span className="mono-label">What's inside</span>
+            <ul className="checks">
+              {SKILL_INSIDE.map(t => (
+                <li key={t}>{t}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="skill-use">
+            <span className="mono-label">Where to put it</span>
+            <ol className="skill-where">
+              {AI_SKILL.where.map(w => (
+                <li key={w.tool}>
+                  <strong>{w.tool}</strong>
+                  <p>{w.how}</p>
+                </li>
+              ))}
+            </ol>
+            <span className="mono-label">Then tell your AI</span>
+            <CopyText text={AI_SKILL.prompt} />
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+// 30 Oct Summit recap: photos with filter tabs and a lightbox.
+function Lightbox({ items, index, onClose, onStep }) {
+  useEffect(() => {
+    const onKey = e => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowRight') onStep(1);
+      if (e.key === 'ArrowLeft') onStep(-1);
+    };
+    window.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [onClose, onStep]);
+  const g = items[index];
+  return (
+    <div className="lightbox" role="dialog" aria-modal="true" aria-label={g.alt} onClick={onClose}>
+      <figure onClick={e => e.stopPropagation()}>
+        <img src={`/gallery/${g.src}.jpg`} alt={g.alt} />
+        <figcaption>
+          {g.alt}
+          <span>
+            {index + 1} / {items.length}
+          </span>
+        </figcaption>
+      </figure>
+      <button type="button" className="lb-btn lb-prev" onClick={e => (e.stopPropagation(), onStep(-1))} aria-label="Previous photo">
+        ‹
+      </button>
+      <button type="button" className="lb-btn lb-next" onClick={e => (e.stopPropagation(), onStep(1))} aria-label="Next photo">
+        ›
+      </button>
+      <button type="button" className="lb-close" onClick={onClose} aria-label="Close">
+        ×
+      </button>
+    </div>
+  );
+}
+
+function Recap() {
+  const [tab, setTab] = useState('all');
+  const [open, setOpen] = useState(-1);
+  const items = tab === 'all' ? GALLERY : GALLERY.filter(g => g.tab === tab);
+  const close = useCallback(() => setOpen(-1), []);
+  const step = useCallback(d => setOpen(i => (i + d + items.length) % items.length), [items.length]);
+  return (
+    <section className="section recap-sec" id="recap">
+      <div className="container">
+        <SectionHead
+          num="06"
+          kicker="30 Oct 2026 · GL Bajaj, Mathura · done"
+          title={
+            <>
+              The Summit is done. <span className="dim">Thank you, Mathura.</span>
+            </>
+          }
+          sub="On Friday, 30 October the IBM Db2 team spent the day at GL Bajaj Group of Institutions — talks, a hands-on workshop, live doubt-solving, a panel, the Data & AI Quiz and honours."
+        />
+        <Reveal className="recap-chips">
+          <span className="recap-done">✓ Completed · 30 Oct</span>
+          {RECAP_HIGHLIGHTS.map(h => (
+            <span key={h}>{h}</span>
+          ))}
+        </Reveal>
+        <div className="gal-tabs" role="tablist" aria-label="Photo categories">
+          {GALLERY_TABS.map(t => (
+            <button
+              type="button"
+              role="tab"
+              key={t.id}
+              aria-selected={tab === t.id}
+              className={tab === t.id ? 'is-on' : ''}
+              onClick={() => setTab(t.id)}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+        <div className="gallery">
+          {items.map((g, i) => (
+            <button
+              type="button"
+              key={g.src}
+              className={`gal-item ${g.tall ? 'is-tall' : ''} ${g.wide ? 'is-wide' : ''}`}
+              onClick={() => setOpen(i)}
+              aria-label={`Open photo: ${g.alt}`}
+            >
+              <img src={`/gallery/${g.src}.jpg`} alt={g.alt} loading="lazy" />
+              <span className="gal-cap">{g.alt}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+      <Showreel />
+      <Partners />
+      {open >= 0 && <Lightbox items={items} index={open} onClose={close} onStep={step} />}
+    </section>
+  );
+}
+
 function Db2Hack() {
   const wide = useWide();
   const flap = wide ? 44 : 15;
@@ -668,15 +830,15 @@ function Db2Hack() {
         <div className="hack-hero">
           <Reveal>
             <span className="kicker">
-              <span className="kicker-num">03</span>
-              Pre-event challenge
+              <span className="kicker-num">05</span>
+              The challenge · online
             </span>
           </Reveal>
           <Reveal delay={0.06} as="h2" className="hack-title">
             Db2Hack
           </Reveal>
           <Reveal delay={0.1} className="hack-24">
-            <span>24</span> hours to build
+            <span>13</span> days to build
           </Reveal>
           <Reveal delay={0.12} className="hack-rotate">
             Build with
@@ -735,46 +897,6 @@ function Db2Hack() {
           </div>
         </Reveal>
 
-        {wide && (
-          <div className="swap-row">
-            <Reveal className="swap-copy">
-              <span className="mono-label">How it works</span>
-              <h3>
-                Build. Share. Submit. <span className="dim">Win.</span>
-              </h3>
-              <p>Four steps from your first commit to the results on 11 Nov. Hover to pause, drag to flip.</p>
-            </Reveal>
-            <div className="swap-stage">
-              <CardSwap width={440} height={300} cardDistance={56} verticalDistance={64} delay={3600} skewAmount={4}>
-                {HACK_STEPS.map(s => (
-                  <Card key={s.n} customClass="swap-card">
-                    <div className="step-top">
-                      <span className="step-n">{s.n}</span>
-                      <span className="step-when">{s.when}</span>
-                    </div>
-                    <h3>{s.title}</h3>
-                    <p>{s.body}</p>
-                  </Card>
-                ))}
-              </CardSwap>
-            </div>
-          </div>
-        )}
-        <div className={`hack-steps ${wide ? 'is-hidden' : ''}`}>
-          {HACK_STEPS.map((s, i) => (
-            <Reveal key={s.n} delay={0.08 * i}>
-              <Spotlight className="step">
-                <div className="step-top">
-                  <span className="step-n">{s.n}</span>
-                  <span className="step-when">{s.when}</span>
-                </div>
-                <h3>{s.title}</h3>
-                <p>{s.body}</p>
-              </Spotlight>
-            </Reveal>
-          ))}
-        </div>
-
         <div className="hack-rules">
           <Reveal className="rule rule-main">
             <span className="mono-label">Framework rule</span>
@@ -807,12 +929,12 @@ function Db2Hack() {
               <li>Submissions close at 5:00 PM IST on Tue 10 Nov</li>
               <li>Results on Wed 11 Nov — Top 3, Top 10 and projects with potential</li>
               <li>Post your use case on LinkedIn and tag the organising team</li>
-              <li>Win IBM goodies and the chance to contribute to IBM open-source projects</li>
+              <li>Top 3 win trophies, Top 10 win IBM Db2 goodies</li>
             </ul>
           </Reveal>
         </div>
         <Reveal className="hack-cta">
-          <RegisterButton size="btn-lg" label="Register to get the Db2Hack brief" />
+          <StartButton size="btn-lg" />
           <Link className="btn btn-ghost btn-lg" to="/submit">
             Submission guide & judging <Arrow />
           </Link>
@@ -1206,21 +1328,9 @@ function Prerequisites() {
   );
 }
 
-const MYSTERY = '=+xX0S8#@';
-function LoopScramble() {
-  const [s, setS] = useState('······');
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
-    const id = setInterval(
-      () => setS(Array.from({ length: 6 }, () => MYSTERY[Math.floor(Math.random() * MYSTERY.length)]).join('')),
-      90
-    );
-    return () => clearInterval(id);
-  }, []);
-  return <span>{s}</span>;
-}
 
 function Rewards() {
+  const [top3, top10, ...rest] = REWARDS;
   return (
     <section className="section rewards-sec" id="rewards">
       <div className="rewards-bg" aria-hidden="true">
@@ -1228,81 +1338,70 @@ function Rewards() {
       </div>
       <div className="container">
         <SectionHead
-          num="04"
-          kicker="Rewards & recognition"
+          num="03"
+          kicker="Rewards · results on Wed 11 Nov"
           title={
             <>
-              Build well. <span className="dim">Get recognised.</span>
+              Build well. <span className="dim">Take home a trophy.</span>
             </>
           }
+          sub="IBM experts review every submission. On Wednesday, 11 November we announce the Top 3, the Top 10 and the projects with real potential."
         />
-        <div className="rewards-grid">
-          <Reveal className="reward-mystery-wrap">
-            <PixelCard
-              className="reward-mystery"
-              colors={['#0f62fe', '#4589ff', '#a6c8ff']}
-              glowColor="#78a9ff"
-              radius={24}
-              trigger="hover"
-            >
-            <span className="mono-label">Db2Hack winners</span>
-            <div className="mystery-glyphs" aria-hidden="true">
-              <LoopScramble />
-            </div>
-            <h3>
-              IBM goodies. <span className="dim">Open-source impact.</span>
-            </h3>
-            <p>The best Db2Hack submissions win IBM goodies, and every submitter gets the chance to contribute their use case to IBM open-source projects. Submit by 5:00 PM IST, Tue 10 Nov.</p>
-            </PixelCard>
-          </Reveal>
-          {REWARDS.map((r, i) => (
-            <Reveal key={r.who} delay={0.06 * (i + 1)}>
+        <div className="rw-grid">
+          {[top3, top10].map((r, i) => (
+            <Reveal key={r.who} delay={0.08 * i} className="rw-photo">
+              <img src={r.img} alt={`${r.who} reward`} loading="lazy" />
+              <div className="rw-cap">
+                <span className="rw-who">{r.who}</span>
+                <h3>{r.what}</h3>
+              </div>
+            </Reveal>
+          ))}
+          {rest.map((r, i) => (
+            <Reveal key={r.who} delay={0.08 * (i + 2)}>
               <Spotlight className="reward">
-                <span className="reward-idx">{String(i + 1).padStart(2, '0')}</span>
+                <span className="reward-idx">{String(i + 3).padStart(2, '0')}</span>
                 <span className="mono-label">{r.who}</span>
                 <h3>{r.what}</h3>
               </Spotlight>
             </Reveal>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
 
-        <div className="rec-row">
-          <Reveal className="quiz">
-            <span className="mono-label">Data &amp; AI Quiz · individual</span>
-            <h3>
-              Think you know data and AI? <span className="dim">Prove it on stage.</span>
-            </h3>
-            <div className="quiz-topics">
-              {QUIZ_TOPICS.map((t, i) => (
-                <motion.span
-                  key={t}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.08 * i, ease: EASE }}
-                >
-                  {t}
-                </motion.span>
-              ))}
-            </div>
-            <p>
-              <b>Champion:</b> Certificate of Achievement
-            </p>
-          </Reveal>
-          <Reveal delay={0.08} className="certs">
-            <span className="mono-label">Certificates</span>
-            <p className="certs-note">
-              Signed by Daya Nand (Senior Db2 Development Manager, IBM) and Prof. Neeta Awasthy (Director, GL Bajaj
-              Group of Institutions, Mathura).
-            </p>
-            <ul>
-              {CERTIFICATES.map(c => (
-                <li key={c.title + c.to}>
-                  <span>{c.title}</span>
-                  <em>{c.to}</em>
-                </li>
-              ))}
-            </ul>
+function ComingSoon() {
+  return (
+    <section className="section soon-sec" id="live">
+      <div className="container">
+        <SectionHead
+          num="04"
+          kicker="Online · coming soon"
+          title={
+            <>
+              Build live with IBM. <span className="dim">Get unstuck live.</span>
+            </>
+          }
+          sub="Two online sessions for every Db2Hack builder. Dates will be announced shortly in the WhatsApp community."
+        />
+        <div className="soon-grid">
+          {COMING_SOON.map((c, i) => (
+            <Reveal key={c.title} delay={0.08 * i}>
+              <Spotlight className="soon">
+                <span className="soon-badge">
+                  <span className="live-dot" />
+                  Date announced soon
+                </span>
+                <h3>{c.title}</h3>
+                <p>{c.body}</p>
+              </Spotlight>
+            </Reveal>
+          ))}
+          <Reveal delay={0.16} className="soon-cta">
+            <p>Be the first to know the dates.</p>
+            <WhatsAppButton size="btn-lg" label="Get the dates on WhatsApp" />
           </Reveal>
         </div>
       </div>
@@ -1342,14 +1441,14 @@ function Speakers() {
     <section className="section" id="speakers">
       <div className="container">
         <SectionHead
-          num="05"
-          kicker="Speakers · IBM Db2"
+          num="07"
+          kicker="Speakers at the Summit · IBM Db2"
           title={
             <>
               Learn from the people <span className="dim">who build Db2.</span>
             </>
           }
-          sub="IBM Db2 leadership and engineers lead the talks, the workshop and the Db2Hack finale."
+          sub="IBM Db2 leadership and engineers who led the talks, the workshop and the panel on 30 Oct — and who review your Db2Hack projects."
         />
         <div className="speakers">
           {SPEAKERS.map((sp, i) => (
@@ -1392,7 +1491,7 @@ function Band() {
   return (
     <section className="band" aria-hidden="true">
       <ScrollVelocity
-        texts={['IBM Db2 TechX Summit', 'Db2Hack · still live · closes 10 Nov 5 PM']}
+        texts={['Db2Hack is live', 'Build on IBM Db2 · closes 10 Nov 5 PM']}
         velocity={60}
         separator="✦"
         outlineAlternate
@@ -1403,57 +1502,6 @@ function Band() {
   );
 }
 
-function Venue() {
-  return (
-    <section className="section venue-sec" id="venue">
-      <div className="venue-radar" aria-hidden="true">
-        <Radar color="#0f62fe" centerX={0.22} centerY={0.42} scale={0.8} targets={3} clutter={0.2} opacity={0.55} mouseInteraction={false} />
-      </div>
-      <div className="container venue">
-        <div>
-          <SectionHead
-            num="06"
-            kicker="Venue"
-            title={
-              <>
-                See you <span className="dim">in Mathura.</span>
-              </>
-            }
-          />
-          <Reveal className="venue-card">
-            <div className="vc-row">
-              <span className="mono-label">Where</span>
-              <p>{EVENT.venue}</p>
-            </div>
-            <div className="vc-row">
-              <span className="mono-label">When</span>
-              <p>
-                {EVENT.date}
-                <br />
-                {EVENT.time}
-              </p>
-            </div>
-            <div className="vc-row">
-              <span className="mono-label">Hosted by</span>
-              <p>GL Bajaj Group of Institutions, Mathura</p>
-            </div>
-            <a className="btn btn-ghost" href={MAPS_URL} {...ext}>
-              Get directions <ArrowUpRight />
-            </a>
-          </Reveal>
-        </div>
-        <Reveal delay={0.1} className="map">
-          <iframe
-            title="Map — GL Bajaj Group of Institutions, Mathura"
-            src={MAPS_EMBED}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
-        </Reveal>
-      </div>
-    </section>
-  );
-}
 
 function Faq() {
   const [open, setOpen] = useState(0);
@@ -1461,7 +1509,7 @@ function Faq() {
     <section className="section" id="faq">
       <div className="container faq-wrap">
         <SectionHead
-          num="07"
+          num="09"
           kicker="FAQ"
           title={
             <>
@@ -1510,17 +1558,17 @@ function FinalCta() {
       </div>
       <div className="container final-inner">
         <Reveal as="span" className="mono-label">
-          Friday · 30 October 2026 · Mathura
+          Db2Hack · online · closes Tue 10 Nov, 5:00 PM IST
         </Reveal>
         <Reveal delay={0.06} as="h2">
-          Your seat <span className="dim">is waiting.</span>
+          Your project <span className="dim">starts today.</span>
         </Reveal>
         <Reveal delay={0.12} as="p">
-          Free and in person. Register on Luma — every detail, including the Db2Hack brief and submission form, lands
-          in your inbox before the start.
+          Four steps: join WhatsApp, get Db2 free in VS Code, install one framework, build and submit. Top 3 win
+          trophies, Top 10 win IBM Db2 goodies.
         </Reveal>
         <Reveal delay={0.18} className="final-ctas">
-          <RegisterButton size="btn-xl" label="Register free on Luma" />
+          <StartButton size="btn-xl" />
           <StarBorder
             as="a"
             href={WHATSAPP_URL}
@@ -1534,9 +1582,6 @@ function FinalCta() {
           >
             WhatsApp community <ArrowUpRight />
           </StarBorder>
-        </Reveal>
-        <Reveal delay={0.24} className="luma-embed">
-          <iframe src={LUMA_EMBED} title="Register for IBM Db2 TechX Summit on Luma" allow="fullscreen; payment" loading="lazy" />
         </Reveal>
       </div>
     </section>
@@ -1571,15 +1616,12 @@ function Footer() {
             </div>
             <div>
               <span className="mono-label">Connect</span>
-              <a {...luma}>
-                Register on Luma
+              <a href={VSCODE_EXT.url} {...ext}>
+                Db2 extension for VS Code
               </a>
               <Link to="/submit">Submission guide</Link>
               <a href={WHATSAPP_URL} {...ext}>
                 WhatsApp community
-              </a>
-              <a href={MAPS_URL} {...ext}>
-                Directions
               </a>
             </div>
           </div>
@@ -1610,9 +1652,9 @@ function FloatCta() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
   return (
-    <a className={`float-cta ${on ? 'is-on' : ''}`} {...luma}>
-      Register <Arrow />
-    </a>
+    <NavItem n={{ id: 'start' }} className={`float-cta ${on ? 'is-on' : ''}`}>
+      Start building <Arrow />
+    </NavItem>
   );
 }
 
@@ -1622,66 +1664,7 @@ function ScrollProgress() {
   return <motion.div className="progress" style={{ scaleX: x }} />;
 }
 
-function MandatoryAction({ action }) {
-  if (action === 'register')
-    return (
-      <a className="mand-act" {...luma}>
-        Register <Arrow />
-      </a>
-    );
-  if (action === 'whatsapp')
-    return (
-      <a className="mand-act mand-act-wa" href={WHATSAPP_URL} {...ext}>
-        Join now <ArrowUpRight />
-      </a>
-    );
-  if (action === 'setup')
-    return (
-      <Link className="mand-act" to="/submit#local-db2">
-        Setup guide <Arrow />
-      </Link>
-    );
-  if (action === 'submit')
-    return (
-      <Link className="mand-act" to="/submit">
-        How to submit <Arrow />
-      </Link>
-    );
-  return null;
-}
 
-// "What's mandatory" checklist — sits right under the hero and on /submit.
-function Mandatory({ compact = false }) {
-  return (
-    <section className={`mandatory ${compact ? 'is-compact' : ''}`} id="mandatory">
-      <div className="container">
-        <Reveal className="mand-card">
-          <div className="mand-head">
-            <div>
-              <span className="mono-label">Before you start · mandatory</span>
-              <h2>
-                Six things every participant <span className="dim">must do.</span>
-              </h2>
-            </div>
-            <WhatsAppButton size="btn-lg" />
-          </div>
-          <ol className="mand-list">
-            {MANDATORY.map((m, i) => (
-              <li key={m.title} className={m.action === 'whatsapp' ? 'is-wa' : ''}>
-                <span className="mand-n">{String(i + 1).padStart(2, '0')}</span>
-                <div>
-                  <h3>{m.title}</h3>
-                  <p>{m.body}</p>
-                </div>
-                <MandatoryAction action={m.action} />
-              </li>
-            ))}
-          </ol>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
 
 // Showreel right under the hero — autoplays muted, with a sound toggle.
 function Showreel() {
@@ -1723,45 +1706,6 @@ function Showreel() {
   );
 }
 
-// Still-open notice, eligibility, the plan and IBM's goal.
-function OpenCall() {
-  return (
-    <section className="opencall" id="open-call">
-      <div className="container">
-        <Reveal className="oc-card">
-          <div className="oc-banner">
-            <span className="live-dot" />
-            <strong>Workshop done · Db2Hack is still live.</strong>
-            <span>Submissions close at 5:00 PM IST on Tue 10 Nov. Win IBM goodies and the chance to contribute your use case to IBM open-source projects.</span>
-            <Link className="btn btn-primary btn-sm" to="/submit#quick-start">
-              Start in 6 steps <Arrow />
-            </Link>
-          </div>
-          <div className="oc-grid">
-            <div className="oc-col">
-              <span className="mono-label">Eligibility</span>
-              <h3>Open to everyone.</h3>
-              <p>{ELIGIBILITY.who}</p>
-            </div>
-            <div className="oc-col">
-              <span className="mono-label">How it works now</span>
-              <ul className="checks">
-                {ELIGIBILITY.plan.map(pt => (
-                  <li key={pt}>{pt}</li>
-                ))}
-              </ul>
-            </div>
-            <div className="oc-col oc-goal">
-              <span className="mono-label">IBM's goal</span>
-              <h3>Learn. Build. Stay.</h3>
-              <p>{ELIGIBILITY.goal}</p>
-            </div>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
 
 function QuickStart() {
   return (
@@ -2200,14 +2144,13 @@ function SubmitPage() {
   useEffect(() => {
     document.title = 'Submit your project · Db2Hack · IBM Db2 TechX Summit';
     return () => {
-      document.title = 'IBM Db2 TechX Summit · 30 Oct 2026 · GL Bajaj, Mathura';
+      document.title = 'Db2Hack is live · IBM Db2 TechX Summit 2026';
     };
   }, []);
   return (
     <main className="page-submit">
       <SubmitHero />
-      <OpenCall />
-      <Mandatory compact />
+      <StartHere num={null} />
       <QuickStart />
       <IbmBob />
       <LocalDb2 />
@@ -2314,19 +2257,16 @@ function HomePage() {
   return (
     <main>
       <Hero />
-      <Showreel />
-      <OpenCall />
-      <Mandatory />
-      <Partners />
-      <About />
-      <Statement />
-      <Schedule />
+      <StartHere />
+      <AiSkill />
+      <Rewards />
+      <ComingSoon />
       <Db2Hack />
       <ResourcesTeaser />
-      <Rewards />
-      <Speakers />
       <Band />
-      <Venue />
+      <Recap />
+      <Speakers />
+      <Schedule />
       <Faq />
       <FinalCta />
     </main>
@@ -2338,7 +2278,7 @@ function ResourcesPage() {
   useEffect(() => {
     document.title = 'Resources · IBM Db2 TechX Summit';
     return () => {
-      document.title = 'IBM Db2 TechX Summit · 30 Oct 2026 · GL Bajaj, Mathura';
+      document.title = 'Db2Hack is live · IBM Db2 TechX Summit 2026';
     };
   }, []);
   return (
@@ -2354,17 +2294,6 @@ function ResourcesPage() {
 }
 
 export default function App() {
-  const { pathname } = useLocation();
-  useEffect(() => {
-    const bind = () => window.luma?.initCheckout?.();
-    const t = setTimeout(bind, 50);
-    const script = document.getElementById('luma-checkout');
-    script?.addEventListener('load', bind);
-    return () => {
-      clearTimeout(t);
-      script?.removeEventListener('load', bind);
-    };
-  }, [pathname]);
   return (
     <ClickSpark sparkColor="#78a9ff" sparkSize={10} sparkRadius={22} sparkCount={9} duration={450}>
       <ScrollProgress />

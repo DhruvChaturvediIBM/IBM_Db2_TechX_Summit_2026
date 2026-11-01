@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Full-size event photos (originals, ~650 MB) — web copies live in public/gallery/
+public/Workshop_done/

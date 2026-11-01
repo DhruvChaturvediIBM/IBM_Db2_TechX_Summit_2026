@@ -1,15 +1,7 @@
 // Single place to edit every link and fact on the page.
 // Source of truth: IBM-Db2-TechX-Summit-Master-Document (v1.0, 28 Oct 2026).
 
-// Luma event — every Register button opens Luma's checkout popup for this event.
-export const LUMA_EVENT_ID = 'evt-rKKaLkPzJFs05n9';
-export const LUMA_URL = `https://luma.com/event/${LUMA_EVENT_ID}`;
-export const LUMA_EMBED = `https://luma.com/embed/event/${LUMA_EVENT_ID}/simple`;
 export const WHATSAPP_URL = 'https://chat.whatsapp.com/L5EwLpFMmqa179MsOgi9fu';
-export const MAPS_URL =
-  'https://www.google.com/maps/search/?api=1&query=GL+Bajaj+Group+of+Institutions+Mathura';
-export const MAPS_EMBED =
-  'https://www.google.com/maps?q=GL+Bajaj+Group+of+Institutions,+Akbarpur,+Mathura&output=embed';
 
 // All times in IST (+05:30).
 export const MOMENTS = {
@@ -34,38 +26,55 @@ export const EVENT = {
 
 // Section anchors on the home page; `path` entries are separate pages.
 export const NAV = [
-  { id: 'about', label: 'About' },
-  { id: 'schedule', label: 'Schedule' },
+  { id: 'start', label: 'Start here' },
+  { id: 'ai-skill', label: 'AI skill' },
+  { id: 'rewards', label: 'Rewards' },
   { id: 'db2hack', label: 'Db2Hack' },
   { path: '/submit', label: 'Submit project', highlight: true },
   { path: '/resources', label: 'Resources' },
-  { id: 'rewards', label: 'Rewards' },
-  { id: 'speakers', label: 'Speakers' },
-  { id: 'venue', label: 'Venue' },
+  { id: 'recap', label: '30 Oct recap' },
   { id: 'faq', label: 'FAQ' },
 ];
 
-export const PROGRAMME = [
-  { code: '01', title: 'Talks by IBM experts', body: 'Hear directly from the engineers who build IBM Db2 — how modern AI applications are built on data.' },
-  { code: '02', title: 'Hands-on workshop', body: 'Build real AI use cases on IBM Db2 with popular open-source frameworks.' },
-  { code: '03', title: 'Knowledge sharing', body: 'Open conversations with IBM Db2 engineers on data, AI and careers in the field.' },
-  { code: '04', title: 'Panel discussion', body: 'AI, data and the road ahead — a live panel with the IBM team.' },
-  { code: '05', title: 'Db2Hack finale', body: 'The Top 10 builders pitch their AI use cases on IBM Db2 live to IBM experts.' },
-  { code: '06', title: 'Data & AI Quiz', body: 'Databases, vector search, RAG, LLMs and agents — test what you know, live.' },
+// IBM Db2 Developer Extension for VS Code — the easiest way to get Db2 free.
+export const VSCODE_EXT = {
+  id: 'IBM.db2-for-luw',
+  url: 'https://marketplace.visualstudio.com/items?itemName=IBM.db2-for-luw',
+  review: 'https://marketplace.visualstudio.com/items?itemName=IBM.db2-for-luw&ssr=false#review-details',
+  vscode: 'vscode:extension/IBM.db2-for-luw',
+  about: 'https://github.com/IBM/db2developerextension-about',
+};
+
+// The one path on the home page and /submit. Keep it to four steps.
+export const START_STEPS = [
+  { key: 'whatsapp', title: 'Join the WhatsApp community', time: '1 min', body: 'Mandatory. The Google Form link, live updates and the dates for the online workshop and doubt-solving session are shared here first.' },
+  { key: 'db2', title: 'Get Db2 free in VS Code', time: '10 min', body: 'Install the IBM Db2 Developer Extension, click "Create Db2 instance" and you have a free Db2 Community Edition with testdb and SAMPLE databases on your laptop.' },
+  { key: 'framework', title: 'Install one AI framework for Db2', time: '2 min', body: 'Pick one — LangChain, LlamaIndex, Haystack, CrewAI or no-code Langflow — and install its Db2 package. One is enough.' },
+  { key: 'submit', title: 'Build it, then submit', time: 'by 10 Nov · 5 PM', body: 'Open a pull request on the submission repo, paste the PR link in the Google Form and post your project on LinkedIn. Both PR and form must be in before 5:00 PM IST, Tue 10 Nov.' },
 ];
 
-export const STATS = [
-  { value: 1, suffix: '', label: 'Day of Db2, data & AI' },
-  { value: 7, suffix: '', label: 'IBM Db2 leaders & experts' },
-  { value: 24, suffix: 'h', label: 'Db2Hack build sprint' },
-  { value: 10, suffix: '', label: 'Finalists pitch live' },
+// Agentic AI on Db2 — what each package lets an agent do.
+export const AGENTIC = [
+  { name: 'CrewAI', logo: 'crewai-t.png', cmd: 'pip install crewai-tools ibm_db', does: 'Agents that search your Db2 data with the Db2 vector search tool' },
+  { name: 'LangChain', logo: 'langchain-t.png', cmd: 'pip install -U langchain-db2', does: 'Db2 as the vector store and memory behind RAG chains and agents' },
+  { name: 'LlamaIndex', logo: 'llamaindex.png', cmd: 'pip install llama-index-vector-stores-db2', does: 'Index your documents in Db2 and query them from agents' },
+  { name: 'Haystack', logo: 'haystack-icon.png', cmd: 'pip install ibm-db-haystack', does: 'Db2 document store for retrieval and agent pipelines' },
+  { name: 'Langflow', logo: 'langflow.png', cmd: 'pip install lfx-ibm', does: 'Drag-and-drop agent flows with the IBM Db2 Vector Store component' },
 ];
 
-export const AUDIENCE = [
-  { title: 'Students', body: 'Learn from the people who build IBM Db2 and see how data powers real AI products.' },
-  { title: 'Builders & hackers', body: 'Ship an AI use case on IBM Db2 and pitch it live to IBM experts.' },
-  { title: 'Data & AI enthusiasts', body: 'Vector search, RAG, agents and data for AI — explained by practitioners.' },
-];
+// Downloadable skill for the participant's own AI assistant (public/skill/).
+// After editing SKILL.md, re-zip: cd public/skill && zip -r ibm-db2-builder.zip ibm-db2-builder
+export const AI_SKILL = {
+  md: '/skill/ibm-db2-builder/SKILL.md',
+  zip: '/skill/ibm-db2-builder.zip',
+  prompt:
+    'Use the IBM Db2 builder skill I attached (SKILL.md). I am on <Windows / macOS / Linux>. My idea: <describe your idea>. Help me, one step at a time, set up a free local Db2 with the VS Code Db2 Developer Extension, choose how my idea fits on Db2 (RAG, agents, vector search or text-to-SQL) and build it for Db2Hack.',
+  where: [
+    { tool: 'Claude Code', how: 'Unzip into ~/.claude/skills/ (or your project\'s .claude/skills/). It loads automatically when you talk about Db2.' },
+    { tool: 'Cursor · Copilot · Codex · Windsurf · IBM Bob', how: 'Save it as AGENTS.md in your project root, or attach it in the chat.' },
+    { tool: 'ChatGPT · Gemini · any chat AI', how: 'Upload SKILL.md in the chat, then paste the prompt below.' },
+  ],
+};
 
 // Event flow across all three days. `date` is the IST calendar day; times are 24-hour IST.
 export const SCHEDULE_DAYS = [
@@ -105,7 +114,7 @@ export const SCHEDULE_DAYS = [
     label: 'Tue · 10 Nov',
     caption: 'Db2Hack · online · last day',
     items: [
-      { start: '00:00', end: '17:00', title: 'Final submissions', detail: 'The workshop has ended but Db2Hack is still live. Open your PR and fill the Google Form before 5:00 PM IST — for a chance to win IBM goodies and to contribute your use case to IBM open-source projects', highlight: true, tag: 'Closes 5 PM' },
+      { start: '00:00', end: '17:00', title: 'Final submissions', detail: 'The workshop has ended but Db2Hack is still live. Open your PR and fill the Google Form before 5:00 PM IST — Top 3 win trophies, Top 10 win IBM Db2 goodies', highlight: true, tag: 'Closes 5 PM' },
     ],
   },
   {
@@ -118,11 +127,54 @@ export const SCHEDULE_DAYS = [
   },
 ];
 
-export const HACK_STEPS = [
-  { n: '01', title: 'Build', when: 'Still live · until 10 Nov, 5 PM', body: 'Create your AI use case on IBM Db2 with the toolkit packages.' },
-  { n: '02', title: 'Share', when: 'While you build', body: 'Post your use case on LinkedIn, explain it clearly and tag the organising team.' },
-  { n: '03', title: 'Submit', when: 'By 5:00 PM IST · Tue 10 Nov', body: 'Open a pull request on the submission GitHub repo, then send the PR link through the Google Form before 5:00 PM.' },
-  { n: '04', title: 'Results', when: 'Wed 11 Nov', body: 'Top 3, Top 10 and the projects with potential are announced — with IBM goodies and the chance to contribute your use case to IBM open-source projects.' },
+// Online sessions for Db2Hack builders — dates go out on WhatsApp first.
+export const COMING_SOON = [
+  { title: 'Live online workshop', body: 'Build an AI app on IBM Db2 live with the IBM team — from a blank folder to a working RAG or agent project.' },
+  { title: 'Doubt-solving session', body: 'Stuck on setup, Docker, your framework or the submission? Bring it live and get it solved.' },
+];
+
+// The Summit on 30 Oct at GL Bajaj, Mathura — photos in public/gallery/ (web-sized from public/Workshop_done/).
+export const RECAP_HIGHLIGHTS = ['7 IBM Db2 speakers', 'Hands-on workshop', 'Live doubt-solving', 'Panel · Beyond Databases', 'Data & AI Quiz', 'Honours & certificates'];
+
+export const GALLERY_TABS = [
+  { id: 'all', label: 'All' },
+  { id: 'talks', label: 'Talks' },
+  { id: 'hands', label: 'Workshop & doubts' },
+  { id: 'panel', label: 'Panel' },
+  { id: 'honours', label: 'Honours' },
+  { id: 'people', label: 'People' },
+];
+
+export const GALLERY = [
+  { src: 'crowd-1', tab: 'people', alt: 'The IBM Db2 team with a packed auditorium at GL Bajaj' , wide: true },
+  { src: 'talk-1', tab: 'talks', alt: 'Talk: Db2 for AI — from problem to product' },
+  { src: 'hands-1', tab: 'hands', alt: 'Students building on their laptops during the workshop' },
+  { src: 'talk-4', tab: 'talks', alt: 'An IBM speaker presenting live', tall: true },
+  { src: 'panel-1', tab: 'panel', alt: 'Panel discussion: Beyond Databases' },
+  { src: 'talk-2', tab: 'talks', alt: 'Talk: Db2 inside VS Code' },
+  { src: 'hands-2', tab: 'hands', alt: 'One-to-one help from the IBM team' },
+  { src: 'honour-1', tab: 'honours', alt: 'Student volunteers recognised on stage' },
+  { src: 'crowd-2', tab: 'people', alt: 'A full house at GL Bajaj, Mathura' },
+  { src: 'talk-5', tab: 'talks', alt: 'Talk: many kinds of databases — two matter most for AI' },
+  { src: 'hands-5', tab: 'hands', alt: 'A student asking a question during the session', tall: true },
+  { src: 'panel-2', tab: 'panel', alt: 'Panelists answering questions from the audience' },
+  { src: 'honour-3', tab: 'honours', alt: 'Recognition for a student project' },
+  { src: 'talk-3', tab: 'talks', alt: 'Talk: a free Db2 workbench in VS Code' },
+  { src: 'hands-3', tab: 'hands', alt: 'Fixing setups live with students' },
+  { src: 'team-1', tab: 'people', alt: 'The IBM team with the student coordinators', wide: true },
+  { src: 'talk-6', tab: 'talks', alt: "Talk: let's build an AI for our college fest" },
+  { src: 'panel-3', tab: 'panel', alt: 'Panel moderator with a panelist' },
+  { src: 'honour-4', tab: 'honours', alt: 'Data & AI Quiz recognition' },
+  { src: 'talk-7', tab: 'talks', alt: 'Opening the technical session', tall: true },
+  { src: 'hands-4', tab: 'hands', alt: 'Workshop participants with the IBM team' },
+  { src: 'honour-2', tab: 'honours', alt: 'Student coordinators recognised' },
+  { src: 'panel-4', tab: 'panel', alt: 'The full panel on stage' },
+  { src: 'team-2', tab: 'people', alt: 'IBM Db2 speakers on stage' },
+  { src: 'talk-8', tab: 'talks', alt: 'A talk on building with Db2' },
+  { src: 'honour-5', tab: 'honours', alt: 'IBM speakers felicitated by GL Bajaj' },
+  { src: 'crowd-3', tab: 'people', alt: 'Guests and the IBM team in the front row' },
+  { src: 'honour-6', tab: 'honours', alt: 'Memento for the IBM team' },
+  { src: 'team-3', tab: 'people', alt: 'The registration desk run by student coordinators' },
 ];
 
 export const CORE_FRAMEWORKS = ['LangChain', 'Haystack', 'CrewAI', 'LlamaIndex', 'Langflow'];
@@ -154,26 +206,13 @@ export const ECOSYSTEM = [
   { name: 'VS Code', logo: 'vscode-db2.png' },
 ];
 
-// IBM goodies for the best submissions — don't list specific prize items.
+// Db2Hack rewards — results on Wed 11 Nov.
 export const REWARDS = [
-  { who: 'Best submissions', what: 'IBM goodies for the best Db2Hack use cases — submit by 5:00 PM IST, 10 Nov' },
-  { who: 'Open source', what: 'A chance to work with IBM open-source projects and contribute your use case there' },
-  { who: 'Top 3 · Top 10', what: 'Winners announced on Wed 11 Nov, with special recognition from IBM' },
-  { who: 'High potential', what: 'Projects with real potential are called out on 11 Nov too' },
-  { who: 'Best posts', what: 'Appreciation from IBM experts on social media' },
-  { who: 'All participants', what: 'Certificates' },
+  { who: 'Top 3', what: 'Trophy, IBM Db2 kit and a Certificate of Excellence', img: '/gallery/trophies.jpg' },
+  { who: 'Top 10', what: 'IBM Db2 goodies and a Certificate of Merit', img: '/gallery/kit.jpg' },
+  { who: 'Good projects', what: 'Opportunity to contribute your use case to the IBM Db2 GitHub organisation' },
+  { who: 'Everyone', what: 'Showcase your skills by building a real project on an enterprise database' },
 ];
-
-export const CERTIFICATES = [
-  { title: 'Certificate of Excellence', to: 'Db2Hack 1st, 2nd & 3rd' },
-  { title: 'Certificate of Merit', to: 'Db2Hack Top 10 finalists' },
-  { title: 'Certificate of Achievement', to: 'Data & AI Quiz champion' },
-  { title: 'Certificate of Recognition', to: 'Open-source contributors' },
-  { title: 'Certificate of Appreciation', to: 'Community engagement' },
-  { title: 'Certificate of Participation', to: 'All participants' },
-];
-
-export const QUIZ_TOPICS = ['Databases & SQL', 'Vector search', 'RAG', 'LLMs & agents', 'Data for AI'];
 
 export const SPEAKERS = [
   { name: 'Gaurav Saxena', role: 'Program Director, IBM Db2', org: 'IBM Lucknow', photo: '/speakers/Gaurav-Saxena.png', linkedin: 'https://www.linkedin.com/in/gaurav-saxena-95044594/' },
@@ -186,8 +225,11 @@ export const SPEAKERS = [
 ];
 
 export const FAQ = [
-  { q: 'Is the Summit free?', a: 'Yes. The IBM Db2 TechX Summit is free and in person. Register on Luma — registrations are reviewed by the organisers, and you get a confirmation once approved.' },
-  { q: 'When and where is it?', a: 'Friday, 30 October 2026, 9:00 AM – 5:00 PM IST at GL Bajaj Group of Institutions, NH-2 Mathura–Delhi Road, Akbarpur, Mathura. Reporting starts at 9:00 AM.' },
+  { q: 'I am new. What exactly do I do?', a: 'Four steps: 1) join the WhatsApp community, 2) install the IBM Db2 Developer Extension in VS Code and click "Create Db2 instance", 3) install one framework package such as pip install -U langchain-db2, 4) build your project, open a pull request and fill the Google Form before 5:00 PM IST on Tue 10 Nov. The "Start here" section on the home page has a button for each step.' },
+  { q: 'Can my AI assistant help me build it?', a: 'Yes. Download the IBM Db2 builder skill from the "AI skill" section and give it to Claude, Cursor, Copilot, IBM Bob, ChatGPT or Gemini. It walks your AI through installing Db2, picking a framework, writing the code and preparing your submission.' },
+  { q: 'What do the winners get?', a: 'Top 3: a trophy, an IBM Db2 kit and a Certificate of Excellence. Top 10: IBM Db2 goodies and a Certificate of Merit. Students with good projects get the opportunity to contribute their use cases to the IBM Db2 GitHub organisation. Results are announced on Wednesday, 11 November.' },
+  { q: 'Is there a live online workshop or doubt session?', a: 'Yes — a live online workshop and a doubt-solving session are coming soon. The dates will be announced shortly in the WhatsApp community.' },
+  { q: 'Is the Summit over?', a: 'Yes. The IBM Db2 TechX Summit took place on Friday, 30 October 2026 at GL Bajaj Group of Institutions, Mathura — see the photos in the 30 Oct recap. Db2Hack is online and separate: it is open to everyone, anywhere, until 5:00 PM IST on Tue 10 Nov.' },
   { q: 'What is Db2Hack?', a: 'A build challenge to create an AI use case on IBM Db2. It opened on 28 October, 7:00 PM IST. The workshop has ended, but Db2Hack is still live — submissions close at 5:00 PM IST on Tuesday, 10 November. Submit for a chance to win IBM goodies and to contribute your use case to IBM open-source projects.' },
   { q: 'Who can participate? Can I join as a team?', a: 'Everyone — there are no restrictions. Students, developers and anyone curious can build a solution with IBM Db2, on their own or as a team. List every team member in your submission.' },
   { q: 'I missed the start. Can I still join?', a: 'Yes. Db2Hack is still live until 5:00 PM IST on Tuesday, 10 November — start now with the 6-step quick start on the Submit page and submit before the deadline.' },
@@ -199,9 +241,8 @@ export const FAQ = [
   { q: 'Do I need to post on LinkedIn?', a: 'Yes, sharing is part of the challenge: post your use case on LinkedIn, explain it clearly and tag the organising team. The best posts get appreciation from IBM experts.' },
   { q: 'Do I need prior Db2 experience?', a: 'No. The toolkit gives you ready-made Db2 integrations — vector stores, document stores and agent tools — for the frameworks you may already know.' },
   { q: 'Which Db2 should I build on?', a: 'Db2 Community Edition — it is free with full Db2 features (up to 4 cores and 16 GB RAM). The quickest start is the IBM Db2 Developer Extension for VS Code, which can create a Community Edition instance with a sample database. You can also use the Docker image (icr.io/db2_community/db2) or the installer from ibm.com/db2/get-started.' },
-  { q: 'What do participants get?', a: 'All participants receive certificates. The best submissions win IBM goodies, the Top 3 are specially recognised, and everyone gets the chance to work with IBM open-source projects and contribute their use case there, with guidance from the IBM team.' },
-  { q: 'Can I contribute to IBM Db2 open source?', a: 'Yes — submit your Db2Hack use case and you get the chance to work with IBM open-source projects and contribute it there. The IBM team will guide you: where to contribute, how to pick a use case and how to open your contribution.' },
-  { q: 'Where will I get further updates?', a: 'All event and Db2Hack details are emailed to registered participants before the start. Join the WhatsApp community for live updates.' },
+  { q: 'Can I contribute to IBM Db2 open source?', a: 'Yes. Students who submit good projects get the opportunity to contribute their use cases to the IBM Db2 GitHub organisation, with guidance from the IBM team on where and how to open the contribution.' },
+  { q: 'Where will I get further updates?', a: 'In the WhatsApp community — the Google Form link, the online workshop and doubt-session dates, and the results on 11 Nov are shared there first.' },
 ];
 
 // Official IBM Product Hub tutorials, one per Db2Hack framework.
@@ -295,16 +336,6 @@ export const COMMUNITY_EDITION = {
     },
   ],
 };
-
-// Shown at the top of the home page and the Submit page. Keep in sync with the master doc.
-export const MANDATORY = [
-  { title: 'Register on Luma', body: 'Free, approval-based. Your confirmation email carries every detail.', action: 'register' },
-  { title: 'Join the WhatsApp community', body: 'Compulsory for every participant — live updates, the Google Form link and any timing changes land here first.', action: 'whatsapp' },
-  { title: 'Get Db2 free on your laptop', body: 'Install the IBM Db2 Developer Extension in VS Code and create a local Db2 Community Edition instance — it takes minutes.', action: 'setup' },
-  { title: 'Build on IBM Db2 + 1 framework', body: 'Real Db2 integration in code, using at least one of LangChain, Haystack, CrewAI, LlamaIndex or Langflow.' },
-  { title: 'Open a GitHub pull request', body: 'Your project folder on the official submission repo, following the template.', action: 'submit' },
-  { title: 'Submit the Google Form + post on LinkedIn', body: 'Paste your PR link in the form before 5:00 PM IST on Tue 10 Nov, and share your use case on LinkedIn tagging the organisers.' },
-];
 
 // Db2Hack submission guide (/submit) — from the official submission repo README and docs.
 export const SUBMISSION_REPO = 'https://github.com/KunalGolaIBM/IBM_Db2_TechX_Project_Submission';
@@ -413,20 +444,6 @@ export const MUST_DO = [
     links: [{ label: 'Connector docs & toolkit', url: '#toolkit' }],
   },
 ];
-
-// Who can join, the plan, and why IBM runs Db2Hack — shown on the home page and /submit.
-export const ELIGIBILITY = {
-  who: 'Open to everyone — no restrictions. Students, developers and anyone curious can build a solution with IBM Db2, solo or as a team.',
-  plan: [
-    'The workshop has ended, but Db2Hack is still live — submissions close at 5:00 PM IST on Tue 10 Nov',
-    'IBM experts review every submission — on Wed 11 Nov we announce the Top 3, the Top 10 and the projects with potential',
-    'Submit and get the chance to work with IBM open-source projects and contribute your use case there',
-    'Fully transparent: we share the judging sheet and feedback on why a submission was not in the Top 10',
-    'The IBM team is adding sample submissions to the repo so you have clear references to learn from',
-    'Open-source contribution to IBM Db2 AI use cases is open for all — the IBM team will guide you on how',
-  ],
-  goal: 'Everyone has the opportunity to learn and contribute. The goal is not just to pick winners. IBM wants you to learn AI and Db2, build something meaningful, and stay part of the ecosystem long after the event — walking away with real experience and the confidence to keep building and contributing.',
-};
 
 // Quick start on /submit: from idea to pull request.
 export const QUICKSTART = [
