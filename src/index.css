@@ -4608,6 +4608,15 @@ p {
 .gal-item:focus-visible .gal-cap {
   opacity: 1;
 }
+.gal-more {
+  margin-top: 28px;
+  display: flex;
+  justify-content: center;
+}
+.recap-sec.is-full {
+  padding-top: 0;
+  border-top: 0;
+}
 .recap-sec .partners {
   padding-top: 72px;
 }

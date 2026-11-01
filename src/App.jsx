@@ -345,7 +345,7 @@ function Hero() {
           </a>
           <a href="#ai-skill">AI skill for your assistant →</a>
           <Link to="/submit">How to submit →</Link>
-          <a href="#recap">30 Oct Summit recap →</a>
+          <Link to="/gallery">30 Oct photo gallery →</Link>
         </motion.div>
       </motion.div>
 
@@ -740,45 +740,53 @@ function Lightbox({ items, index, onClose, onStep }) {
   );
 }
 
-function Recap() {
+// Home shows a preview; /gallery shows every photo with filter tabs.
+const PREVIEW_COUNT = 8;
+
+function Recap({ full = false }) {
   const [tab, setTab] = useState('all');
   const [open, setOpen] = useState(-1);
-  const items = tab === 'all' ? GALLERY : GALLERY.filter(g => g.tab === tab);
+  const filtered = tab === 'all' ? GALLERY : GALLERY.filter(g => g.tab === tab);
+  const items = full ? filtered : GALLERY.slice(0, PREVIEW_COUNT);
   const close = useCallback(() => setOpen(-1), []);
   const step = useCallback(d => setOpen(i => (i + d + items.length) % items.length), [items.length]);
   return (
-    <section className="section recap-sec" id="recap">
+    <section className={`section recap-sec ${full ? 'is-full' : ''}`} id={full ? 'photos' : 'recap'}>
       <div className="container">
-        <SectionHead
-          num="06"
-          kicker="30 Oct 2026 · GL Bajaj, Mathura · done"
-          title={
-            <>
-              The Summit is done. <span className="dim">Thank you, Mathura.</span>
-            </>
-          }
-          sub="On Friday, 30 October the IBM Db2 team spent the day at GL Bajaj Group of Institutions — talks, a hands-on workshop, live doubt-solving, a panel, the Data & AI Quiz and honours."
-        />
+        {!full && (
+          <SectionHead
+            num="06"
+            kicker="30 Oct 2026 · GL Bajaj, Mathura · done"
+            title={
+              <>
+                The Summit is done. <span className="dim">Thank you, Mathura.</span>
+              </>
+            }
+            sub="On Friday, 30 October the IBM Db2 team spent the day at GL Bajaj Group of Institutions — talks, a hands-on workshop, live doubt-solving, a panel, the Data & AI Quiz and honours."
+          />
+        )}
         <Reveal className="recap-chips">
           <span className="recap-done">✓ Completed · 30 Oct</span>
           {RECAP_HIGHLIGHTS.map(h => (
             <span key={h}>{h}</span>
           ))}
         </Reveal>
-        <div className="gal-tabs" role="tablist" aria-label="Photo categories">
-          {GALLERY_TABS.map(t => (
-            <button
-              type="button"
-              role="tab"
-              key={t.id}
-              aria-selected={tab === t.id}
-              className={tab === t.id ? 'is-on' : ''}
-              onClick={() => setTab(t.id)}
-            >
-              {t.label}
-            </button>
-          ))}
-        </div>
+        {full && (
+          <div className="gal-tabs" role="tablist" aria-label="Photo categories">
+            {GALLERY_TABS.map(t => (
+              <button
+                type="button"
+                role="tab"
+                key={t.id}
+                aria-selected={tab === t.id}
+                className={tab === t.id ? 'is-on' : ''}
+                onClick={() => setTab(t.id)}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+        )}
         <div className="gallery">
           {items.map((g, i) => (
             <button
@@ -793,8 +801,14 @@ function Recap() {
             </button>
           ))}
         </div>
+        {!full && (
+          <Reveal className="gal-more">
+            <Link className="btn btn-primary btn-lg" to="/gallery">
+              See all {GALLERY.length} photos <Arrow />
+            </Link>
+          </Reveal>
+        )}
       </div>
-      <Showreel />
       <Partners />
       {open >= 0 && <Lightbox items={items} index={open} onClose={close} onStep={step} />}
     </section>
@@ -2257,6 +2271,7 @@ function HomePage() {
   return (
     <main>
       <Hero />
+      <Showreel />
       <StartHere />
       <AiSkill />
       <Rewards />
@@ -2268,6 +2283,37 @@ function HomePage() {
       <Speakers />
       <Schedule />
       <Faq />
+      <FinalCta />
+    </main>
+  );
+}
+
+function GalleryPage() {
+  useHashScroll();
+  useEffect(() => {
+    document.title = 'Gallery · IBM Db2 TechX Summit · 30 Oct 2026';
+    return () => {
+      document.title = 'Db2Hack is live · IBM Db2 TechX Summit 2026';
+    };
+  }, []);
+  return (
+    <main className="page-gallery">
+      <section className="page-hero">
+        <div className="container page-hero-inner">
+          <Reveal as="span" className="kicker">
+            <span className="kicker-dot" />
+            30 Oct 2026 · GL Bajaj Group of Institutions, Mathura
+          </Reveal>
+          <Reveal delay={0.06} as="h1">
+            The Summit, <span className="dim">in photos.</span>
+          </Reveal>
+          <Reveal delay={0.12} as="p">
+            Talks by the IBM Db2 team, the hands-on workshop, live doubt-solving, the panel, the Data &amp; AI Quiz and
+            the honours — tap any photo to open it.
+          </Reveal>
+        </div>
+      </section>
+      <Recap full />
       <FinalCta />
     </main>
   );
@@ -2302,6 +2348,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/resources" element={<ResourcesPage />} />
+        <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/submit" element={<SubmitPage />} />
         <Route path="*" element={<HomePage />} />
       </Routes>

@@ -32,7 +32,7 @@ export const NAV = [
   { id: 'db2hack', label: 'Db2Hack' },
   { path: '/submit', label: 'Submit project', highlight: true },
   { path: '/resources', label: 'Resources' },
-  { id: 'recap', label: '30 Oct recap' },
+  { path: '/gallery', label: 'Gallery' },
   { id: 'faq', label: 'FAQ' },
 ];
 
@@ -105,7 +105,6 @@ export const SCHEDULE_DAYS = [
       { start: '13:00', end: '14:00', title: 'Lunch break', detail: 'Refuel and network' },
       { start: '14:00', end: '15:00', title: 'Build on campus after the workshop', detail: 'Learnt something in the workshop? Build it here and submit your PR — offline participants welcome', tag: 'Done' },
       { start: '15:00', end: '16:00', title: 'Panel discussion', detail: 'AI, data and the road ahead' },
-      { start: '16:00', end: '16:30', title: 'Db2Hack finale', detail: 'Top 10 present their AI use cases on IBM Db2 to IBM experts — Top 10 get Db2 goodies, Top 3 are recognised on stage', highlight: true, tag: 'Finale' },
       { start: '16:30', end: '17:00', title: 'Valedictory', detail: 'Certificates, felicitation and vote of thanks' },
     ],
   },
@@ -229,7 +228,7 @@ export const FAQ = [
   { q: 'Can my AI assistant help me build it?', a: 'Yes. Download the IBM Db2 builder skill from the "AI skill" section and give it to Claude, Cursor, Copilot, IBM Bob, ChatGPT or Gemini. It walks your AI through installing Db2, picking a framework, writing the code and preparing your submission.' },
   { q: 'What do the winners get?', a: 'Top 3: a trophy, an IBM Db2 kit and a Certificate of Excellence. Top 10: IBM Db2 goodies and a Certificate of Merit. Students with good projects get the opportunity to contribute their use cases to the IBM Db2 GitHub organisation. Results are announced on Wednesday, 11 November.' },
   { q: 'Is there a live online workshop or doubt session?', a: 'Yes — a live online workshop and a doubt-solving session are coming soon. The dates will be announced shortly in the WhatsApp community.' },
-  { q: 'Is the Summit over?', a: 'Yes. The IBM Db2 TechX Summit took place on Friday, 30 October 2026 at GL Bajaj Group of Institutions, Mathura — see the photos in the 30 Oct recap. Db2Hack is online and separate: it is open to everyone, anywhere, until 5:00 PM IST on Tue 10 Nov.' },
+  { q: 'Is the Summit over?', a: 'Yes. The IBM Db2 TechX Summit took place on Friday, 30 October 2026 at GL Bajaj Group of Institutions, Mathura — see the photos on the Gallery page. Db2Hack is online and separate: it is open to everyone, anywhere, until 5:00 PM IST on Tue 10 Nov.' },
   { q: 'What is Db2Hack?', a: 'A build challenge to create an AI use case on IBM Db2. It opened on 28 October, 7:00 PM IST. The workshop has ended, but Db2Hack is still live — submissions close at 5:00 PM IST on Tuesday, 10 November. Submit for a chance to win IBM goodies and to contribute your use case to IBM open-source projects.' },
   { q: 'Who can participate? Can I join as a team?', a: 'Everyone can participate — students, developers and anyone curious. Db2Hack is solo only: no teams, each person builds and submits their own project.' },
   { q: 'I missed the start. Can I still join?', a: 'Yes. Db2Hack is still live until 5:00 PM IST on Tuesday, 10 November — start now with the 6-step quick start on the Submit page and submit before the deadline.' },
