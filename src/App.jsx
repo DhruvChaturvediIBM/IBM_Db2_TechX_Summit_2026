@@ -201,16 +201,16 @@ function Nav() {
     };
   }, [pathname]);
   useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : '';
+    document.documentElement.style.overflow = open ? 'hidden' : '';
   }, [open]);
   const isActive = n => (n.path ? pathname === n.path : pathname === '/' && active === n.id);
   return (
     <header className={`nav ${scrolled || open ? 'is-scrolled' : ''}`}>
       <div className="nav-inner">
-        <Link to="/" className="nav-brand" aria-label="IBM Db2 TechX Summit — home" onClick={() => window.scrollTo(0, 0)}>
+        <Link to="/" className="nav-brand" aria-label="IBM Db2 TechX — home" onClick={() => window.scrollTo(0, 0)}>
           <img src="/logos/ibm-db2-white.svg" alt="IBM Db2" />
           <span className="nav-brand-sep" />
-          <span className="nav-brand-text">TechX Summit</span>
+          <span className="nav-brand-text">TechX</span>
         </Link>
         <nav className="nav-links" aria-label="Sections">
           {NAV.map(n => (
@@ -709,10 +709,10 @@ function Lightbox({ items, index, onClose, onStep }) {
       if (e.key === 'ArrowLeft') onStep(-1);
     };
     window.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
     return () => {
       window.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     };
   }, [onClose, onStep]);
   const g = items[index];
@@ -1647,7 +1647,7 @@ function Footer() {
           <img src="/logos/gl-bajaj.png" alt="GL Bajaj Group of Institutions" />
         </div>
         <div className="footer-bottom">
-          <span>© 2026 IBM Db2 TechX Summit · GL Bajaj Group of Institutions, Mathura</span>
+          <span>© 2026 IBM Db2 TechX · Db2Hack</span>
           <span>In association with IBM · IIC · NexaSphere</span>
         </div>
         <div className="footer-giant" aria-hidden="true">
@@ -1697,7 +1697,7 @@ function Showreel() {
         <div className="sr-head">
           <span className="sr-tag">
             <span className="live-dot" />
-            Watch · IBM Db2 TechX Summit 2026
+            Watch · 30 Oct highlights
           </span>
           <button type="button" className="sr-sound" onClick={toggle} aria-pressed={!muted}>
             {muted ? 'Tap for sound' : 'Mute'}
@@ -2156,9 +2156,9 @@ function SubmitGuide() {
 function SubmitPage() {
   useHashScroll();
   useEffect(() => {
-    document.title = 'Submit your project · Db2Hack · IBM Db2 TechX Summit';
+    document.title = 'Submit your project · Db2Hack · IBM Db2 TechX';
     return () => {
-      document.title = 'Db2Hack is live · IBM Db2 TechX Summit 2026';
+      document.title = 'Db2Hack is live · IBM Db2 TechX 2026';
     };
   }, []);
   return (
@@ -2233,7 +2233,7 @@ function PageHero() {
       <div className="container page-hero-inner">
         <Reveal as="span" className="kicker">
           <span className="kicker-dot" />
-          IBM Db2 TechX Summit · Resources
+          IBM Db2 TechX · Resources
         </Reveal>
         <Reveal delay={0.06} as="h1">
           Learn it. <span className="dim">Then build it on Db2.</span>
@@ -2291,9 +2291,9 @@ function HomePage() {
 function GalleryPage() {
   useHashScroll();
   useEffect(() => {
-    document.title = 'Gallery · IBM Db2 TechX Summit · 30 Oct 2026';
+    document.title = 'Gallery · 30 Oct 2026 · IBM Db2 TechX';
     return () => {
-      document.title = 'Db2Hack is live · IBM Db2 TechX Summit 2026';
+      document.title = 'Db2Hack is live · IBM Db2 TechX 2026';
     };
   }, []);
   return (
@@ -2322,9 +2322,9 @@ function GalleryPage() {
 function ResourcesPage() {
   useHashScroll();
   useEffect(() => {
-    document.title = 'Resources · IBM Db2 TechX Summit';
+    document.title = 'Resources · IBM Db2 TechX';
     return () => {
-      document.title = 'Db2Hack is live · IBM Db2 TechX Summit 2026';
+      document.title = 'Db2Hack is live · IBM Db2 TechX 2026';
     };
   }, []);
   return (

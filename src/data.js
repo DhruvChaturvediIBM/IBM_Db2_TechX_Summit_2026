@@ -15,7 +15,7 @@ export const MOMENTS = {
 };
 
 export const EVENT = {
-  name: 'IBM Db2 TechX Summit',
+  name: 'IBM Db2 TechX',
   theme: 'A day of IBM Db2 — Data and AI',
   tagline: 'Learn how AI and data are making the future.',
   date: 'Friday, 30 October 2026',
