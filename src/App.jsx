@@ -29,6 +29,9 @@ import {
   phaseAt,
 } from './components/ui';
 import {
+  LUMA_URL,
+  LUMA_EVENT_ID,
+  MOMENTS,
   WHATSAPP_URL,
   EVENT,
   NAV,
@@ -73,6 +76,8 @@ import {
 
 const EASE = [0.22, 1, 0.36, 1];
 const ext = { target: '_blank', rel: 'noopener noreferrer' };
+// Luma's checkout script (index.html) turns these links into its popup; without it they open the event page.
+const luma = { href: LUMA_URL, ...ext, 'data-luma-action': 'checkout', 'data-luma-event-id': LUMA_EVENT_ID };
 const MONO = '"IBM Plex Mono", ui-monospace, monospace';
 const ASCII_COLORS = ['#1e3fd8', '#f6f8ff', '#a5d8ff', '#38bdf8'];
 
@@ -101,6 +106,20 @@ function WhatsAppButton({ size = '', label = 'Join WhatsApp community', tag = tr
       <WaIcon />
       {label}
       {tag && <span className="wa-tag">Mandatory</span>}
+    </a>
+  );
+}
+
+// True until Luma registration closes (end of Sun 8 Nov).
+function useRegOpen() {
+  return useNow(60000) < MOMENTS.registerEnd;
+}
+
+function RegisterButton({ size = '', label = 'Register free on Luma' }) {
+  return (
+    <a className={`btn btn-primary ${size}`} {...luma}>
+      {label}
+      <Arrow />
     </a>
   );
 }
@@ -140,6 +159,7 @@ function AnnouncementBar() {
             <span>
               <b>{phase.status}</b>
             </span>
+            <span>Registration open on Luma until Sun 8 Nov</span>
             <span>Db2Hack is online · open to everyone · solo participation only</span>
             <span>Submissions close Tue 10 Nov · 5:00 PM IST</span>
             <span>Results Wed 11 Nov · Top 3 · Top 10 · projects with potential</span>
@@ -179,6 +199,7 @@ function NavItem({ n, className = '', onClick, children }) {
 }
 
 function Nav() {
+  const regOpen = useRegOpen();
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -218,7 +239,7 @@ function Nav() {
           ))}
         </nav>
         <div className="nav-cta">
-          <StartButton size="btn-sm" label="Start building" />
+          {regOpen ? <RegisterButton size="btn-sm" label="Register" /> : <StartButton size="btn-sm" label="Start building" />}
           <button
             type="button"
             className={`burger ${open ? 'is-open' : ''}`}
@@ -250,7 +271,7 @@ function Nav() {
             </NavItem>
           </motion.div>
         ))}
-        <StartButton size="btn-lg" />
+        {regOpen ? <RegisterButton size="btn-lg" /> : <StartButton size="btn-lg" />}
       </motion.div>
     </header>
   );
@@ -263,6 +284,7 @@ const rise = (delay, y = 60) => ({
 });
 
 function Hero() {
+  const regOpen = useRegOpen();
   const { scrollY } = useScroll();
   const fade = useTransform(scrollY, [0, 600], [1, 0]);
   const lift = useTransform(scrollY, [0, 600], [0, -80]);
@@ -329,8 +351,13 @@ function Hero() {
         </motion.p>
 
         <motion.div className="hero-ctas" {...rise(1.05, 20)}>
+          {regOpen && (
+            <Magnet padding={70} magnetStrength={4}>
+              <RegisterButton size="btn-xl" />
+            </Magnet>
+          )}
           <Magnet padding={70} magnetStrength={4}>
-            <StartButton size="btn-xl" />
+            <StartButton size={`btn-xl ${regOpen ? 'btn-ghost-blue' : ''}`} />
           </Magnet>
           <Magnet padding={70} magnetStrength={4}>
             <a className="btn btn-ghost btn-xl" href={VSCODE_EXT.url} {...ext}>
@@ -489,7 +516,13 @@ function Schedule() {
 
 // The one path to a submission — used on the home page and /submit.
 function StartStep({ step }) {
-  if (step.key === 'whatsapp') return <WhatsAppButton size="btn-lg" />;
+  if (step.key === 'whatsapp')
+    return (
+      <div className="start-btns">
+        <RegisterButton size="btn-lg" label="Register on Luma · till 8 Nov" />
+        <WhatsAppButton size="btn-lg" />
+      </div>
+    );
   if (step.key === 'db2')
     return (
       <div className="ext-hl">
@@ -1557,6 +1590,7 @@ function Faq() {
 }
 
 function FinalCta() {
+  const regOpen = useRegOpen();
   return (
     <section className="final">
       <div className="final-bg">
@@ -1578,11 +1612,11 @@ function FinalCta() {
           Your project <span className="dim">starts today.</span>
         </Reveal>
         <Reveal delay={0.12} as="p">
-          Four steps: join WhatsApp, get Db2 free in VS Code, install one framework, build and submit. Top 3 win
-          trophies, Top 10 win IBM Db2 goodies.
+          Register on Luma (open until Sun 8 Nov), join WhatsApp, get Db2 free in VS Code, install one framework, build
+          and submit. Top 3 win trophies, Top 10 win IBM Db2 goodies.
         </Reveal>
         <Reveal delay={0.18} className="final-ctas">
-          <StartButton size="btn-xl" />
+          {regOpen ? <RegisterButton size="btn-xl" /> : <StartButton size="btn-xl" />}
           <StarBorder
             as="a"
             href={WHATSAPP_URL}
@@ -2340,6 +2374,17 @@ function ResourcesPage() {
 }
 
 export default function App() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    const bind = () => window.luma?.initCheckout?.();
+    const t = setTimeout(bind, 50);
+    const script = document.getElementById('luma-checkout');
+    script?.addEventListener('load', bind);
+    return () => {
+      clearTimeout(t);
+      script?.removeEventListener('load', bind);
+    };
+  }, [pathname]);
   return (
     <ClickSpark sparkColor="#78a9ff" sparkSize={10} sparkRadius={22} sparkCount={9} duration={450}>
       <ScrollProgress />

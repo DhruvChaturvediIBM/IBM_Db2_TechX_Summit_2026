@@ -4798,3 +4798,10 @@ p {
     display: none;
   }
 }
+.btn-ghost-blue {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--blue);
+}
+.btn-ghost-blue:hover {
+  background: var(--blue);
+}
