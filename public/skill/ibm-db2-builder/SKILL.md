@@ -10,14 +10,42 @@ The idea is theirs — do not pick or suggest one for them. Your job: get a free
 
 Website: https://ibmdb2techxsummit.glbajajgroup.ac.in · Submission guide: https://ibmdb2techxsummit.glbajajgroup.ac.in/submit
 
-## How to work with the user
+## How to work with the user (read this first)
 
-1. **Ask first, once:** their OS (Windows / macOS / Linux), whether VS Code is installed, which framework they already know (if any), and to describe their idea in a few lines. Then use **"Integrate your idea with Db2"** below to choose the pattern and framework with them.
-2. **One step at a time.** Give one command or click-path, ask them to run it, read the output, then continue. Never dump ten steps at once.
-3. **Verify every step** with a check command before moving on (`code --version`, `java -version`, `docker ps`, a Python connection test).
-4. **Never invent package names, classes or flags.** Use only what is in this file. For any framework API not shown here, open the official docs link in the table below and follow it exactly.
-5. **Keep secrets out of code.** Credentials go in `.env` (git-ignored), with a dummy `.env.example` committed.
-6. Explain in simple words. Many users are students building their first AI + database app.
+Many users have **never used a database or built an AI app**. Teach like a patient senior who sits next to them.
+
+1. **Ask first, once:** their OS (Windows / macOS Intel / macOS Apple Silicon / Linux), what is already installed, which framework they know (if any), and their idea in 2–3 lines.
+2. **One step per message.** Every step has three parts: **Do this** (one command or click-path to copy), **You should see** (the expected output), **If you see something else** (the fix). Wait for them to reply "done" or paste the output before the next step.
+3. **Explain every new word** the first time in one plain sentence (see "Words you will hear").
+4. **Verify every step** with a check command before moving on.
+5. **Never invent package names, classes or flags.** Use only what is in this file; for anything else open the official docs link and follow it exactly.
+6. **Secrets stay out of code:** `.env` (git-ignored) plus a dummy `.env.example`.
+7. **Build in phases:** sample data first, then the real Db2, then the UI, then docs. Celebrate each working phase.
+8. When they are stuck, ask for the **exact error text**, explain the cause in one line, give the smallest fix and how to check it.
+
+## Words you will hear
+
+- **Database:** software that stores data safely and finds it fast for many users at once.
+- **Table / SQL:** data in rows and columns; SQL is the language to ask it questions (`SELECT … FROM … WHERE …`).
+- **Transaction:** a group of changes that all succeed or all fail (like a UPI transfer).
+- **Embedding / vector:** text turned into a list of numbers that captures its meaning. Similar meaning means nearby numbers.
+- **Vector search:** find the stored items whose numbers are closest to the question's numbers.
+- **RAG:** Retrieve the right data from Db2, add it to the question, then let the LLM Generate the answer.
+- **Agent:** an AI that decides which tool to call (for example a Db2 search) to finish a task.
+- **Framework:** ready-made building blocks (LangChain, Haystack, CrewAI, LlamaIndex, Langflow) so you write less code.
+
+## Step 0 — Before you start (checklist)
+
+Do these before writing any code. Tick each one.
+
+- [ ] Make one empty project folder, e.g. `my-db2-project`, and open it in VS Code.
+- [ ] **VS Code 1.103+**: https://code.visualstudio.com/Download (check: `code --version`).
+- [ ] **Java 17+** (check: `java -version`).
+- [ ] **Python 3.11 or 3.12** (check: `python --version`). Avoid 3.13+ for now; `ibm_db` wheels may be missing.
+- [ ] **Windows only:** WSL 2 with Ubuntu (see "Windows setup" below). **macOS:** nothing extra; the extension installs Colima for you.
+- [ ] Optional AI helper: **IBM Bob** free trial at https://bob.ibm.com/trial.
+- [ ] Watch the 5-minute setup video: https://youtu.be/7oJDrOQ_Mec
+- [ ] Extension guide (README with every step): https://github.com/IBM/db2developerextension-about
 
 ## Step 1 — Install the IBM Db2 Developer Extension (easiest way to get Db2 free)
 
@@ -151,44 +179,75 @@ Every Db2Hack project must use **at least one** of LangChain, Haystack, CrewAI, 
 
 **Agentic AI:** for agents, combine an agent framework (CrewAI, or LangChain / LlamaIndex agents) with Db2 as the agent's knowledge and memory, and give it tools that query Db2.
 
-### Pattern code — RAG with LangChain + Db2 (swap in the user's own data)
+### Pattern code — LangChain + Db2 (tested on Db2 12.1.5, langchain-db2 1.0.0)
+
+Free and local: embeddings and the LLM run in **Ollama** (`ollama pull nomic-embed-text:v1.5` and `ollama pull granite4.2:3b`). Any other LLM or embedding model works the same way.
+
 ```bash
-pip install -U langchain-db2 langchain-community sentence-transformers
+pip install -U langchain-db2 langchain-ollama python-dotenv
 ```
 ```python
-import ibm_db_dbi
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_community.vectorstores.utils import DistanceStrategy
+import os, ibm_db_dbi
+from dotenv import load_dotenv
 from langchain_core.documents import Document
-from langchain_db2.db2vs import DB2VS
+from langchain_db2.db2vs import DB2VS, DistanceStrategy
+from langchain_ollama import OllamaEmbeddings, ChatOllama
 
+load_dotenv()
 conn = ibm_db_dbi.connect(
-    "DATABASE=testdb;HOSTNAME=localhost;PORT=50000;PROTOCOL=TCPIP;"
-    "UID=db2inst1;PWD=<your-password>;", "", ""
-)
-notes = [
-    Document(page_content="Db2 stores vectors in a VECTOR column.", metadata={"topic": "db2"}),
-    Document(page_content="RAG retrieves relevant text before the LLM answers.", metadata={"topic": "ai"}),
+    f"DATABASE={os.environ['DB2_DATABASE']};HOSTNAME={os.environ['DB2_HOST']};"
+    f"PORT={os.environ['DB2_PORT']};PROTOCOL=TCPIP;"
+    f"UID={os.environ['DB2_USER']};PWD={os.environ['DB2_PASSWORD']};", "", "")
+
+emb = OllamaEmbeddings(model="nomic-embed-text:v1.5")
+docs = [
+    Document(page_content="I am vegetarian and allergic to peanuts.", metadata={"user": "aditi"}),
+    Document(page_content="My DBMS exam is on 14 November.", metadata={"user": "aditi"}),
+    Document(page_content="I love spicy chicken.", metadata={"user": "rahul"}),
 ]
-embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
-store = DB2VS.from_documents(
-    notes, embeddings, client=conn,
-    table_name="MY_NOTES", distance_strategy=DistanceStrategy.COSINE,
-)
-for doc in store.similarity_search("How does RAG work?", k=2):
-    print(doc.page_content)
-# Then send these notes + the question to any LLM (watsonx.ai, OpenAI, Gemini, Ollama…)
+# 1 store: creates table MEMORIES with a VECTOR column in Db2
+store = DB2VS.from_documents(docs, emb, client=conn, table_name="MEMORIES",
+                             distance_strategy=DistanceStrategy.COSINE)
+# later runs: store = DB2VS(emb, "MEMORIES", client=conn, distance_strategy=DistanceStrategy.COSINE)
+
+# 2 retrieve: only Aditi's memories, closest first
+hits = store.similarity_search_with_score("Suggest a snack for me", k=20,
+                                          filter={"user": ["aditi"]})[:4]
+context = "\n".join(d.page_content for d, _ in hits)
+
+# 3 generate
+llm = ChatOllama(model="granite4.2:3b")
+print(llm.invoke(f"Use only this context:\n{context}\n\nQuestion: Suggest a snack for me").content)
 ```
+**You should see:** an answer that respects "vegetarian, no peanuts". Open the `MEMORIES` table in the extension's tree view to see the rows and the vector column.
+
+**Two things that trip people up in `langchain-db2`:**
+- `filter` values must be **lists**: `{"user": ["aditi"]}`, not `{"user": "aditi"}`.
+- The filter is applied **after** the top-k search, so ask for a larger `k` (e.g. 20) and keep the first few results.
 
 ### Vectors in plain SQL (Db2 12.1)
 Db2 has a `VECTOR` data type and a `VECTOR_DISTANCE` function — see https://www.ibm.com/docs/en/db2/12.1.x?topic=functions-vector-distance. Check the exact syntax there before writing vector SQL by hand; prefer the framework packages above, which handle it for you.
 
 Always use **parameterised SQL** (`ibm_db.prepare` + `ibm_db.execute` with `?` markers), never string-built queries.
 
+## Build in phases (do not skip ahead)
+
+1. **Plan:** write "user does X → app does Y with data Z", list 5 real questions users will ask, pick one framework.
+2. **Core logic with 5 sample records** in Python only. Print the answers in the terminal.
+3. **Connect Db2:** swap in the Db2 store, load real data, check the rows in the VS Code extension.
+4. **Interface:** a simple, clean screen (Streamlit, Gradio, or React + FastAPI).
+5. **Polish:** errors handled, README, `architecture.md`, screenshots, a short demo video.
+
 ## What judges look for
 Db2 doing real work (schema, queries, vectors / JSON), a real problem solved, clean architecture, no secrets in code, parameterised SQL, and a README anyone can follow to run it.
 
 ## Step 5 — Submit to Db2Hack
+
+Db2Hack runs on **Unstop** in two rounds. Do both; check the deadline on the Unstop page.
+
+- **Registration:** fill in your details on Unstop, then install the IBM Db2 Developer Extension and upload a screenshot that shows it installed.
+- **Round 1, Ideation & Architecture:** upload a PDF or PPT on Unstop with the project title and problem statement, solution and key features, chosen framework (LangChain, CrewAI, Haystack, LangGraph…), the Db2 connector and how you use it, architecture and workflow, and expected impact.
+- **Round 2, Build & Final Submission:** working code and docs, a GitHub Pull Request, screenshots, and optionally a demo video or deployment link. Steps below; then paste the PR URL in the form https://forms.gle/n8GQL4tg7Yzftwu39 (guide: https://ibmdb2techxsummit.glbajajgroup.ac.in/submit).
 
 Repo: https://github.com/KunalGolaIBM/IBM_Db2_TechX_Project_Submission
 
@@ -205,7 +264,7 @@ git add submissions/<project-slug>
 git commit -m "feat(<project-slug>): add hackathon submission"
 git push -u origin submission/<project-slug>
 ```
-Then open a PR to `KunalGolaIBM/IBM_Db2_TechX_Project_Submission` · `main`, titled `[Submission] <project-slug>: <Short Project Title>`, complete the checklist, and **paste the PR link into the Google Form** (link in the WhatsApp community). A PR alone is not a submission. Post the project on LinkedIn and tag the organisers.
+Then open a PR to `KunalGolaIBM/IBM_Db2_TechX_Project_Submission` · `main`, titled `[Submission] <project-slug>: <Short Project Title>`, complete the checklist, and **paste the PR link into the Google Form** (https://forms.gle/n8GQL4tg7Yzftwu39). A PR alone is not a submission. Post the project on LinkedIn and tag the organisers.
 
 `<project-slug>`: lower-case letters, numbers and hyphens (e.g. `db2-support-rag`).
 
@@ -222,5 +281,8 @@ Then open a PR to `KunalGolaIBM/IBM_Db2_TechX_Project_Submission` · `main`, tit
 - **Container deleted outside the extension:** close the Update tab, click **Create Db2 instance** again, accept cleanup, reinstall.
 - **`SQL30081N` / connection refused:** the container is not running or the port is wrong — `docker ps`, then use the port from the instance page.
 - **`SQL30082N` / bad password:** username is lower-case; use the password set at creation.
+- **macOS Apple Silicon, plain Docker:** the Db2 image is x86-64; run Colima as x86-64 (`colima start --arch x86_64 --cpu 4 --memory 8`) or with Rosetta, and give it at least 8 GB. First start takes about 10 minutes.
+- **`similarity_search` returns fewer results than `k`:** your `filter` removed them after the search; raise `k` (see the langchain-db2 notes above).
+- **`pip install ibm_db` fails:** use Python 3.11 or 3.12 in a fresh virtual environment.
 
 Extension troubleshooting docs: https://ibm.github.io/db2developerextension-about/docs/troubleshooting/db2-instance-creation-errors
