@@ -3496,21 +3496,6 @@ p {
   justify-content: center;
 }
 
-.luma-embed {
-  margin-top: 56px;
-  width: 100%;
-  max-width: 600px;
-  border-radius: var(--r);
-  overflow: hidden;
-  border: 1px solid var(--line-3);
-  background: #fff;
-}
-.luma-embed iframe {
-  display: block;
-  width: 100%;
-  height: 450px;
-  border: 0;
-}
 
 /* ---------- footer ---------- */
 .footer {
@@ -4804,4 +4789,37 @@ p {
 }
 .btn-ghost-blue:hover {
   background: var(--blue);
+}
+
+/* Registration powered by Unstop */
+.powered {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.powered-logo {
+  display: inline-grid;
+  place-items: center;
+  height: 30px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: #fff;
+}
+.powered-logo img {
+  height: 20px;
+  width: auto;
+}
+.powered:hover {
+  color: #fff;
+}
+.hero-powered {
+  margin-top: 18px;
+}
+.start-btns .powered {
+  flex-basis: 100%;
 }

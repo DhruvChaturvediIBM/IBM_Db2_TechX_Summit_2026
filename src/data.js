@@ -1,9 +1,9 @@
 // Single place to edit every link and fact on the page.
 // Source of truth: IBM-Db2-TechX-Summit-Master-Document (v1.0, 28 Oct 2026).
 
-// Luma event — every Register button opens Luma's checkout popup for this event.
-export const LUMA_EVENT_ID = 'evt-rKKaLkPzJFs05n9';
-export const LUMA_URL = `https://luma.com/event/${LUMA_EVENT_ID}`;
+// Registration is on Unstop — every Register button opens this page.
+export const UNSTOP_URL = 'https://unstop.com/o/5GAmOMJ';
+export const WHATSAPP_CHANNEL = 'https://whatsapp.com/channel/0029VbDix2896H4VUqPLde3C';
 export const WHATSAPP_URL = 'https://chat.whatsapp.com/L5EwLpFMmqa179MsOgi9fu';
 
 // All times in IST (+05:30).
@@ -15,7 +15,7 @@ export const MOMENTS = {
   resultsEnd: new Date('2026-11-12T00:00:00+05:30'),
   summitStart: new Date('2026-10-30T09:00:00+05:30'),
   summitEnd: new Date('2026-10-30T17:00:00+05:30'),
-  // Luma registration stays open until the end of Sun 8 Nov; Register buttons hide after this.
+  // Unstop registration stays open until the end of Sun 8 Nov; Register buttons hide after this.
   registerEnd: new Date('2026-11-09T00:00:00+05:30'),
 };
 
@@ -52,7 +52,7 @@ export const VSCODE_EXT = {
 
 // The one path on the home page and /submit. Keep it to four steps.
 export const START_STEPS = [
-  { key: 'whatsapp', title: 'Register and join WhatsApp', time: '2 min', body: 'Register free on Luma (open until Sun 8 Nov), then join the WhatsApp community — mandatory. The Google Form link, live updates and the dates for the online workshop and doubt-solving session are shared there first.' },
+  { key: 'whatsapp', title: 'Register and join WhatsApp', time: '2 min', body: 'Register free on Unstop (open until Sun 8 Nov), then join the WhatsApp community — mandatory. The Google Form link, live updates and the dates for the online workshop and doubt-solving session are shared there first.' },
   { key: 'db2', title: 'Get Db2 free in VS Code', time: '10 min', body: 'Install the IBM Db2 Developer Extension, click "Create Db2 instance" and you have a free Db2 Community Edition with testdb and SAMPLE databases on your laptop.' },
   { key: 'framework', title: 'Install one AI framework for Db2', time: '2 min', body: 'Pick one — LangChain, LlamaIndex, Haystack, CrewAI or no-code Langflow — and install its Db2 package. One is enough.' },
   { key: 'submit', title: 'Build it, then submit', time: 'by 10 Nov · 5 PM', body: 'Open a pull request on the submission repo, paste the PR link in the Google Form and post your project on LinkedIn. Both PR and form must be in before 5:00 PM IST, Tue 10 Nov.' },
@@ -251,8 +251,8 @@ export const SPEAKERS = [
 ];
 
 export const FAQ = [
-  { q: 'Is registration still open?', a: 'Yes — registration on Luma is open until Sunday, 8 November. Register, join the WhatsApp community, then build and submit by 5:00 PM IST on Tue 10 Nov.' },
-  { q: 'I am new. What exactly do I do?', a: 'Four steps: 1) register on Luma and join the WhatsApp community, 2) install the IBM Db2 Developer Extension in VS Code and click "Create Db2 instance", 3) install one framework package such as pip install -U langchain-db2, 4) build your project, open a pull request and fill the Google Form before 5:00 PM IST on Tue 10 Nov. The "Start here" section on the home page has a button for each step.' },
+  { q: 'Is registration still open?', a: 'Yes — registration on Unstop is open until Sunday, 8 November. Register, join the WhatsApp community, then build and submit by 5:00 PM IST on Tue 10 Nov.' },
+  { q: 'I am new. What exactly do I do?', a: 'Four steps: 1) register on Unstop and join the WhatsApp community, 2) install the IBM Db2 Developer Extension in VS Code and click "Create Db2 instance", 3) install one framework package such as pip install -U langchain-db2, 4) build your project, open a pull request and fill the Google Form before 5:00 PM IST on Tue 10 Nov. The "Start here" section on the home page has a button for each step.' },
   { q: 'Can my AI assistant help me build it?', a: 'Yes. Download the IBM Db2 builder skill from the "AI skill" section and give it to Claude, Cursor, Copilot, IBM Bob, ChatGPT or Gemini. It walks your AI through installing Db2, picking a framework, writing the code and preparing your submission.' },
   { q: 'What do the winners get?', a: 'Top 3: a trophy, an IBM Db2 kit and a Certificate of Excellence. Top 10: IBM Db2 goodies and a Certificate of Merit. Students with good projects get the opportunity to contribute their use cases to the IBM Db2 GitHub organisation. Results are announced on Wednesday, 11 November.' },
   { q: 'Is there a live online workshop or doubt session?', a: 'Yes — a live online workshop and a doubt-solving session are coming soon. The dates will be announced shortly in the WhatsApp community.' },

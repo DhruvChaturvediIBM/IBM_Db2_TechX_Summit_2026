@@ -29,8 +29,8 @@ import {
   phaseAt,
 } from './components/ui';
 import {
-  LUMA_URL,
-  LUMA_EVENT_ID,
+  UNSTOP_URL,
+  WHATSAPP_CHANNEL,
   MOMENTS,
   WHATSAPP_URL,
   EVENT,
@@ -76,8 +76,7 @@ import {
 
 const EASE = [0.22, 1, 0.36, 1];
 const ext = { target: '_blank', rel: 'noopener noreferrer' };
-// Luma's checkout script (index.html) turns these links into its popup; without it they open the event page.
-const luma = { href: LUMA_URL, ...ext, 'data-luma-action': 'checkout', 'data-luma-event-id': LUMA_EVENT_ID };
+const register = { href: UNSTOP_URL, ...ext };
 const MONO = '"IBM Plex Mono", ui-monospace, monospace';
 const ASCII_COLORS = ['#1e3fd8', '#f6f8ff', '#a5d8ff', '#38bdf8'];
 
@@ -110,16 +109,27 @@ function WhatsAppButton({ size = '', label = 'Join WhatsApp community', tag = tr
   );
 }
 
-// True until Luma registration closes (end of Sun 8 Nov).
+// True until Unstop registration closes (end of Sun 8 Nov).
 function useRegOpen() {
   return useNow(60000) < MOMENTS.registerEnd;
 }
 
-function RegisterButton({ size = '', label = 'Register free on Luma' }) {
+function RegisterButton({ size = '', label = 'Register free on Unstop' }) {
   return (
-    <a className={`btn btn-primary ${size}`} {...luma}>
+    <a className={`btn btn-primary ${size}`} {...register}>
       {label}
       <Arrow />
+    </a>
+  );
+}
+
+function PoweredByUnstop({ className = '' }) {
+  return (
+    <a className={`powered ${className}`} {...register} aria-label="Registration powered by Unstop">
+      <span>Registration powered by</span>
+      <span className="powered-logo">
+        <img src="/logos/unstop.svg" alt="Unstop" />
+      </span>
     </a>
   );
 }
@@ -159,7 +169,7 @@ function AnnouncementBar() {
             <span>
               <b>{phase.status}</b>
             </span>
-            <span>Registration open on Luma until Sun 8 Nov</span>
+            <span>Registration open on Unstop until Sun 8 Nov</span>
             <span>Db2Hack is online · open to everyone · solo participation only</span>
             <span>Submissions close Tue 10 Nov · 5:00 PM IST</span>
             <span>Results Wed 11 Nov · Top 3 · Top 10 · projects with potential</span>
@@ -366,9 +376,17 @@ function Hero() {
             </a>
           </Magnet>
         </motion.div>
+        {regOpen && (
+          <motion.div {...rise(1.15, 14)}>
+            <PoweredByUnstop className="hero-powered" />
+          </motion.div>
+        )}
         <motion.div className="hero-sublinks" {...rise(1.2, 14)}>
           <a href={WHATSAPP_URL} {...ext}>
             Join WhatsApp (mandatory) ↗
+          </a>
+          <a href={WHATSAPP_CHANNEL} {...ext}>
+            Follow WhatsApp channel ↗
           </a>
           <a href="#ai-skill">AI skill for your assistant →</a>
           <Link to="/submit">How to submit →</Link>
@@ -418,6 +436,12 @@ function Partners() {
                 <img src="/logos/ibm-8bar-white.svg" alt="IBM" />
               </span>
             </div>
+          </div>
+          <div className="partners-group">
+            <span className="mono-label">Registration powered by</span>
+            <a className="logo-tile logo-tile-unstop" {...register}>
+              <img src="/logos/unstop.svg" alt="Unstop" />
+            </a>
           </div>
           <div className="partners-group partners-host">
             <span className="mono-label">Hosted by</span>
@@ -519,8 +543,12 @@ function StartStep({ step }) {
   if (step.key === 'whatsapp')
     return (
       <div className="start-btns">
-        <RegisterButton size="btn-lg" label="Register on Luma · till 8 Nov" />
+        <RegisterButton size="btn-lg" label="Register on Unstop · till 8 Nov" />
         <WhatsAppButton size="btn-lg" />
+        <a className="btn btn-ghost btn-lg" href={WHATSAPP_CHANNEL} {...ext}>
+          Follow WhatsApp channel <ArrowUpRight />
+        </a>
+        <PoweredByUnstop />
       </div>
     );
   if (step.key === 'db2')
@@ -1612,7 +1640,7 @@ function FinalCta() {
           Your project <span className="dim">starts today.</span>
         </Reveal>
         <Reveal delay={0.12} as="p">
-          Register on Luma (open until Sun 8 Nov), join WhatsApp, get Db2 free in VS Code, install one framework, build
+          Register on Unstop (open until Sun 8 Nov), join WhatsApp, get Db2 free in VS Code, install one framework, build
           and submit. Top 3 win trophies, Top 10 win IBM Db2 goodies.
         </Reveal>
         <Reveal delay={0.18} className="final-ctas">
@@ -1671,6 +1699,10 @@ function Footer() {
               <a href={WHATSAPP_URL} {...ext}>
                 WhatsApp community
               </a>
+              <a href={WHATSAPP_CHANNEL} {...ext}>
+                WhatsApp channel
+              </a>
+              <a {...register}>Register on Unstop</a>
             </div>
           </div>
         </div>
@@ -1679,6 +1711,7 @@ function Footer() {
           <img src="/logos/nexasphere.png" alt="NexaSphere" />
           <img src="/logos/ibm-8bar-blue.svg" alt="IBM" className="logo-ibm" />
           <img src="/logos/gl-bajaj.png" alt="GL Bajaj Group of Institutions" />
+          <img src="/logos/unstop.svg" alt="Unstop" />
         </div>
         <div className="footer-bottom">
           <span>© 2026 IBM Db2 TechX · Db2Hack</span>
@@ -2374,17 +2407,6 @@ function ResourcesPage() {
 }
 
 export default function App() {
-  const { pathname } = useLocation();
-  useEffect(() => {
-    const bind = () => window.luma?.initCheckout?.();
-    const t = setTimeout(bind, 50);
-    const script = document.getElementById('luma-checkout');
-    script?.addEventListener('load', bind);
-    return () => {
-      clearTimeout(t);
-      script?.removeEventListener('load', bind);
-    };
-  }, [pathname]);
   return (
     <ClickSpark sparkColor="#78a9ff" sparkSize={10} sparkRadius={22} sparkCount={9} duration={450}>
       <ScrollProgress />
