@@ -52,7 +52,7 @@ export const VSCODE_EXT = {
 
 // The one path on the home page and /submit. Keep it to four steps.
 export const START_STEPS = [
-  { key: 'whatsapp', title: 'Register and join WhatsApp', time: '2 min', body: 'Register free on Unstop (open until Sun 8 Nov), then join the WhatsApp community — mandatory. The Google Form link, live updates and the dates for the online workshop and doubt-solving session are shared there first.' },
+  { key: 'whatsapp', title: 'Register and join WhatsApp', time: '2 min', body: 'Register free on Unstop (open until Sun 8 Nov), then join the WhatsApp community — mandatory. Live updates and the dates for the online workshop and doubt-solving session are shared there first.' },
   { key: 'db2', title: 'Get Db2 free in VS Code', time: '10 min', body: 'Install the IBM Db2 Developer Extension, click "Create Db2 instance" and you have a free Db2 Community Edition with testdb and SAMPLE databases on your laptop.' },
   { key: 'framework', title: 'Install one AI framework for Db2', time: '2 min', body: 'Pick one — LangChain, LlamaIndex, Haystack, CrewAI or no-code Langflow — and install its Db2 package. One is enough.' },
   { key: 'submit', title: 'Build it, then submit', time: 'by 10 Nov · 5 PM', body: 'Open a pull request on the submission repo, paste the PR link in the Google Form and post your project on LinkedIn. Both PR and form must be in before 5:00 PM IST, Tue 10 Nov.' },
@@ -263,13 +263,13 @@ export const FAQ = [
   { q: 'When are the results?', a: 'Submissions close at 5:00 PM IST on Tuesday, 10 November. On Wednesday, 11 November we close Db2Hack by announcing the Top 3, the Top 10 and the projects with real potential.' },
   { q: 'How are the Top 10 chosen?', a: 'IBM experts score every submission with the 100-point rubric on the Submit page. To keep it transparent, we share the judging sheet and feedback explaining why a submission was not selected for the Top 10.' },
   { q: 'Which frameworks can I use?', a: 'Every project must use at least one of LangChain, Haystack, CrewAI, LlamaIndex or the no-code Langflow. One is enough; combining several (for example LangChain + CrewAI) is also allowed.' },
-  { q: 'Is joining the WhatsApp community mandatory?', a: 'Yes. Every participant must join the IBM Db2 TechX WhatsApp community — all live updates, the Google Form link and any timing changes are shared there first.' },
-  { q: 'How do I submit my project?', a: 'Two steps, both mandatory: open a pull request with your project folder on the official submission repo (github.com/KunalGolaIBM/IBM_Db2_TechX_Project_Submission), then paste the PR link into the Google Form. The full walkthrough is on the Submit page. Submissions close at 5:00 PM IST on Tuesday, 10 November.' },
+  { q: 'Is joining the WhatsApp community mandatory?', a: 'Yes. Every participant must join the IBM Db2 TechX WhatsApp community — all live updates and any timing changes are shared there first.' },
+  { q: 'How do I submit my project?', a: 'Two steps, both mandatory: open a pull request with your project folder on the official submission repo (github.com/KunalGolaIBM/IBM_Db2_TechX_Project_Submission), then paste the PR link into the submission form (button on the Submit page). The full walkthrough is on the Submit page. Submissions close at 5:00 PM IST on Tuesday, 10 November.' },
   { q: 'Do I need to post on LinkedIn?', a: 'Yes, sharing is part of the challenge: post your use case on LinkedIn, explain it clearly and tag the organising team. The best posts get appreciation from IBM experts.' },
   { q: 'Do I need prior Db2 experience?', a: 'No. The toolkit gives you ready-made Db2 integrations — vector stores, document stores and agent tools — for the frameworks you may already know.' },
   { q: 'Which Db2 should I build on?', a: 'Db2 Community Edition — it is free with full Db2 features (up to 4 cores and 16 GB RAM). The quickest start is the IBM Db2 Developer Extension for VS Code, which can create a Community Edition instance with a sample database. You can also use the Docker image (icr.io/db2_community/db2) or the installer from ibm.com/db2/get-started.' },
   { q: 'Can I contribute to IBM Db2 open source?', a: 'Yes. Students who submit good projects get the opportunity to contribute their use cases to the IBM Db2 GitHub organisation, with guidance from the IBM team on where and how to open the contribution.' },
-  { q: 'Where will I get further updates?', a: 'In the WhatsApp community — the Google Form link, the online workshop and doubt-session dates, and the results on 11 Nov are shared there first.' },
+  { q: 'Where will I get further updates?', a: 'In the WhatsApp community — the online workshop and doubt-session dates, and the results on 11 Nov are shared there first.' },
 ];
 
 // Official IBM Product Hub tutorials, one per Db2Hack framework.
@@ -366,6 +366,8 @@ export const COMMUNITY_EDITION = {
 
 // Db2Hack submission guide (/submit) — from the official submission repo README and docs.
 export const SUBMISSION_REPO = 'https://github.com/KunalGolaIBM/IBM_Db2_TechX_Project_Submission';
+// Submission = PR on the repo + this form (paste the PR link into it).
+export const SUBMIT_FORM = 'https://docs.google.com/forms/d/e/1FAIpQLSeI29AdGMZlhPkS4xDU_0_kVVhpf2U5nTRfyuWQRPgj6TulWw/viewform';
 export const SUBMISSION_ISSUES = `${SUBMISSION_REPO}/issues/new/choose`;
 
 export const SUBMIT_DATES = [
@@ -412,8 +414,9 @@ export const SUBMIT_STEPS = [
     body: 'Base: KunalGolaIBM/IBM_Db2_TechX_Project_Submission · main. Title: [Submission] <project-slug>: <Short Project Title>. Complete every checklist in the PR template.',
   },
   {
-    title: 'Fill the Google Form',
-    body: 'A PR alone does not complete your submission. Paste your PR URL into the official Google Form (link shared on WhatsApp and by email). Submissions close at 5:00 PM IST on Tue 10 Nov.',
+    title: 'Fill the submission form',
+    body: 'A PR alone does not complete your submission. Open the official submission form and paste your PR URL into it. Submissions close at 5:00 PM IST on Tue 10 Nov.',
+    form: true,
   },
   {
     title: 'Post on LinkedIn',

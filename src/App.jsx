@@ -65,6 +65,7 @@ import {
   LOCAL_DB2,
   EXTENSION_DOCS,
   SUBMISSION_REPO,
+  SUBMIT_FORM,
   SUBMISSION_ISSUES,
   SUBMIT_DATES,
   SUBMIT_REQUIREMENTS,
@@ -627,7 +628,10 @@ function StartStep({ step }) {
         Submission steps <Arrow />
       </Link>
       <a className="btn btn-ghost btn-lg" href={SUBMISSION_REPO} {...ext}>
-        Submission repo <ArrowUpRight />
+        1 · Submission repo (PR) <ArrowUpRight />
+      </a>
+      <a className="btn btn-primary btn-lg" href={SUBMIT_FORM} {...ext}>
+        2 · Submission form <ArrowUpRight />
       </a>
     </div>
   );
@@ -1696,6 +1700,9 @@ function Footer() {
                 Db2 extension for VS Code
               </a>
               <Link to="/submit">Submission guide</Link>
+              <a href={SUBMIT_FORM} {...ext}>
+                Submission form
+              </a>
               <a href={WHATSAPP_URL} {...ext}>
                 WhatsApp community
               </a>
@@ -2010,7 +2017,10 @@ function SubmitHero() {
         </Reveal>
         <Reveal delay={0.18} className="page-hero-ctas">
           <a className="btn btn-primary btn-lg" href={SUBMISSION_REPO} {...ext}>
-            Open submission repo <ArrowUpRight />
+            1 · Open submission repo (PR) <ArrowUpRight />
+          </a>
+          <a className="btn btn-primary btn-lg" href={SUBMIT_FORM} {...ext}>
+            2 · Submission form <ArrowUpRight />
           </a>
           <WhatsAppButton size="btn-lg" />
         </Reveal>
@@ -2087,6 +2097,11 @@ function SubmitGuide() {
                   <h3>{st.title}</h3>
                   <p>{st.body}</p>
                   {st.code && <CodeBlock code={st.code} />}
+                  {st.form && (
+                    <a className="btn btn-primary sstep-form" href={SUBMIT_FORM} {...ext}>
+                      Open the submission form <ArrowUpRight />
+                    </a>
+                  )}
                 </div>
               </Reveal>
             ))}
@@ -2193,7 +2208,7 @@ function SubmitGuide() {
               <a className="shelp-card is-wa" href={WHATSAPP_URL} {...ext}>
                 <span className="mono-label">WhatsApp · mandatory</span>
                 <h3>Ask in the community</h3>
-                <p>Live updates, the Google Form link and quick answers from the organisers.</p>
+                <p>Live updates and quick answers from the organisers.</p>
                 <span className="res-go">
                   Join now <ArrowUpRight />
                 </span>

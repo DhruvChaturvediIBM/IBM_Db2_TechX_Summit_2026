@@ -4823,3 +4823,7 @@ p {
 .start-btns .powered {
   flex-basis: 100%;
 }
+
+.sstep-form {
+  margin-top: 14px;
+}
