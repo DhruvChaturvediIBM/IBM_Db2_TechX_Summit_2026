@@ -21,10 +21,47 @@ export function Reveal({ children, delay = 0, y = 28, className = '', as = 'div'
   );
 }
 
-export function SectionHead({ num, kicker, title, sub }) {
+// Small "#" button: copies a shareable link to this section and puts the #hash in the address bar.
+export function AnchorLink({ id, label = 'section' }) {
+  const [copied, setCopied] = useState(false);
+  if (!id) return null;
+  const onClick = async e => {
+    e.preventDefault();
+    e.stopPropagation();
+    const url = `${window.location.origin}${window.location.pathname}#${id}`;
+    window.history.replaceState(null, '', `#${id}`);
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      /* clipboard blocked — the address bar still has the link */
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1800);
+  };
   return (
-    <div className="section-head">
-      <Reveal>
+    <a
+      href={`#${id}`}
+      className={`anchor-link ${copied ? 'is-copied' : ''}`}
+      onClick={onClick}
+      aria-label={`Copy link to the ${label}`}
+      title="Copy link to this section"
+    >
+      <span aria-hidden="true">#</span>
+      <span className="anchor-tip">{copied ? 'Link copied' : 'Copy link'}</span>
+    </a>
+  );
+}
+
+export function SectionHead({ num, kicker, title, sub, anchor }) {
+  const ref = useRef(null);
+  const [found, setFound] = useState(null);
+  useEffect(() => {
+    if (!anchor) setFound(ref.current?.closest('section[id]')?.id ?? null);
+  }, [anchor]);
+  const id = anchor ?? found;
+  return (
+    <div className="section-head" ref={ref}>
+      <Reveal className="kicker-row">
         <span className="kicker">
           {num ? <span className="kicker-num">{num}</span> : <span className="kicker-dot" />}
           <DecryptedText
@@ -36,6 +73,7 @@ export function SectionHead({ num, kicker, title, sub }) {
             encryptedClassName="decrypt-dim"
           />
         </span>
+        <AnchorLink id={id} label={kicker} />
       </Reveal>
       <Reveal delay={0.08} as="h2">
         {title}

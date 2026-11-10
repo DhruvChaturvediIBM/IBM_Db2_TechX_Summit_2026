@@ -20,6 +20,7 @@ import TextPressure from './components/reactbits/TextPressure';
 import {
   Reveal,
   SectionHead,
+  AnchorLink,
   Countdown,
   Spotlight,
   CopyCmd,
@@ -541,10 +542,11 @@ function Schedule() {
 
 // The one path to a submission — used on the home page and /submit.
 function StartStep({ step }) {
+  const regOpen = useRegOpen();
   if (step.key === 'whatsapp')
     return (
       <div className="start-btns">
-        <RegisterButton size="btn-lg" label="Register on Unstop · till 8 Nov" />
+        {regOpen && <RegisterButton size="btn-lg" label="Register on Unstop · till 8 Nov" />}
         <WhatsAppButton size="btn-lg" />
         <a className="btn btn-ghost btn-lg" href={WHATSAPP_CHANNEL} {...ext}>
           Follow WhatsApp channel <ArrowUpRight />
@@ -654,11 +656,15 @@ function StartHere({ num = '01' }) {
         <ol className="start-list">
           {START_STEPS.map((st, i) => (
             <Reveal as="li" key={st.key} delay={0.05 * i} className={`start-step is-${st.key}`}>
+              <span className="anchor-target" id={st.anchor} />
               <div className="start-copy">
                 <span className="start-n">{i + 1}</span>
                 <div>
                   <span className="start-time">{st.time}</span>
-                  <h3>{st.title}</h3>
+                  <h3>
+                    {st.title}
+                    <AnchorLink id={st.anchor} label={st.title} />
+                  </h3>
                   <p>{st.body}</p>
                 </div>
               </div>
@@ -719,6 +725,7 @@ function AiSkill() {
             <span className="kicker">
               <span className="kicker-num">02</span>
               For your AI assistant
+              <AnchorLink id="ai-skill" label="AI skill" />
             </span>
             <h2>
               Give your AI <span className="dim">the Db2 playbook.</span>
@@ -809,7 +816,10 @@ function Lightbox({ items, index, onClose, onStep }) {
 const PREVIEW_COUNT = 8;
 
 function Recap({ full = false }) {
-  const [tab, setTab] = useState('all');
+  const { hash } = useLocation();
+  const hashTab = GALLERY_TABS.find(t => `#${t.id}` === hash)?.id;
+  const [pickedTab, setTab] = useState(null);
+  const tab = pickedTab ?? hashTab ?? 'all';
   const [open, setOpen] = useState(-1);
   const filtered = tab === 'all' ? GALLERY : GALLERY.filter(g => g.tab === tab);
   const items = full ? filtered : GALLERY.slice(0, PREVIEW_COUNT);
@@ -843,9 +853,13 @@ function Recap({ full = false }) {
                 type="button"
                 role="tab"
                 key={t.id}
+                id={t.id}
                 aria-selected={tab === t.id}
                 className={tab === t.id ? 'is-on' : ''}
-                onClick={() => setTab(t.id)}
+                onClick={() => {
+                  setTab(t.id);
+                  window.history.replaceState(null, '', t.id === 'all' ? '#photos' : `#${t.id}`);
+                }}
               >
                 {t.label}
               </button>
@@ -911,6 +925,7 @@ function Db2Hack() {
             <span className="kicker">
               <span className="kicker-num">05</span>
               The challenge · online
+              <AnchorLink id="db2hack" label="Db2Hack" />
             </span>
           </Reveal>
           <Reveal delay={0.06} as="h2" className="hack-title">
@@ -1772,6 +1787,7 @@ function Showreel() {
           <span className="sr-tag">
             <span className="live-dot" />
             Watch · 30 Oct highlights
+            <AnchorLink id="showreel" label="highlights video" />
           </span>
           <button type="button" className="sr-sound" onClick={toggle} aria-pressed={!muted}>
             {muted ? 'Tap for sound' : 'Mute'}
@@ -1878,6 +1894,7 @@ function IbmBob() {
                 <img src="/logos/ibm-bob.png" alt="IBM Bob" />
               </span>
               <span className="mono-label">Build faster · IBM Bob</span>
+              <AnchorLink id="ibm-bob" label="IBM Bob" />
             </span>
             <h2>
               Your AI-powered <span className="dim">development partner.</span>
@@ -2343,8 +2360,27 @@ function useHashScroll() {
       window.scrollTo(0, 0);
       return undefined;
     }
-    const t = setTimeout(() => document.getElementById(hash.slice(1))?.scrollIntoView(), 80);
-    return () => clearTimeout(t);
+    // Images and fonts load after the first paint and push sections down, so re-aim a few
+    // times — but stop as soon as the visitor scrolls on their own.
+    let stopped = false;
+    const stop = () => {
+      stopped = true;
+    };
+    const go = () => {
+      if (stopped) return;
+      document.getElementById(decodeURIComponent(hash.slice(1)))?.scrollIntoView({ behavior: 'instant' });
+    };
+    const timers = [80, 400, 900, 1600].map(ms => setTimeout(go, ms));
+    const opts = { passive: true };
+    window.addEventListener('wheel', stop, opts);
+    window.addEventListener('touchstart', stop, opts);
+    window.addEventListener('keydown', stop);
+    return () => {
+      timers.forEach(clearTimeout);
+      window.removeEventListener('wheel', stop, opts);
+      window.removeEventListener('touchstart', stop, opts);
+      window.removeEventListener('keydown', stop);
+    };
   }, [pathname, hash]);
 }
 

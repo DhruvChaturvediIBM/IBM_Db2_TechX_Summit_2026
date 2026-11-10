@@ -4827,3 +4827,80 @@ p {
 .sstep-form {
   margin-top: 14px;
 }
+
+/* shareable section links (#) */
+.kicker-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.anchor-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex: none;
+  border: 1px solid var(--line-3);
+  border-radius: 8px;
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ink-2);
+  text-decoration: none;
+  text-transform: none;
+  letter-spacing: 0;
+  vertical-align: middle;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.anchor-link:hover,
+.anchor-link:focus-visible,
+.anchor-link.is-copied {
+  color: #fff;
+  border-color: var(--blue);
+  background: rgba(15, 98, 254, 0.18);
+}
+h3 .anchor-link {
+  margin-left: 10px;
+  width: 26px;
+  height: 26px;
+  font-size: 13px;
+}
+.anchor-tip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  transform: translateX(-50%) translateY(4px);
+  padding: 5px 9px;
+  border-radius: 6px;
+  background: #fff;
+  color: #000;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s, transform 0.18s;
+  z-index: 5;
+}
+.anchor-link:hover .anchor-tip,
+.anchor-link:focus-visible .anchor-tip,
+.anchor-link.is-copied .anchor-tip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.start-step {
+  position: relative;
+}
+.anchor-target {
+  position: absolute;
+  top: -12px;
+  left: 0;
+}
+.gal-tabs button {
+  scroll-margin-top: 110px;
+}

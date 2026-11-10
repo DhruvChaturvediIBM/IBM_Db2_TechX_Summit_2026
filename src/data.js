@@ -52,10 +52,10 @@ export const VSCODE_EXT = {
 
 // The one path on the home page and /submit. Keep it to four steps.
 export const START_STEPS = [
-  { key: 'whatsapp', title: 'Register and join WhatsApp', time: '2 min', body: 'Register free on Unstop (open until Sun 8 Nov), then join the WhatsApp community — mandatory. Live updates and the dates for the online workshop and doubt-solving session are shared there first.' },
-  { key: 'db2', title: 'Get Db2 free in VS Code', time: '10 min', body: 'Install the IBM Db2 Developer Extension, click "Create Db2 instance" and you have a free Db2 Community Edition with testdb and SAMPLE databases on your laptop.' },
-  { key: 'framework', title: 'Install one AI framework for Db2', time: '2 min', body: 'Pick one — LangChain, LlamaIndex, Haystack, CrewAI or no-code Langflow — and install its Db2 package. One is enough.' },
-  { key: 'submit', title: 'Build it, then submit', time: 'by 10 Nov · 5 PM', body: 'Open a pull request on the submission repo, paste the PR link in the Google Form and post your project on LinkedIn. Both PR and form must be in before 5:00 PM IST, Tue 10 Nov.' },
+  { key: 'whatsapp', anchor: 'register', title: 'Register and join WhatsApp', time: '2 min', body: 'Register free on Unstop (open until Sun 8 Nov), then join the WhatsApp community — mandatory. Live updates and the dates for the online workshop and doubt-solving session are shared there first.' },
+  { key: 'db2', anchor: 'vscode-extension', title: 'Get Db2 free in VS Code', time: '10 min', body: 'Install the IBM Db2 Developer Extension, click "Create Db2 instance" and you have a free Db2 Community Edition with testdb and SAMPLE databases on your laptop.' },
+  { key: 'framework', anchor: 'agentic-packages', title: 'Install one AI framework for Db2', time: '2 min', body: 'Pick one — LangChain, LlamaIndex, Haystack, CrewAI or no-code Langflow — and install its Db2 package. One is enough.' },
+  { key: 'submit', anchor: 'how-to-submit', title: 'Build it, then submit', time: 'by 10 Nov · 5 PM', body: 'Open a pull request on the submission repo, paste the PR link in the Google Form and post your project on LinkedIn. Both PR and form must be in before 5:00 PM IST, Tue 10 Nov.' },
 ];
 
 // Agentic AI on Db2 — what each package lets an agent do.
