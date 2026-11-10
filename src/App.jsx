@@ -171,10 +171,10 @@ function AnnouncementBar() {
             <span>
               <b>{phase.status}</b>
             </span>
-            <span>Registration open on Unstop until Sun 8 Nov</span>
+            <span>Top 10 pitch Thu 12 Nov · you can keep adding commits to your PR</span>
             <span>Db2Hack is online · open to everyone · solo participation only</span>
-            <span>Submissions close Tue 10 Nov · 5:00 PM IST</span>
-            <span>Results Wed 11 Nov · Top 3 · Top 10 · projects with potential</span>
+            <span>Extended · submissions close Wed 11 Nov · 1:30 PM IST (12 AM PST)</span>
+            <span>Top 10 pitch Thu 12 Nov · then Top 3 · Top 10 · projects with potential</span>
             <span>Get Db2 free: IBM Db2 Developer Extension for VS Code</span>
             <span>Live online workshop + doubt-solving session · dates announced soon</span>
             <span>Summit at GL Bajaj, Mathura · done on 30 Oct · thank you!</span>
@@ -406,12 +406,12 @@ function Hero() {
           <span className="hb-day">10</span>
           <span className="hb-month">
             <b>November</b>
-            <span>Tue · closes 5:00 PM IST</span>
+            <span>Wed 11 Nov · closes 1:30 PM IST</span>
           </span>
         </div>
         <Countdown />
         <div className="hb-venue">
-          <span className="mono-label">Results · Wed 11 Nov</span>
+          <span className="mono-label">Top 10 pitch · Thu 12 Nov</span>
           <span>Top 3 · Top 10 ·</span>
           <span>projects with potential</span>
         </div>
@@ -492,13 +492,13 @@ function Schedule() {
       <div className="container">
         <SectionHead
           num="08"
-          kicker="Event flow · 28 Oct – 11 Nov 2026"
+          kicker="Event flow · 28 Oct – 12 Nov 2026"
           title={
             <>
               Build, learn, <span className="dim">win.</span>
             </>
           }
-          sub="Db2Hack opened on 28 Oct at 7:00 PM. The Summit and workshop wrapped up on 30 Oct, and Db2Hack is still live — submissions close at 5:00 PM on Tue 10 Nov, and winners are announced on Wed 11 Nov. All times are IST."
+          sub="Db2Hack opened on 28 Oct at 7:00 PM. The Summit and workshop wrapped up on 30 Oct, and Db2Hack is still live — submissions are extended to 1:30 PM IST on Wed 11 Nov, and the Top 10 pitch on Thu 12 Nov. All times are IST."
         />
         <div className="timeline" ref={lineRef}>
           <div className="tl-rail">
@@ -651,7 +651,7 @@ function StartHere({ num = '01' }) {
               From zero to submitted. <span className="dim">Four steps.</span>
             </>
           }
-          sub="That's the whole path. Do them in order — each step has its button right here. Deadline: 5:00 PM IST, Tue 10 Nov."
+          sub="That's the whole path. Do them in order — each step has its button right here. Deadline extended: 1:30 PM IST, Wed 11 Nov (12:00 AM PST)."
         />
         <ol className="start-list">
           {START_STEPS.map((st, i) => (
@@ -948,7 +948,7 @@ function Db2Hack() {
             on IBM Db2
           </Reveal>
           <Reveal delay={0.14} as="p" className="hack-lead">
-            Build an AI use case on IBM Db2. Open to everyone — solo participation only. <b>the workshop has ended, but Db2Hack is still live until 5:00 PM IST, Tue 10 Nov.</b>
+            Build an AI use case on IBM Db2. Open to everyone — solo participation only. <b>the workshop has ended, but Db2Hack is extended until 1:30 PM IST, Wed 11 Nov (12:00 AM PST).</b>
           </Reveal>
         </div>
 
@@ -978,16 +978,16 @@ function Db2Hack() {
           </div>
           <div className="hw-point">
             <span className="mono-label">Submissions close</span>
-            <strong>Tue, 10 Nov</strong>
-            <span>5:00 PM IST</span>
+            <strong>Wed, 11 Nov</strong>
+            <span>1:30 PM IST · 12 AM PST</span>
           </div>
           <div className="hw-line hw-line-short">
             <span className="hw-line-fill" />
           </div>
           <div className="hw-point hw-final">
-            <span className="mono-label">Results</span>
-            <strong>Wed, 11 Nov</strong>
-            <span>Top 3 · Top 10 · high potential</span>
+            <span className="mono-label">Top 10 pitch</span>
+            <strong>Thu, 12 Nov</strong>
+            <span>Top 10 pitch · then results</span>
           </div>
         </Reveal>
 
@@ -1017,11 +1017,11 @@ function Db2Hack() {
           <Reveal delay={0.1} className="rule">
             <span className="mono-label">Good to know</span>
             <ul className="checks">
-              <li>Open to everyone — solo participation only, no teams</li>
+              <li>Open to everyone, worldwide — individual participation; teammates submit separately</li>
               <li>Submit a GitHub pull request, then the PR link via Google Form</li>
               <li>Joining the WhatsApp community is mandatory</li>
-              <li>Submissions close at 5:00 PM IST on Tue 10 Nov</li>
-              <li>Results on Wed 11 Nov — Top 3, Top 10 and projects with potential</li>
+              <li>Extended: submissions close at 1:30 PM IST on Wed 11 Nov (12:00 AM PST · 9:00 AM WAT)</li>
+              <li>Judging in progress · Top 10 pitch on Thu 12 Nov</li>
               <li>Post your use case on LinkedIn and tag the organising team</li>
               <li>Top 3 win trophies, Top 10 win IBM Db2 goodies</li>
             </ul>
@@ -1162,7 +1162,7 @@ function Toolkit() {
               Become a contributor <span className="dim">to IBM Db2 AI use cases.</span>
             </h3>
             <p>
-              Submit your Db2Hack use case by 5:00 PM IST on Tue 10 Nov and get the chance to work with IBM
+              Submit your Db2Hack use case by 1:30 PM IST on Wed 11 Nov and get the chance to work with IBM
               open-source projects and contribute your use case there, building on IBM Db2 integrations across the AI
               and data ecosystem. The IBM team will guide you: where to start, how to pick a use case and how to open
               your contribution.
@@ -1433,13 +1433,13 @@ function Rewards() {
       <div className="container">
         <SectionHead
           num="03"
-          kicker="Rewards · results on Wed 11 Nov"
+          kicker="Rewards · Top 10 pitch on Thu 12 Nov"
           title={
             <>
               Build well. <span className="dim">Take home a trophy.</span>
             </>
           }
-          sub="IBM experts review every submission. On Wednesday, 11 November we announce the Top 3, the Top 10 and the projects with real potential."
+          sub="IBM experts review every submission. The Top 10 pitch on Thursday, 12 November, and then we announce the Top 3, the Top 10 and the projects with real potential."
         />
         <div className="rw-grid">
           {[top3, top10].map((r, i) => (
@@ -1585,7 +1585,7 @@ function Band() {
   return (
     <section className="band" aria-hidden="true">
       <ScrollVelocity
-        texts={['Db2Hack is live', 'Build on IBM Db2 · closes 10 Nov 5 PM']}
+        texts={['Db2Hack is live', 'Extended · closes 11 Nov 1:30 PM IST']}
         velocity={60}
         separator="✦"
         outlineAlternate
@@ -1653,7 +1653,7 @@ function FinalCta() {
       </div>
       <div className="container final-inner">
         <Reveal as="span" className="mono-label">
-          Db2Hack · online · closes Tue 10 Nov, 5:00 PM IST
+          Db2Hack · online · extended · closes Wed 11 Nov, 1:30 PM IST (12 AM PST)
         </Reveal>
         <Reveal delay={0.06} as="h2">
           Your project <span className="dim">starts today.</span>
@@ -2029,7 +2029,7 @@ function SubmitHero() {
           Ship it right. <span className="dim">Get judged fairly.</span>
         </Reveal>
         <Reveal delay={0.12} as="p">
-          Open to everyone — Db2Hack is still live until 5:00 PM IST, Tue 10 Nov. A 6-step quick start, free local Db2, the GitHub + Google Form
+          Open to everyone — Db2Hack is extended until 1:30 PM IST, Wed 11 Nov (12:00 AM PST). A 6-step quick start, free local Db2, the GitHub + Google Form
           flow, naming rules and the 100-point judging rubric.
         </Reveal>
         <Reveal delay={0.18} className="page-hero-ctas">
@@ -2065,10 +2065,10 @@ function SubmitGuide() {
             kicker="Important dates"
             title={
               <>
-                Still live. <span className="dim">Closes 10 Nov, 5 PM.</span>
+                Extended. <span className="dim">Closes 11 Nov, 1:30 PM IST.</span>
               </>
             }
-            sub="The workshop has ended. Submissions (PR + Google Form) close at 5:00 PM IST on Tuesday, 10 November. Results — Top 3, Top 10 and projects with potential — on Wednesday, 11 November. Updates land first in the WhatsApp community."
+            sub="The workshop has ended. Submissions (PR + Google Form) close at 1:30 PM IST on Wednesday, 11 November (12:00 AM PST · 9:00 AM WAT) — extended by one day. You can keep adding commits to your PR. The Top 10 pitch on Thursday, 12 November. Updates land first in the WhatsApp community."
           />
           <div className="sdates">
             {SUBMIT_DATES.map((d, i) => (
