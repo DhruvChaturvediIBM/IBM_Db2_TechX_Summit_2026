@@ -17,6 +17,7 @@ import LaserFlow from './components/reactbits/LaserFlow';
 import LetterGlitch from './components/reactbits/LetterGlitch';
 import LightRays from './components/reactbits/LightRays';
 import TextPressure from './components/reactbits/TextPressure';
+import Search from './components/Search';
 import {
   Reveal,
   SectionHead,
@@ -251,6 +252,7 @@ function Nav() {
           ))}
         </nav>
         <div className="nav-cta">
+          <Search />
           {regOpen ? <RegisterButton size="btn-sm" label="Register" /> : <StartButton size="btn-sm" label="Start building" />}
           <button
             type="button"
