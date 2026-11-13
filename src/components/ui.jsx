@@ -87,18 +87,20 @@ export function SectionHead({ num, kicker, title, sub, anchor }) {
   );
 }
 
-export function CountUp({ to, suffix = '' }) {
+export function CountUp({ to, suffix = '', decimals = 0, pad = true }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
   const [v, setV] = useState(0);
   useEffect(() => {
     if (!inView) return undefined;
-    const c = animate(0, to, { duration: 1.6, ease: EASE, onUpdate: x => setV(Math.round(x)) });
+    const f = 10 ** decimals;
+    const c = animate(0, to, { duration: 1.6, ease: EASE, onUpdate: x => setV(Math.round(x * f) / f) });
     return () => c.stop();
-  }, [inView, to]);
+  }, [inView, to, decimals]);
+  const txt = decimals ? v.toFixed(decimals) : String(v);
   return (
     <span ref={ref}>
-      {String(v).padStart(2, '0')}
+      {pad ? txt.padStart(2, '0') : txt}
       {suffix}
     </span>
   );
@@ -120,7 +122,7 @@ export function phaseAt(now) {
   if (now < summitStart) return { label: 'Summit begins in', target: summitStart, status: 'Db2Hack is live · submissions open, not strict' };
   if (now < summitEnd) return { label: 'Happening now', target: null, status: 'Live at GL Bajaj · build after the workshop and submit' };
   if (now < hackEnd) return { label: 'Db2Hack submissions close in', target: hackEnd, status: 'Workshop done · Db2Hack still live — extended — submit by 1:30 PM IST, Wed 11 Nov (12 AM PST)' };
-  if (now < resultsEnd) return { label: 'Judging in progress', target: null, status: 'Registrations & submissions closed · 10 finalists pitched · judging in progress · finalists announced soon' };
+  if (now < resultsEnd) return { label: 'Judging in progress', target: null, status: 'Registrations & submissions closed · 20 finalists pitched · judging in progress · finalists announced soon' };
   return { label: "That's a wrap", target: null, status: 'Thank you, builders — keep building on Db2' };
 }
 

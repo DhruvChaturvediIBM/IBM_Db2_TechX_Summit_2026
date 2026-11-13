@@ -11,7 +11,7 @@ export const MOMENTS = {
   hackStart: new Date('2026-10-28T19:00:00+05:30'),
   // Workshop is over; Db2Hack stays open until this moment.
   hackEnd: new Date('2026-11-11T13:30:00+05:30'),
-  // Extended by one day (judges travelling). Top 10 pitched on Thu 12 Nov; judging runs until results are announced.
+  // Extended by one day (judges travelling). 20 finalists pitched on Sat 14 Nov; judging runs until results are announced.
   resultsEnd: new Date('2026-12-31T00:00:00+05:30'),
   summitStart: new Date('2026-10-30T09:00:00+05:30'),
   summitEnd: new Date('2026-10-30T17:00:00+05:30'),
@@ -122,14 +122,27 @@ export const SCHEDULE_DAYS = [
     ],
   },
   {
-    date: '2026-11-12',
-    label: 'Thu · 12 Nov',
-    caption: 'Db2Hack · Top 10 pitching',
+    date: '2026-11-14',
+    label: 'Sat · 14 Nov',
+    caption: 'Db2Hack · finalists pitching',
     items: [
-      { start: '00:00', end: '24:00', title: 'Top 10 pitching round · judging in progress', detail: 'The 10 finalists pitched their projects to the judges. Judging is in progress — the finalists, Top 3 and projects with real potential are announced soon on the Finalists page', highlight: true, tag: 'Judging' },
+      { start: '00:00', end: '24:00', title: 'Finalists pitching round · judging in progress', detail: 'The 20 finalists pitched their projects to the judges. Judging is in progress — the finalists, Top 3 and projects with real potential are announced soon on the Finalists page', highlight: true, tag: 'Judging' },
     ],
   },
 ];
+
+// "Grand success" impact numbers shown big on the landing page.
+export const IMPACT = {
+  hero: { to: 49.4, decimals: 1, suffix: 'K', label: 'Brand impressions on Unstop' },
+  stats: [
+    { to: 5.3, decimals: 1, suffix: 'K', pre: '~', label: 'Registrations on Unstop' },
+    { to: 1, suffix: 'K', pre: '~', label: 'More registrations on Devpost & Luma' },
+    { to: 5, suffix: '+', label: 'Countries participating' },
+    { to: 100, pre: '~', label: 'Projects built on IBM Db2 + AI frameworks' },
+    { to: 130, suffix: '+', label: 'Workshop attendees · 2–3 hours of engagement' },
+    { to: 20, label: 'Finalists pitched to the judges' },
+  ],
+};
 
 // Db2Hack finalists. Empty = the Finalists page shows "revealed soon".
 // To reveal, add { name, project, about, pr } entries (up to 10) and push.
@@ -245,19 +258,20 @@ export const REWARDS = [
 ];
 
 export const SPEAKERS = [
-  { name: 'Deepak Rangrao', role: 'Distinguished Engineer, IBM', org: 'IBM', photo: '/speakers/Deepak-Rangrao.png', tag: 'Chief Guest', featured: true },
-  { name: 'Gaurav Saxena', role: 'Program Director, IBM Db2', org: 'IBM Lucknow', photo: '/speakers/Gaurav-Saxena.png', featured: true, linkedin: 'https://www.linkedin.com/in/gaurav-saxena-95044594/' },
-  { name: 'Daya Nand', role: 'Senior Db2 Development Manager', org: 'IBM Lucknow', photo: '/speakers/Daya-Nand.png', linkedin: 'https://www.linkedin.com/in/2mrdaya/' },
-  { name: 'Dhruv Chaturvedi', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Dhruv-Chaturvedi-light-bg.png', tag: 'Event SPOC', linkedin: 'https://www.linkedin.com/in/dhruvinsights/', instagram: 'https://www.instagram.com/dhruv_insights/', youtube: 'https://www.youtube.com/@dhruv_insights' },
-  { name: 'Keshav Maheshwari', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Keshav-Maheshwari.png', linkedin: 'https://www.linkedin.com/in/keshav-maheshwari-666738186/' },
-  { name: 'Kunal Gola', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Kunal-Gola.png', linkedin: 'https://www.linkedin.com/in/kunal-gola-459030203/' },
-  { name: 'Pawan Thakur', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Pawan-Thakur.png', linkedin: 'https://www.linkedin.com/in/pawanthakurindia/' },
-  { name: 'Shaik Sadiq', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Shaik-Sadiq.png', linkedin: 'https://www.linkedin.com/in/shaik-sadiq-068a39242/' },
+  { name: 'Deepak Rangrao', role: 'Distinguished Engineer, IBM', org: 'IBM', photo: '/speakers/Deepak-Rangrao.png', tag: 'Chief Guest', group: 'lead' },
+  { name: 'Gaurav Saxena', role: 'Program Director, IBM Db2', org: 'IBM Lucknow', photo: '/speakers/Gaurav-Saxena.png', tag: 'IBM Db2 Leadership', group: 'lead', linkedin: 'https://www.linkedin.com/in/gaurav-saxena-95044594/' },
+  { name: 'Daya Nand', role: 'Senior Db2 Development Manager', org: 'IBM Lucknow', photo: '/speakers/Daya-Nand.png', tag: 'Judge', group: 'judge', linkedin: 'https://www.linkedin.com/in/2mrdaya/' },
+  { name: 'Dhruv Chaturvedi', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Dhruv-Chaturvedi-light-bg.png', tag: 'Event SPOC & Lead · Judge', group: 'lead', linkedin: 'https://www.linkedin.com/in/dhruvinsights/', instagram: 'https://www.instagram.com/dhruv_insights/', youtube: 'https://www.youtube.com/@dhruv_insights' },
+  { name: 'Keshav Maheshwari', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Keshav-Maheshwari.png', tag: 'Judge', group: 'judge', linkedin: 'https://www.linkedin.com/in/keshav-maheshwari-666738186/' },
+  { name: 'Kunal Gola', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Kunal-Gola.png', tag: 'Judge', group: 'judge', linkedin: 'https://www.linkedin.com/in/kunal-gola-459030203/' },
+  { name: 'Pawan Thakur', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Pawan-Thakur.png', tag: 'Judge', group: 'judge', linkedin: 'https://www.linkedin.com/in/pawanthakurindia/' },
+  { name: 'Shaik Sadiq', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Shaik-Sadiq.png', tag: 'Judge', group: 'judge', linkedin: 'https://www.linkedin.com/in/shaik-sadiq-068a39242/' },
+  { name: 'Yagnik Sharma', role: 'Student President, Institution\'s Innovation Council · Head, IBM Db2 TechX Summit 2026 team', org: 'GL Bajaj Group of Institutions', photo: '/speakers/Yagnik-Sharma.jpg', tag: 'Host', group: 'host' },
 ];
 
 export const FAQ = [
-  { q: 'Is Db2Hack still open?', a: 'No. Registrations and submissions are closed (submissions closed at 1:30 PM IST on Wed 11 Nov). The 10 finalists pitched to the judges on Thu 12 Nov, and judging is in progress. The finalists and winners will be announced on the Finalists page and the WhatsApp channel soon.' },
-  { q: 'Was the deadline extended?', a: 'Yes, by one day, because the judges were travelling. Submissions closed at 1:30 PM IST on Wednesday, 11 November (12:00 AM PST · 9:00 AM WAT, Nigeria), and the Top 10 pitched on Thursday, 12 November.' },
+  { q: 'Is Db2Hack still open?', a: 'No. Registrations and submissions are closed (submissions closed at 1:30 PM IST on Wed 11 Nov). The 20 finalists pitched to the judges on Sat 14 Nov, and judging is in progress. The finalists and winners will be announced on the Finalists page and the WhatsApp channel soon.' },
+  { q: 'Was the deadline extended?', a: 'Yes, by one day, because the judges were travelling. Submissions closed at 1:30 PM IST on Wednesday, 11 November (12:00 AM PST · 9:00 AM WAT, Nigeria), and the 20 finalists pitched on Saturday, 14 November.' },
   { q: 'I registered on Luma or Devpost, not Unstop. Is that okay?', a: 'Yes. We recommend Unstop, but if you had trouble there, Luma or Devpost is fine. What matters is that you submit: open your PR on the submission repo and fill the submission form.' },
   { q: 'I am new. What exactly do I do?', a: 'Four steps: 1) register on Unstop and join the WhatsApp community, 2) install the IBM Db2 Developer Extension in VS Code and click "Create Db2 instance", 3) install one framework package such as pip install -U langchain-db2, 4) build your project, open a pull request and fill the Google Form before 1:30 PM IST on Wed 11 Nov (12:00 AM PST). The "Start here" section on the home page has a button for each step.' },
   { q: 'Can my AI assistant help me build it?', a: 'Yes. Download the IBM Db2 builder skill from the "AI skill" section and give it to Claude, Cursor, Copilot, IBM Bob, ChatGPT or Gemini. It walks your AI through installing Db2, picking a framework, writing the code and preparing your submission.' },
@@ -268,7 +282,7 @@ export const FAQ = [
   { q: 'Who can participate?', a: 'Everyone — students, working professionals and developers, in India or anywhere in the world. International participants are judged equally.' },
   { q: 'My project has more than one member. What do we do?', a: 'Db2Hack is individual. Add your teammates as assignees on the PR and write each person\'s role in the README. Each member must submit separately. Only one member can win per project, so you also compete within your team on the same project.' },
   { q: 'I missed the start. Can I still join?', a: 'Db2Hack submissions are closed. You can still build with the quick start and resources, follow the WhatsApp channel for the online workshop and the next challenge — and the deadline.' },
-  { q: 'When are the results?', a: 'Judging is in progress. The 10 finalists pitched to the judges on Thu 12 Nov, and each judge scores every project independently. The finalists, the Top 3 and the projects with real potential will be announced soon on the Finalists page and the WhatsApp channel.' },
+  { q: 'When are the results?', a: 'Judging is in progress. The 20 finalists pitched to the judges on Sat 14 Nov, and each judge scores every project independently. The finalists, the Top 3 and the projects with real potential will be announced soon on the Finalists page and the WhatsApp channel.' },
   { q: 'How are the Top 10 chosen?', a: 'IBM experts score every submission with the 100-point rubric on the Submit page. To keep it transparent, we share the judging sheet and feedback explaining why a submission was not selected for the Top 10.' },
   { q: 'Will the judging be fair?', a: 'Yes. Every judge evaluates each submission independently against the published criteria, and PRs are first checked by automation against the PR template — so follow the template. Results are shared with everyone, so each participant sees where they stand and what they missed.' },
   { q: 'Which frameworks can I use?', a: 'Every project must use at least one of LangChain, Haystack, CrewAI, LlamaIndex or the no-code Langflow. One is enough; combining several (for example LangChain + CrewAI) is also allowed.' },
@@ -278,7 +292,7 @@ export const FAQ = [
   { q: 'Do I need prior Db2 experience?', a: 'No. The toolkit gives you ready-made Db2 integrations — vector stores, document stores and agent tools — for the frameworks you may already know.' },
   { q: 'Which Db2 should I build on?', a: 'Db2 Community Edition — it is free with full Db2 features (up to 4 cores and 16 GB RAM). The quickest start is the IBM Db2 Developer Extension for VS Code, which can create a Community Edition instance with a sample database. You can also use the Docker image (icr.io/db2_community/db2) or the installer from ibm.com/db2/get-started.' },
   { q: 'Can I contribute to IBM Db2 open source?', a: 'Yes. Students who submit good projects get the opportunity to contribute their use cases to the IBM Db2 GitHub organisation, with guidance from the IBM team on where and how to open the contribution.' },
-  { q: 'Where will I get further updates?', a: 'In the WhatsApp community — the online workshop and doubt-session dates, and the Top 10 pitch timings are shared there first.' },
+  { q: 'Where will I get further updates?', a: 'In the WhatsApp community — the online workshop and doubt-session dates, and the finalists and results are shared there first.' },
 ];
 
 // Official IBM Product Hub tutorials, one per Db2Hack framework.
@@ -382,7 +396,7 @@ export const SUBMISSION_ISSUES = `${SUBMISSION_REPO}/issues/new/choose`;
 export const SUBMIT_DATES = [
   { what: 'Submissions opened', when: 'Wed 28 Oct · 7:00 PM IST', note: 'Registrations closed on Sun 8 Nov' },
   { what: 'Submissions closed', when: 'Wed 11 Nov · 1:30 PM IST', note: 'Extended by one day · 12:00 AM PST · 9:00 AM WAT' },
-  { what: 'Top 10 pitched · judging in progress', when: 'Thu 12 Nov → soon', note: 'The 10 finalists pitched to the judges. Judging is in progress — then the Top 3, Top 10 and the projects with potential are announced. Best submissions win IBM goodies and a chance to contribute to IBM open-source projects' },
+  { what: '20 finalists pitched · judging in progress', when: 'Sat 14 Nov → soon', note: 'The 20 finalists pitched to the judges. Judging is in progress — then the Top 3, Top 10 and the projects with potential are announced. Best submissions win IBM goodies and a chance to contribute to IBM open-source projects' },
 ];
 
 export const SUBMIT_REQUIREMENTS = [

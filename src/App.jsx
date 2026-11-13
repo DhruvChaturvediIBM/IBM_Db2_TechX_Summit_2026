@@ -22,6 +22,7 @@ import {
   Reveal,
   SectionHead,
   AnchorLink,
+  CountUp,
   Countdown,
   Spotlight,
   CopyCmd,
@@ -42,6 +43,7 @@ import {
   AGENTIC,
   AI_SKILL,
   FINALISTS,
+  IMPACT,
   COMING_SOON,
   RECAP_HIGHLIGHTS,
   GALLERY_TABS,
@@ -174,7 +176,7 @@ function AnnouncementBar() {
               <b>{phase.status}</b>
             </span>
             <span>Registrations closed · submissions closed</span>
-            <span>10 finalists pitched to the judges on Thu 12 Nov</span>
+            <span>20 finalists pitched to the judges on Sat 14 Nov</span>
             <span>Judging in progress · finalists announced soon</span>
             <span>Chief guest: Deepak Rangrao, Distinguished Engineer, IBM</span>
             <span>Get Db2 free: IBM Db2 Developer Extension for VS Code</span>
@@ -362,7 +364,7 @@ function Hero() {
 
         <motion.p className="hero-tagline" {...rise(0.85, 20)}>
           <ShinyText
-            text="Registrations and submissions are closed. 10 finalists pitched to the judges — finalists announced soon."
+            text="Registrations and submissions are closed. 20 finalists pitched to the judges — finalists announced soon."
             color="#c6c6c6"
             shineColor="#ffffff"
             speed={3}
@@ -415,10 +417,10 @@ function Hero() {
         transition={{ duration: 1, delay: 1.35, ease: EASE }}
       >
         <div className="hb-date">
-          <span className="hb-day">12</span>
+          <span className="hb-day">14</span>
           <span className="hb-month">
             <b>November</b>
-            <span>10 finalists pitched</span>
+            <span>20 finalists pitched</span>
           </span>
         </div>
         <Countdown />
@@ -504,13 +506,13 @@ function Schedule() {
       <div className="container">
         <SectionHead
           num="08"
-          kicker="Event flow · 28 Oct – 12 Nov 2026"
+          kicker="Event flow · 28 Oct – 14 Nov 2026"
           title={
             <>
               Build, learn, <span className="dim">win.</span>
             </>
           }
-          sub="Db2Hack opened on 28 Oct at 7:00 PM. The Summit and workshop wrapped up on 30 Oct, submissions closed at 1:30 PM IST on Wed 11 Nov, and the Top 10 pitched on Thu 12 Nov. All times are IST."
+          sub="Db2Hack opened on 28 Oct at 7:00 PM. The Summit and workshop wrapped up on 30 Oct, submissions closed at 1:30 PM IST on Wed 11 Nov, and the 20 finalists pitched on Sat 14 Nov. All times are IST."
         />
         <div className="timeline" ref={lineRef}>
           <div className="tl-rail">
@@ -960,13 +962,13 @@ function Db2Hack() {
             on IBM Db2
           </Reveal>
           <Reveal delay={0.14} as="p" className="hack-lead">
-            Build an AI use case on IBM Db2. Open to everyone — solo participation only. <b>Submissions are closed. The 10 finalists pitched on 12 Nov — judging is in progress.</b>
+            Build an AI use case on IBM Db2. Open to everyone — solo participation only. <b>Submissions are closed. The 20 finalists pitched on 14 Nov — judging is in progress.</b>
           </Reveal>
         </div>
 
         <Reveal className="flap-board">
           <SplitFlapText
-            words={['SUBMISSIONS CLOSED', 'TOP 10 HAVE PITCHED', 'JUDGING IN PROGRESS']}
+            words={['SUBMISSIONS CLOSED', '20 HAVE PITCHED', 'JUDGING IN PROGRESS']}
             padTo={19}
             fontSize={flap}
             gap={wide ? 5 : 3}
@@ -997,8 +999,8 @@ function Db2Hack() {
             <span className="hw-line-fill" />
           </div>
           <div className="hw-point hw-final">
-            <span className="mono-label">Top 10 pitched</span>
-            <strong>Thu, 12 Nov</strong>
+            <span className="mono-label">20 finalists pitched</span>
+            <strong>Sat, 14 Nov</strong>
             <span>Judging in progress</span>
           </div>
         </Reveal>
@@ -1033,7 +1035,7 @@ function Db2Hack() {
               <li>Submit a GitHub pull request, then the PR link via Google Form</li>
               <li>Joining the WhatsApp community is mandatory</li>
               <li>Submissions closed at 1:30 PM IST on Wed 11 Nov (extended by one day)</li>
-              <li>10 finalists pitched on Thu 12 Nov · judging in progress</li>
+              <li>20 finalists pitched on Sat 14 Nov · judging in progress</li>
               <li>Post your use case on LinkedIn and tag the organising team</li>
               <li>Top 3 win trophies, Top 10 win IBM Db2 goodies</li>
             </ul>
@@ -1453,7 +1455,7 @@ function Rewards() {
               Build well. <span className="dim">Take home a trophy.</span>
             </>
           }
-          sub="IBM experts are reviewing every submission. The 10 finalists pitched on Thursday, 12 November — next we announce the Top 3, the Top 10 and the projects with real potential."
+          sub="IBM experts are reviewing every submission. The 20 finalists pitched on Saturday, 14 November — next we announce the Top 3, the Top 10 and the projects with real potential."
         />
         <div className="rw-grid">
           {[top3, top10].map((r, i) => (
@@ -1547,17 +1549,23 @@ const SOCIAL_LABEL = { linkedin: 'LinkedIn', instagram: 'Instagram', youtube: 'Y
 function SpeakerCard({ sp, i, big = false }) {
   return (
     <Reveal delay={0.05 * i} className={`speaker-wrap ${big ? 'is-big' : ''}`}>
-      <Spotlight className={`speaker ${sp.featured ? 'is-featured' : ''}`}>
+      <Spotlight className={`speaker is-${sp.group || 'team'}`}>
         <div className="sp-photo">
           <img src={sp.photo} alt={sp.name} loading="lazy" />
         </div>
         <div className="sp-meta">
-          {sp.tag && <span className={`tag tag-sm ${sp.tag === 'Chief Guest' ? 'tag-chief' : ''}`}>{sp.tag}</span>}
+          {sp.tag && <span className={`tag tag-sm ${sp.tag === 'Judge' ? 'tag-judge' : 'tag-chief'}`}>{sp.tag}</span>}
           <h3>{sp.name}</h3>
           <p>{sp.role}</p>
           <span className="sp-org">
-            <img src="/logos/ibm-8bar-white.svg" alt="IBM" />
-            {sp.org === 'IBM' ? 'IBM' : sp.org.replace('IBM ', '')}
+            {sp.org.startsWith('IBM') ? (
+              <>
+                <img src="/logos/ibm-8bar-white.svg" alt="IBM" />
+                {sp.org === 'IBM' ? 'IBM' : sp.org.replace('IBM ', '')}
+              </>
+            ) : (
+              sp.org
+            )}
           </span>
         </div>
         {(sp.linkedin || sp.instagram || sp.youtube) && (
@@ -1577,49 +1585,83 @@ function SpeakerCard({ sp, i, big = false }) {
   );
 }
 
-// Full team grid — used on /team. Featured people (chief guest, director) get the wide row.
+// Full team on /team: leadership, the Db2Hack judges, and our host from GL Bajaj.
+const byGroup = g => SPEAKERS.filter(sp => sp.group === g);
+const JUDGE_NAMES = SPEAKERS.filter(sp => sp.group === 'judge' || sp.tag?.includes('Judge')).map(sp => sp.name.split(' ')[0]);
+
 function Speakers() {
-  const featured = SPEAKERS.filter(sp => sp.featured);
-  const rest = SPEAKERS.filter(sp => !sp.featured);
   return (
-    <section className="section" id="speakers">
-      <div className="container">
-        <SectionHead
-          num="01"
-          kicker="Chief guest, speakers & judges · IBM"
-          title={
-            <>
-              The people <span className="dim">who build Db2.</span>
-            </>
-          }
-          sub="Our chief guest, IBM Db2 leadership and the engineers who led the talks, the workshop and the panel on 30 Oct — and who are judging the Db2Hack projects."
-        />
-        <div className="speakers speakers-featured">
-          {featured.map((sp, i) => (
-            <SpeakerCard key={sp.name} sp={sp} i={i} big />
-          ))}
+    <>
+      <section className="section" id="speakers">
+        <div className="container">
+          <SectionHead
+            num="01"
+            kicker="Chief guest & leadership"
+            title={
+              <>
+                Led by IBM. <span className="dim">Built by the Db2 team.</span>
+              </>
+            }
+            sub="Our chief guest Deepak Rangrao, Gaurav Saxena who directs the IBM Db2 program, and Dhruv Chaturvedi — Event SPOC and lead for IBM Db2 TechX and Db2Hack."
+          />
+          <div className="speakers speakers-featured">
+            {byGroup('lead').map((sp, i) => (
+              <SpeakerCard key={sp.name} sp={sp} i={i} big />
+            ))}
+          </div>
         </div>
-        <div className="speakers">
-          {rest.map((sp, i) => (
-            <SpeakerCard key={sp.name} sp={sp} i={i} />
-          ))}
+      </section>
+      <section className="section" id="judges">
+        <div className="container">
+          <SectionHead
+            num="02"
+            kicker="Db2Hack judges · IBM Db2"
+            title={
+              <>
+                The judges. <span className="dim">Every project, scored independently.</span>
+              </>
+            }
+            sub={`${JUDGE_NAMES.join(', ')} — IBM Db2 engineers and managers from IBM Lucknow who led the talks, the workshop and the panel, and who score every Db2Hack project against the published criteria.`}
+          />
+          <div className="speakers speakers-judges">
+            {byGroup('judge').map((sp, i) => (
+              <SpeakerCard key={sp.name} sp={sp} i={i} />
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <section className="section" id="host">
+        <div className="container">
+          <SectionHead
+            num="03"
+            kicker="Host · GL Bajaj Group of Institutions"
+            title={
+              <>
+                Our host <span className="dim">at GL Bajaj, Mathura.</span>
+              </>
+            }
+          />
+          <div className="speakers speakers-featured speakers-host">
+            {byGroup('host').map((sp, i) => (
+              <SpeakerCard key={sp.name} sp={sp} i={i} big />
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
 
 // Compact team highlight high up on the landing page.
 function TeamHighlight() {
-  const featured = SPEAKERS.filter(sp => sp.featured);
-  const rest = SPEAKERS.filter(sp => !sp.featured);
+  const people = [...byGroup('judge'), ...byGroup('host')];
   return (
     <section className="section team-hl" id="team">
       <div className="container">
         <div className="team-hl-head">
           <Reveal as="span" className="kicker kicker-row">
             <span className="kicker-dot" />
-            Chief guest & the IBM Db2 team
+            Chief guest, leads, judges &amp; host
             <AnchorLink id="team" label="team" />
           </Reveal>
           <Reveal delay={0.06} as="h2">
@@ -1627,30 +1669,80 @@ function TeamHighlight() {
           </Reveal>
         </div>
         <div className="team-hl-grid">
-          {featured.map((sp, i) => (
+          {byGroup('lead').map((sp, i) => (
             <Reveal key={sp.name} delay={0.06 * i} className="team-hl-feat">
               <img src={sp.photo} alt={sp.name} />
               <div>
-                {sp.tag && <span className={`tag tag-sm ${sp.tag === 'Chief Guest' ? 'tag-chief' : ''}`}>{sp.tag}</span>}
+                {sp.tag && <span className="tag tag-sm tag-chief">{sp.tag}</span>}
                 <strong>{sp.name}</strong>
                 <span>{sp.role}</span>
               </div>
             </Reveal>
           ))}
-          <Reveal delay={0.12} className="team-hl-rest">
-            <div className="team-hl-faces">
-              {rest.map(sp => (
-                <img key={sp.name} src={sp.photo} alt={sp.name} title={sp.name} loading="lazy" />
-              ))}
-            </div>
-            <span>
-              + {rest.length} IBM Db2 engineers and managers — speakers, mentors and judges
-            </span>
-            <Link className="btn btn-ghost btn-sm" to="/team">
-              Meet the whole team <Arrow />
-            </Link>
-          </Reveal>
         </div>
+        <Reveal delay={0.1} className="team-hl-people">
+          {people.map(sp => (
+            <div className={`team-hl-p is-${sp.group}`} key={sp.name}>
+              <img src={sp.photo} alt={sp.name} loading="lazy" />
+              <div>
+                <span className={`tag tag-sm ${sp.group === 'judge' ? 'tag-judge' : 'tag-chief'}`}>{sp.tag}</span>
+                <strong>{sp.name}</strong>
+                <span>{sp.group === 'host' ? 'GL Bajaj Group of Institutions' : sp.role}</span>
+              </div>
+            </div>
+          ))}
+        </Reveal>
+        <Reveal className="team-hl-more">
+          <Link className="btn btn-ghost btn-lg" to="/team">
+            Meet the whole team <Arrow />
+          </Link>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+// Big "Grand success" numbers, right under the hero.
+function Impact() {
+  const h = IMPACT.hero;
+  return (
+    <section className="section impact" id="impact">
+      <div className="container">
+        <Reveal className="impact-card">
+          <div className="impact-top">
+            <div className="impact-copy">
+              <span className="kicker kicker-row">
+                <span className="kicker-dot" />
+                Db2Hack 2026 · a grand success
+                <AnchorLink id="impact" label="impact numbers" />
+              </span>
+              <h2>
+                A grand success. <span className="dim">An international win for IBM Db2.</span>
+              </h2>
+              <p>
+                Thousands of builders from 5+ countries joined on Unstop, Devpost and Luma — and around 100 of them shipped
+                real AI projects on IBM Db2 with LangChain, LlamaIndex, Haystack, CrewAI and Langflow.
+              </p>
+            </div>
+            <div className="impact-hero">
+              <strong>
+                <CountUp to={h.to} decimals={h.decimals} suffix={h.suffix} pad={false} />
+              </strong>
+              <span>{h.label}</span>
+            </div>
+          </div>
+          <div className="impact-grid">
+            {IMPACT.stats.map(st => (
+              <div className="impact-stat" key={st.label}>
+                <strong>
+                  {st.pre}
+                  <CountUp to={st.to} decimals={st.decimals || 0} suffix={st.suffix || ''} pad={false} />
+                </strong>
+                <span>{st.label}</span>
+              </div>
+            ))}
+          </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -1669,16 +1761,16 @@ function FinalistsTeaser() {
               <AnchorLink id="finalists" label="finalists" />
             </span>
             <h2>
-              10 finalists pitched. <span className="dim">Results coming soon.</span>
+              20 finalists pitched. <span className="dim">Results coming soon.</span>
             </h2>
             <p>
-              Registrations and submissions are closed. The Top 10 pitched to the judges on Thu 12 Nov, and every judge is
+              Registrations and submissions are closed. The 20 finalists pitched to the judges on Sat 14 Nov, and every judge is
               scoring each project independently against the published criteria.
             </p>
           </div>
           <div className="fin-teaser-act">
             <div className="fin-slots" aria-hidden="true">
-              {Array.from({ length: 10 }).map((_, i) => (
+              {Array.from({ length: 20 }).map((_, i) => (
                 <span key={i}>{String(i + 1).padStart(2, '0')}</span>
               ))}
             </div>
@@ -1700,7 +1792,7 @@ function FinalistsTeaser() {
 const FIN_STAGES = [
   { t: 'Registrations closed', d: 'Sun 8 Nov', done: true },
   { t: 'Submissions closed', d: 'Wed 11 Nov · 1:30 PM IST', done: true },
-  { t: '10 finalists pitched', d: 'Thu 12 Nov', done: true },
+  { t: '20 finalists pitched', d: 'Sat 14 Nov', done: true },
   { t: 'Judging in progress', d: 'Every judge scores independently', now: true },
   { t: 'Finalists & winners announced', d: 'Coming soon' },
 ];
@@ -1726,8 +1818,8 @@ function FinalistsPage() {
             The Db2Hack finalists. <span className="dim">{revealed ? 'Congratulations.' : 'Revealed soon.'}</span>
           </Reveal>
           <Reveal delay={0.12} as="p">
-            Registrations and submissions are closed. The 10 finalists pitched their projects to the judges on Thursday,
-            12 November. Every judge is scoring each project independently — results are shared with everyone, so each
+            Registrations and submissions are closed. The 20 finalists pitched their projects to the judges on Saturday,
+            14 November. Every judge is scoring each project independently — results are shared with everyone, so each
             participant sees where they stand.
           </Reveal>
         </div>
@@ -1750,16 +1842,16 @@ function FinalistsPage() {
         <div className="container">
           <SectionHead
             num="02"
-            kicker="Top 10"
+            kicker="20 finalists"
             title={
               <>
-                {revealed ? 'Meet the finalists.' : 'Ten spots.'} <span className="dim">{revealed ? '' : 'Names coming soon.'}</span>
+                {revealed ? 'Meet the finalists.' : 'Twenty spots.'} <span className="dim">{revealed ? '' : 'Names coming soon.'}</span>
               </>
             }
             sub="Top 3 win a trophy, an IBM Db2 kit and a Certificate of Excellence. Top 10 win IBM Db2 goodies and a Certificate of Merit."
           />
           <div className="fin-grid">
-            {Array.from({ length: 10 }).map((_, i) => {
+            {Array.from({ length: 20 }).map((_, i) => {
               const f = FINALISTS[i];
               return (
                 <Reveal key={i} delay={0.03 * i} className={`fin-card ${f ? '' : 'is-soon'}`}>
@@ -1913,7 +2005,7 @@ function FinalCta() {
           Finalists <span className="dim">coming soon.</span>
         </Reveal>
         <Reveal delay={0.12} as="p">
-          Thank you to everyone who built on IBM Db2. The 10 finalists have pitched and the judges are scoring every
+          Thank you to everyone who built on IBM Db2. The 20 finalists have pitched and the judges are scoring every
           project independently. Top 3 win trophies, Top 10 win IBM Db2 goodies.
         </Reveal>
         <Reveal delay={0.18} className="final-ctas">
@@ -2328,7 +2420,7 @@ function SubmitGuide() {
                 Closed. <span className="dim">Judging in progress.</span>
               </>
             }
-            sub="Registrations and submissions are closed — submissions closed at 1:30 PM IST on Wednesday, 11 November (12:00 AM PST · 9:00 AM WAT), extended by one day. The 10 finalists pitched on Thu 12 Nov and judging is in progress."
+            sub="Registrations and submissions are closed — submissions closed at 1:30 PM IST on Wednesday, 11 November (12:00 AM PST · 9:00 AM WAT), extended by one day. The 20 finalists pitched on Sat 14 Nov and judging is in progress."
           />
           <div className="sdates">
             {SUBMIT_DATES.map((d, i) => (
@@ -2649,6 +2741,7 @@ function HomePage() {
   return (
     <main>
       <Hero />
+      <Impact />
       <FinalistsTeaser />
       <TeamHighlight />
       <Showreel />
