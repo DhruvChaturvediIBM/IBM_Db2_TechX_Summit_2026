@@ -38,28 +38,30 @@ const CATS = [
 const CAT_LABEL = Object.fromEntries(CATS.map((c) => [c.id, c.label]));
 
 const SECTIONS = [
-  ["Start here · 4 steps", "/#start", "begin steps how to start new beginner"],
+  ["Start here · 4 steps", "/build#start", "begin steps how to start new beginner"],
   ["Highlights video", "/#showreel", "watch showreel video summit"],
   [
     "AI skill for your assistant",
-    "/#ai-skill",
+    "/build#ai-skill",
     "claude cursor copilot chatgpt gemini bob skill download rag",
   ],
   [
     "Rewards",
-    "/#rewards",
+    "/db2hack#rewards",
     "prizes trophy goodies certificate top 3 top 10 win",
   ],
   [
     "Online workshop & doubt session",
-    "/#live",
+    "/build#live",
     "coming soon live online workshop doubts",
   ],
-  ["Db2Hack", "/#db2hack", "hackathon challenge rules deadline"],
+  ["Db2Hack", "/db2hack", "hackathon challenge rules deadline"],
   ["Summit recap", "/#recap", "photos gl bajaj mathura 30 oct"],
-  ["Speakers · IBM Db2 team", "/#speakers", "team people linkedin contact"],
-  ["Schedule", "/#schedule", "timeline dates event flow pitch 12 nov"],
-  ["FAQ", "/#faq", "questions help doubts"],
+  
+  ["Schedule", "/db2hack#schedule", "timeline dates event flow pitch 13 nov results 14 nov"],
+  ["FAQ", "/faq", "questions help doubts"],
+  ["Build on IBM Db2", "/build", "build start steps skill packages extension oss open source"],
+  ["Impact · a grand success", "/#impact", "impressions registrations countries unstop luma devpost projects numbers"],
   ["Submit project", "/submit", "submission guide pr form"],
   [
     "Important dates",
@@ -110,7 +112,7 @@ function buildIndex() {
       "section",
       `Step ${i + 1} · ${s.title}`,
       s.body,
-      `/#${s.anchor}`,
+      `/build#${s.anchor}`,
       "start step",
     ),
   );
@@ -118,7 +120,7 @@ function buildIndex() {
     add("section", `Gallery · ${t.label}`, "", `/gallery#${t.id}`, "photos"),
   );
 
-  FAQ.forEach((f) => add("faq", f.q, f.a, "/#faq"));
+  FAQ.forEach((f) => add("faq", f.q, f.a, "/faq"));
 
   SUBMIT_DATES.forEach((d) =>
     add(
@@ -169,7 +171,7 @@ function buildIndex() {
       "package",
       a.name,
       `${a.does} · ${a.cmd}`,
-      "/#agentic-packages",
+      "/build#agentic-packages",
       "agentic",
     ),
   );
@@ -177,7 +179,7 @@ function buildIndex() {
     "package",
     "IBM Db2 Developer Extension for VS Code",
     "Free IBM Db2 Community Edition with testdb and SAMPLE",
-    "/#vscode-extension",
+    "/build#vscode-extension",
     `vscode extension install ${VSCODE_EXT.id}`,
   );
 
@@ -196,7 +198,7 @@ function buildIndex() {
       "people",
       s.name,
       `${s.role} · ${s.org}${s.tag ? ` · ${s.tag}` : ""}`,
-      s.linkedin || "/#speakers",
+      s.linkedin || "/team",
       "contact linkedin",
     ),
   );

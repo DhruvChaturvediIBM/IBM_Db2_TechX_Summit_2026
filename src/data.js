@@ -35,12 +35,12 @@ export const EVENT = {
 export const NAV = [
   { path: '/finalists', label: 'Finalists', highlight: true },
   { path: '/team', label: 'Team' },
-  { id: 'rewards', label: 'Rewards' },
-  { id: 'db2hack', label: 'Db2Hack' },
+  { path: '/db2hack', label: 'Db2Hack' },
+  { path: '/build', label: 'Build' },
   { path: '/submit', label: 'Judging' },
   { path: '/resources', label: 'Resources' },
   { path: '/gallery', label: 'Gallery' },
-  { id: 'faq', label: 'FAQ' },
+  { path: '/faq', label: 'FAQ' },
 ];
 
 // IBM Db2 Developer Extension for VS Code — the easiest way to get IBM Db2 free.
@@ -271,12 +271,12 @@ export const SPEAKERS = [
   { name: 'Deepak Rangrao', role: 'Director of Engineering & Distinguished Engineer, IBM', org: 'IBM', photo: '/speakers/Deepak-Rangrao.png', tag: 'Chief Guest', group: 'lead', linkedin: 'https://www.linkedin.com/in/deepakrangarao/' },
   { name: 'Gaurav Saxena', role: 'Program Director, IBM Db2', org: 'IBM Lucknow', photo: '/speakers/Gaurav-Saxena.png', tag: 'IBM Db2 Leadership', group: 'lead', linkedin: 'https://www.linkedin.com/in/gaurav-saxena-95044594/' },
   { name: 'Daya Nand', role: 'Senior Development Manager, IBM Db2', org: 'IBM Lucknow', photo: '/speakers/Daya-Nand.png', tag: 'IBM Db2 Leadership · Judge', group: 'lead', linkedin: 'https://www.linkedin.com/in/2mrdaya/' },
-  { name: 'Dhruv Chaturvedi', role: 'Software Engineer, IBM Db2', org: 'IBM Lucknow', photo: '/speakers/Dhruv-Chaturvedi-light-bg.png', tag: 'Event SPOC & Lead · Judge', group: 'spoc', linkedin: 'https://www.linkedin.com/in/dhruvinsights/', instagram: 'https://www.instagram.com/dhruv_insights/', youtube: 'https://www.youtube.com/@dhruv_insights' },
+  { name: 'Dhruv Chaturvedi', role: 'Software Engineer, IBM Db2', org: 'IBM Lucknow', photo: '/speakers/Dhruv-Chaturvedi-light-bg.png', tag: 'Event SPOC & Lead · Judge', group: 'spoc', dev: true, about: 'The IBM SPOC who led IBM Db2 TechX 2026 and Db2Hack end to end — the Summit and workshop at GL Bajaj, the submission flow and the judging.', linkedin: 'https://www.linkedin.com/in/dhruvinsights/', instagram: 'https://www.instagram.com/dhruv_insights/', youtube: 'https://www.youtube.com/@dhruv_insights' },
   { name: 'Keshav Maheshwari', role: 'Software Engineer, IBM Db2', org: 'IBM Lucknow', photo: '/speakers/Keshav-Maheshwari.png', tag: 'Judge', group: 'judge', linkedin: 'https://www.linkedin.com/in/keshav-maheshwari-666738186/' },
-  { name: 'Kunal Gola', role: 'Software Engineer, IBM Db2', org: 'IBM Lucknow', photo: '/speakers/Kunal-Gola.png', tag: 'Judge', group: 'judge', linkedin: 'https://www.linkedin.com/in/kunal-gola-459030203/' },
+  { name: 'Kunal Gola', role: 'Software Engineer, IBM Db2', org: 'IBM Lucknow', photo: '/speakers/Kunal-Gola.png', tag: 'Judge · Core organiser', group: 'core', about: 'Runs the official Db2Hack submission repo — the PR template, the review automation and the submissions every judge scores.', linkedin: 'https://www.linkedin.com/in/kunal-gola-459030203/' },
   { name: 'Pawan Thakur', role: 'Software Engineer, IBM Db2', org: 'IBM Lucknow', photo: '/speakers/Pawan-Thakur.png', tag: 'Judge', group: 'judge', linkedin: 'https://www.linkedin.com/in/pawanthakurindia/' },
   { name: 'Shaik Sadiq', role: 'Software Engineer, IBM Db2', org: 'IBM Lucknow', photo: '/speakers/Shaik-Sadiq.png', tag: 'Judge', group: 'judge', linkedin: 'https://www.linkedin.com/in/shaik-sadiq-068a39242/' },
-  { name: 'Yagnik Sharma', role: 'Student President, Institution\'s Innovation Council · Head, IBM Db2 TechX Summit 2026 team', org: 'GL Bajaj Group of Institutions', photo: '/speakers/Yagnik-Sharma.jpg', tag: 'Host', group: 'host' },
+  { name: 'Yagnik Sharma', role: 'Student President, IIC · Member, IQAC · Joint Secretary, UBA', org: 'GL Bajaj Group of Institutions', photo: '/speakers/Yagnik-Sharma.jpg', tag: 'Host', group: 'host', linkedin: 'https://www.linkedin.com/in/yagnik-sharma/', about: 'Hosted the IBM Db2 TechX Summit at GL Bajaj Group of Institutions, Mathura, and headed the student team behind it.' },
 ];
 
 export const FAQ = [

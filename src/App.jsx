@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useSpring, useTransform } from 'motion/react';
-import { Link, Route, Routes, useLocation } from 'react-router-dom';
+import { Link, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import GradientASCII from './components/GradientASCII';
 import DecryptedText from './components/reactbits/DecryptedText';
 import ShinyText from './components/reactbits/ShinyText';
 import Magnet from './components/reactbits/Magnet';
 import RotatingText from './components/reactbits/RotatingText';
-import ScrollVelocity from './components/reactbits/ScrollVelocity';
 import LogoLoop from './components/reactbits/LogoLoop';
 import StarBorder from './components/reactbits/StarBorder';
 import DotGrid from './components/reactbits/DotGrid';
@@ -193,8 +192,37 @@ function AnnouncementBar() {
 }
 
 // A nav entry is either a home-page section (`id`) or a separate page (`path`).
+// Sections that moved off the home page onto their own pages.
+const MOVED = {
+  start: '/build',
+  register: '/build',
+  'vscode-extension': '/build',
+  'agentic-packages': '/build',
+  'how-to-submit': '/build',
+  'ai-skill': '/build',
+  live: '/build',
+  db2hack: '/db2hack',
+  rewards: '/db2hack',
+  schedule: '/db2hack',
+  faq: '/faq',
+};
+
 function NavItem({ n, className = '', onClick, children }) {
   const { pathname } = useLocation();
+  if (n.id && MOVED[n.id]) {
+    const page = MOVED[n.id];
+    if (pathname === page)
+      return (
+        <a href={`#${n.id}`} className={className} onClick={onClick}>
+          {children ?? n.label}
+        </a>
+      );
+    return (
+      <Link to={`${page}#${n.id}`} className={className} onClick={onClick}>
+        {children ?? n.label}
+      </Link>
+    );
+  }
   if (n.path) {
     return (
       <Link to={n.path} className={className} onClick={onClick}>
@@ -408,7 +436,7 @@ function Hero() {
             Results on the WhatsApp channel ↗
           </a>
           <Link to="/submit#judging">Judging criteria →</Link>
-          <a href="#rewards">Rewards →</a>
+          <Link to="/db2hack#rewards">Rewards →</Link>
           <Link to="/gallery">30 Oct photo gallery →</Link>
         </motion.div>
       </motion.div>
@@ -508,7 +536,7 @@ function Schedule() {
     <section className="section" id="schedule">
       <div className="container">
         <SectionHead
-          num="08"
+          num="03"
           kicker="Event flow · 28 Oct – 14 Nov 2026"
           title={
             <>
@@ -847,7 +875,6 @@ function Recap({ full = false }) {
       <div className="container">
         {!full && (
           <SectionHead
-            num="06"
             kicker="30 Oct 2026 · GL Bajaj, Mathura · done"
             title={
               <>
@@ -940,7 +967,7 @@ function Db2Hack() {
         <div className="hack-hero">
           <Reveal>
             <span className="kicker">
-              <span className="kicker-num">05</span>
+              <span className="kicker-num">01</span>
               The challenge · online
               <AnchorLink id="db2hack" label="Db2Hack" />
             </span>
@@ -1453,7 +1480,7 @@ function Rewards() {
       </div>
       <div className="container">
         <SectionHead
-          num="03"
+          num="02"
           kicker="Rewards · judging in progress"
           title={
             <>
@@ -1492,7 +1519,7 @@ function ComingSoon() {
     <section className="section soon-sec" id="live">
       <div className="container">
         <SectionHead
-          num="04"
+          num="03"
           kicker="Online · coming soon"
           title={
             <>
@@ -1610,18 +1637,17 @@ function SocialLinks({ sp, className = 'sp-social' }) {
 }
 
 // Wide highlighted card for the event SPOC & lead.
-function SpotlightLead({ sp, compact = false }) {
+function SpotlightLead({ sp, compact = false, variant = '' }) {
+  const where = `${sp.role} · ${sp.org}`;
   return (
-    <Reveal className={`spoc-card ${compact ? 'is-compact' : ''}`}>
+    <Reveal className={`spoc-card ${compact ? 'is-compact' : ''} ${variant ? `is-${variant}` : ''}`}>
       <img src={sp.photo} alt={sp.name} />
       <div className="spoc-copy">
-        <span className="tag tag-sm tag-chief">{sp.tag}</span>
+        <span className={`tag tag-sm ${sp.group === 'core' ? 'tag-judge' : 'tag-chief'}`}>{sp.tag}</span>
         <strong>{sp.name}</strong>
-        <span>{sp.role} · IBM Lucknow</span>
-        <p className="spoc-about">
-          The IBM SPOC who led IBM Db2 TechX 2026 and Db2Hack end to end — the Summit and workshop at GL Bajaj, the
-          submission flow and the judging.
-        </p>
+        <span>{where}</span>
+        {sp.about && <p className="spoc-about">{sp.about}</p>}
+        {sp.dev && <span className="dev-badge">⌘ Designed &amp; developed this website</span>}
         <SocialLinks sp={sp} className={compact ? 'hl-social' : 'sp-social'} />
       </div>
     </Reveal>
@@ -1656,6 +1682,9 @@ function Speakers() {
           {byGroup('spoc').map(sp => (
             <SpotlightLead key={sp.name} sp={sp} />
           ))}
+          {byGroup('core').map(sp => (
+            <SpotlightLead key={sp.name} sp={sp} compact variant="core" />
+          ))}
         </div>
       </section>
       <section className="section" id="judges">
@@ -1688,11 +1717,9 @@ function Speakers() {
               </>
             }
           />
-          <div className="speakers speakers-featured speakers-host">
-            {byGroup('host').map((sp, i) => (
-              <SpeakerCard key={sp.name} sp={sp} i={i} big />
-            ))}
-          </div>
+          {byGroup('host').map(sp => (
+            <SpotlightLead key={sp.name} sp={sp} compact variant="host" />
+          ))}
         </div>
       </section>
     </>
@@ -1701,7 +1728,7 @@ function Speakers() {
 
 // Compact team highlight high up on the landing page.
 function TeamHighlight() {
-  const people = [...byGroup('judge'), ...byGroup('host')];
+  const people = byGroup('judge');
   return (
     <section className="section team-hl" id="team">
       <div className="container">
@@ -1731,6 +1758,9 @@ function TeamHighlight() {
         {byGroup('spoc').map(sp => (
           <SpotlightLead key={sp.name} sp={sp} compact />
         ))}
+        {byGroup('core').map(sp => (
+          <SpotlightLead key={sp.name} sp={sp} compact variant="core" />
+        ))}
         <Reveal delay={0.1} className="team-hl-people">
           {people.map(sp => (
             <div className={`team-hl-p is-${sp.group}`} key={sp.name}>
@@ -1744,6 +1774,12 @@ function TeamHighlight() {
             </div>
           ))}
         </Reveal>
+        <Reveal as="span" className="mono-label team-hl-hostlabel">
+          Host · GL Bajaj Group of Institutions
+        </Reveal>
+        {byGroup('host').map(sp => (
+          <SpotlightLead key={sp.name} sp={sp} compact variant="host" />
+        ))}
         <Reveal className="team-hl-more">
           <Link className="btn btn-ghost btn-lg" to="/team">
             Meet the whole team <Arrow />
@@ -2003,6 +2039,136 @@ function FinalistsPage() {
   );
 }
 
+const QUICK_PAGES = [
+  { to: '/finalists', n: '01', t: 'Finalists', d: '20 selected · 15 pitched · results Sat 14 Nov', hl: true },
+  { to: '/team', n: '02', t: 'Team', d: 'Chief guest, leadership, judges and host' },
+  { to: '/db2hack', n: '03', t: 'Db2Hack & rewards', d: 'The challenge, rewards and the full schedule' },
+  { to: '/build', n: '04', t: 'Build on IBM Db2', d: '4 steps, VS Code extension, AI packages, AI skill' },
+  { to: '/submit', n: '05', t: 'Judging & submission', d: 'Criteria, PR template, submission repo + form' },
+  { to: '/resources', n: '06', t: 'Resources', d: 'Tutorials, docs, toolkit, Community Edition' },
+  { to: '/gallery', n: '07', t: 'Gallery', d: 'Photos from the Summit at GL Bajaj, 30 Oct' },
+  { to: '/faq', n: '08', t: 'FAQ', d: 'Results, OSS opportunity, teams, eligibility' },
+];
+
+// Quick access to every page, right below the impact numbers.
+function QuickPages() {
+  return (
+    <section className="section qp-sec" id="pages">
+      <div className="container">
+        <Reveal as="span" className="kicker kicker-row">
+          <span className="kicker-dot" />
+          Jump straight in
+          <AnchorLink id="pages" label="all pages" />
+        </Reveal>
+        <div className="qp-grid">
+          {QUICK_PAGES.map((q, i) => (
+            <Reveal key={q.to} delay={0.03 * i} className="qp-wrap">
+              <Link className={`qp ${q.hl ? 'is-hl' : ''}`} to={q.to}>
+                <span className="qp-n">{q.n}</span>
+                <strong>{q.t}</strong>
+                <span className="qp-d">{q.d}</span>
+                <span className="qp-go" aria-hidden="true">
+                  →
+                </span>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SimpleHero({ kicker, title, dim, sub, links = [] }) {
+  return (
+    <section className="page-hero">
+      <div className="container page-hero-inner">
+        <Reveal as="span" className="kicker">
+          <span className="kicker-dot" />
+          {kicker}
+        </Reveal>
+        <Reveal delay={0.06} as="h1">
+          {title} <span className="dim">{dim}</span>
+        </Reveal>
+        {sub && (
+          <Reveal delay={0.12} as="p">
+            {sub}
+          </Reveal>
+        )}
+        {links.length > 0 && (
+          <Reveal delay={0.18} className="page-hero-links">
+            {links.map(([href, label]) => (
+              <a key={href} href={href}>
+                {label}
+              </a>
+            ))}
+          </Reveal>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function usePageTitle(title) {
+  useEffect(() => {
+    document.title = title;
+    return () => {
+      document.title = 'Db2Hack · judging in progress · IBM Db2 TechX 2026';
+    };
+  }, [title]);
+}
+
+function BuildPage() {
+  useHashScroll();
+  usePageTitle('Build on IBM Db2 · IBM Db2 TechX');
+  return (
+    <main className="page-build">
+      <SimpleHero
+        kicker="Build on IBM Db2"
+        title="Keep building."
+        dim="On IBM Db2."
+        sub="Four steps from zero to a working AI project, the IBM Db2 builder skill for your AI assistant, and the online sessions coming up. The open-source opportunity is still live — keep submitting to the repo."
+        links={[
+          ['#start', '4 steps'],
+          ['#vscode-extension', 'VS Code extension'],
+          ['#agentic-packages', 'AI packages'],
+          ['#ai-skill', 'AI skill'],
+          ['#live', 'Online sessions'],
+        ]}
+      />
+      <StartHere />
+      <AiSkill />
+      <ComingSoon />
+      <ResourcesTeaser />
+      <FinalCta />
+    </main>
+  );
+}
+
+function Db2HackPage() {
+  useHashScroll();
+  usePageTitle('Db2Hack · rewards & schedule · IBM Db2 TechX');
+  return (
+    <main className="page-db2hack">
+      <Db2Hack />
+      <Rewards />
+      <Schedule />
+      <FinalCta />
+    </main>
+  );
+}
+
+function FaqPage() {
+  useHashScroll();
+  usePageTitle('FAQ · IBM Db2 TechX');
+  return (
+    <main className="page-faq">
+      <Faq />
+      <FinalCta />
+    </main>
+  );
+}
+
 function TeamPage() {
   useHashScroll();
   useEffect(() => {
@@ -2034,20 +2200,6 @@ function TeamPage() {
   );
 }
 
-function Band() {
-  return (
-    <section className="band" aria-hidden="true">
-      <ScrollVelocity
-        texts={['Judging in progress', 'Results on Sat 14 Nov']}
-        velocity={60}
-        separator="✦"
-        outlineAlternate
-        parallaxClassName="band-parallax"
-        scrollerClassName="band-scroller"
-      />
-    </section>
-  );
-}
 
 
 function Faq() {
@@ -2056,7 +2208,7 @@ function Faq() {
     <section className="section" id="faq">
       <div className="container faq-wrap">
         <SectionHead
-          num="09"
+          num="01"
           kicker="FAQ"
           title={
             <>
@@ -2194,8 +2346,17 @@ function Footer() {
           <img src="/logos/gl-bajaj.png" alt="GL Bajaj Group of Institutions" />
           <img src="/logos/unstop.svg" alt="Unstop" />
         </div>
+        <a className="dev-credit" href="https://www.linkedin.com/in/dhruvinsights/" {...ext}>
+          <img src="/speakers/Dhruv-Chaturvedi-light-bg.png" alt="" />
+          <span>
+            <small>Website designed &amp; developed by</small>
+            <b>Dhruv Chaturvedi</b>
+            <em>Software Engineer, IBM Db2 · Event SPOC &amp; Lead</em>
+          </span>
+          <ArrowUpRight />
+        </a>
         <div className="footer-bottom">
-          <span>© 2026 IBM Db2 TechX · Db2Hack</span>
+          <span>© 2026 IBM Db2 TechX · Db2Hack · Built by Dhruv Chaturvedi</span>
           <span>In association with IBM · IIC · NexaSphere</span>
         </div>
         <div className="footer-giant" aria-hidden="true">
@@ -2844,24 +3005,23 @@ function useHashScroll() {
 }
 
 function HomePage() {
+  const { hash } = useLocation();
+  const navigate = useNavigate();
+  const moved = MOVED[decodeURIComponent(hash.slice(1))];
+  // Old share links like /#faq now live on their own pages.
+  useEffect(() => {
+    if (moved) navigate(`${moved}${hash}`, { replace: true });
+  }, [moved, hash, navigate]);
   useHashScroll();
   return (
     <main>
       <Hero />
       <Impact />
+      <QuickPages />
       <FinalistsTeaser />
       <TeamHighlight />
       <Showreel />
-      <StartHere />
-      <AiSkill />
-      <Rewards />
-      <ComingSoon />
-      <Db2Hack />
-      <ResourcesTeaser />
-      <Band />
       <Recap />
-      <Schedule />
-      <Faq />
       <FinalCta />
     </main>
   );
@@ -2930,6 +3090,9 @@ export default function App() {
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/finalists" element={<FinalistsPage />} />
         <Route path="/team" element={<TeamPage />} />
+        <Route path="/build" element={<BuildPage />} />
+        <Route path="/db2hack" element={<Db2HackPage />} />
+        <Route path="/faq" element={<FaqPage />} />
         <Route path="/submit" element={<SubmitPage />} />
         <Route path="*" element={<HomePage />} />
       </Routes>
