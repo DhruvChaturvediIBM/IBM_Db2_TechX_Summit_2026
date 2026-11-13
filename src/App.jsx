@@ -1589,6 +1589,21 @@ function SpeakerCard({ sp, i, big = false }) {
 const byGroup = g => SPEAKERS.filter(sp => sp.group === g);
 const JUDGE_NAMES = SPEAKERS.filter(sp => sp.group === 'judge' || sp.tag?.includes('Judge')).map(sp => sp.name.split(' ')[0]);
 
+function SocialLinks({ sp, className = 'sp-social' }) {
+  const keys = ['linkedin', 'instagram', 'youtube'].filter(k => sp[k]);
+  if (!keys.length) return null;
+  return (
+    <div className={className}>
+      {keys.map(k => (
+        <a key={k} href={sp[k]} {...ext} aria-label={`${sp.name} on ${SOCIAL_LABEL[k]}`}>
+          {Social[k]}
+          <span>{SOCIAL_LABEL[k]}</span>
+        </a>
+      ))}
+    </div>
+  );
+}
+
 // Wide highlighted card for the event SPOC & lead.
 function SpotlightLead({ sp, compact = false }) {
   return (
@@ -1598,22 +1613,11 @@ function SpotlightLead({ sp, compact = false }) {
         <span className="tag tag-sm tag-chief">{sp.tag}</span>
         <strong>{sp.name}</strong>
         <span>{sp.role} · IBM Lucknow</span>
-        <p>
+        <p className="spoc-about">
           The IBM SPOC who led IBM Db2 TechX 2026 and Db2Hack end to end — the Summit and workshop at GL Bajaj, the
           submission flow and the judging.
         </p>
-        {!compact && (
-          <div className="sp-social">
-            {['linkedin', 'instagram', 'youtube']
-              .filter(k => sp[k])
-              .map(k => (
-                <a key={k} href={sp[k]} {...ext} aria-label={`${sp.name} on ${SOCIAL_LABEL[k]}`}>
-                  {Social[k]}
-                  <span>{SOCIAL_LABEL[k]}</span>
-                </a>
-              ))}
-          </div>
-        )}
+        <SocialLinks sp={sp} className={compact ? 'hl-social' : 'sp-social'} />
       </div>
     </Reveal>
   );
@@ -1714,6 +1718,7 @@ function TeamHighlight() {
                 {sp.tag && <span className="tag tag-sm tag-chief">{sp.tag}</span>}
                 <strong>{sp.name}</strong>
                 <span>{sp.role}</span>
+                <SocialLinks sp={sp} className="hl-social" />
               </div>
             </Reveal>
           ))}
@@ -1729,6 +1734,7 @@ function TeamHighlight() {
                 <span className={`tag tag-sm ${sp.group === 'judge' ? 'tag-judge' : 'tag-chief'}`}>{sp.tag}</span>
                 <strong>{sp.name}</strong>
                 <span>{sp.group === 'host' ? 'GL Bajaj Group of Institutions' : sp.role}</span>
+                <SocialLinks sp={sp} className="hl-social" />
               </div>
             </div>
           ))}

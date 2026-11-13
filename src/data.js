@@ -258,7 +258,7 @@ export const REWARDS = [
 ];
 
 export const SPEAKERS = [
-  { name: 'Deepak Rangrao', role: 'Distinguished Engineer, IBM', org: 'IBM', photo: '/speakers/Deepak-Rangrao.png', tag: 'Chief Guest', group: 'lead' },
+  { name: 'Deepak Rangrao', role: 'Director of Engineering & Distinguished Engineer, IBM', org: 'IBM', photo: '/speakers/Deepak-Rangrao.png', tag: 'Chief Guest', group: 'lead', linkedin: 'https://www.linkedin.com/in/deepakrangarao/' },
   { name: 'Gaurav Saxena', role: 'Program Director, IBM Db2', org: 'IBM Lucknow', photo: '/speakers/Gaurav-Saxena.png', tag: 'IBM Db2 Leadership', group: 'lead', linkedin: 'https://www.linkedin.com/in/gaurav-saxena-95044594/' },
   { name: 'Daya Nand', role: 'Senior Db2 Development Manager', org: 'IBM Lucknow', photo: '/speakers/Daya-Nand.png', tag: 'IBM Db2 Leadership · Judge', group: 'lead', linkedin: 'https://www.linkedin.com/in/2mrdaya/' },
   { name: 'Dhruv Chaturvedi', role: 'Db2 Software Engineer', org: 'IBM Lucknow', photo: '/speakers/Dhruv-Chaturvedi-light-bg.png', tag: 'Event SPOC & Lead · Judge', group: 'spoc', linkedin: 'https://www.linkedin.com/in/dhruvinsights/', instagram: 'https://www.instagram.com/dhruv_insights/', youtube: 'https://www.youtube.com/@dhruv_insights' },
