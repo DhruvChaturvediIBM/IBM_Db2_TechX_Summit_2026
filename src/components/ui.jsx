@@ -122,8 +122,8 @@ export function phaseAt(now) {
   if (now < summitStart) return { label: 'Summit begins in', target: summitStart, status: 'Db2Hack is live · submissions open, not strict' };
   if (now < summitEnd) return { label: 'Happening now', target: null, status: 'Live at GL Bajaj · build after the workshop and submit' };
   if (now < hackEnd) return { label: 'Db2Hack submissions close in', target: hackEnd, status: 'Workshop done · Db2Hack still live — extended — submit by 1:30 PM IST, Wed 11 Nov (12 AM PST)' };
-  if (now < resultsEnd) return { label: 'Judging in progress', target: null, status: 'Registrations & submissions closed · 20 finalists pitched · judging in progress · finalists announced soon' };
-  return { label: "That's a wrap", target: null, status: 'Thank you, builders — keep building on Db2' };
+  if (now < resultsEnd) return { label: 'Judging in progress', target: null, status: 'Registrations & submissions closed · 20 finalists selected · 15 pitched · judging in progress · OSS opportunity still live' };
+  return { label: "That's a wrap", target: null, status: 'Thank you, builders — keep building on IBM Db2' };
 }
 
 export function Countdown() {

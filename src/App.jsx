@@ -44,6 +44,8 @@ import {
   AI_SKILL,
   FINALISTS,
   IMPACT,
+  LUMA_EVENT,
+  PROJECTS_URL,
   COMING_SOON,
   RECAP_HIGHLIGHTS,
   GALLERY_TABS,
@@ -176,10 +178,11 @@ function AnnouncementBar() {
               <b>{phase.status}</b>
             </span>
             <span>Registrations closed · submissions closed</span>
-            <span>20 finalists pitched to the judges on Sat 14 Nov</span>
-            <span>Judging in progress · finalists announced soon</span>
+            <span>20 finalists selected · 15 pitched to the judges on Fri 13 Nov</span>
+            <span>Judging in progress · Top 10 win · the other 10 finalists get recognition</span>
+            <span>Open-source opportunity still live · keep submitting to the submission repo</span>
             <span>Chief guest: Deepak Rangrao, Distinguished Engineer, IBM</span>
-            <span>Get Db2 free: IBM Db2 Developer Extension for VS Code</span>
+            <span>Get IBM Db2 free: IBM Db2 Developer Extension for VS Code</span>
             <span>Live online workshop + doubt-solving session · dates announced soon</span>
             <span>Summit at GL Bajaj, Mathura · done on 30 Oct · thank you!</span>
           </div>
@@ -364,7 +367,7 @@ function Hero() {
 
         <motion.p className="hero-tagline" {...rise(0.85, 20)}>
           <ShinyText
-            text="Registrations and submissions are closed. 20 finalists pitched to the judges — finalists announced soon."
+            text="Registrations and submissions are closed. 20 finalists selected · 15 pitched to the judges — results on Sat 14 Nov."
             color="#c6c6c6"
             shineColor="#ffffff"
             speed={3}
@@ -380,7 +383,7 @@ function Hero() {
           )}
           <Magnet padding={70} magnetStrength={4}>
             <Link className="btn btn-primary btn-xl" to="/finalists">
-              Finalists · coming soon <Arrow />
+              Finalists · results 14 Nov <Arrow />
             </Link>
           </Magnet>
           <Magnet padding={70} magnetStrength={4}>
@@ -391,7 +394,7 @@ function Hero() {
           <Magnet padding={70} magnetStrength={4}>
             <a className="btn btn-ghost btn-xl hero-ext" href={VSCODE_EXT.url} {...ext}>
               <VsCodeIcon />
-              Get Db2 free in VS Code
+              Get IBM Db2 free in VS Code
             </a>
           </Magnet>
         </motion.div>
@@ -417,17 +420,17 @@ function Hero() {
         transition={{ duration: 1, delay: 1.35, ease: EASE }}
       >
         <div className="hb-date">
-          <span className="hb-day">14</span>
+          <span className="hb-day">13</span>
           <span className="hb-month">
             <b>November</b>
-            <span>20 finalists pitched</span>
+            <span>20 finalists selected · 15 pitched</span>
           </span>
         </div>
         <Countdown />
         <div className="hb-venue">
           <span className="mono-label">Judging in progress</span>
-          <span>Finalists &amp; winners</span>
-          <span>announced soon</span>
+          <span>Results announced</span>
+          <span>Sat 14 Nov</span>
         </div>
       </motion.div>
     </section>
@@ -512,7 +515,7 @@ function Schedule() {
               Build, learn, <span className="dim">win.</span>
             </>
           }
-          sub="Db2Hack opened on 28 Oct at 7:00 PM. The Summit and workshop wrapped up on 30 Oct, submissions closed at 1:30 PM IST on Wed 11 Nov, and the 20 finalists pitched on Sat 14 Nov. All times are IST."
+          sub="Db2Hack opened on 28 Oct at 7:00 PM. The Summit and workshop wrapped up on 30 Oct, submissions closed at 1:30 PM IST on Wed 11 Nov, and 20 finalists were selected and 15 pitched on Fri 13 Nov. All times are IST."
         />
         <div className="timeline" ref={lineRef}>
           <div className="tl-rail">
@@ -609,7 +612,7 @@ function StartStep({ step }) {
             <Star />
           </span>
           <span>
-            <b>Like it? Rate it and leave a comment</b> on the Marketplace — it helps the Db2 team.
+            <b>Like it? Rate it and leave a comment</b> on the Marketplace — it helps the IBM Db2 team.
           </span>
           <ArrowUpRight />
         </a>
@@ -618,7 +621,7 @@ function StartStep({ step }) {
   if (step.key === 'framework')
     return (
       <div className="fw-hl">
-        <span className="mono-label">Agentic AI packages for Db2 · pick one</span>
+        <span className="mono-label">Agentic AI packages for IBM Db2 · pick one</span>
         <div className="fw-hl-grid">
           {AGENTIC.map(a => (
             <div className="fw-hl-item" key={a.name}>
@@ -665,7 +668,7 @@ function StartHere({ num = '01' }) {
               From zero to submitted. <span className="dim">Four steps.</span>
             </>
           }
-          sub="That's the whole path. Do them in order — each step has its button right here. Submissions are now closed (they closed at 1:30 PM IST, Wed 11 Nov) — use these steps to keep building on Db2."
+          sub="That's the whole path. Do them in order — each step has its button right here. Submissions are now closed (they closed at 1:30 PM IST, Wed 11 Nov) — use these steps to keep building on IBM Db2."
         />
         <ol className="start-list">
           {START_STEPS.map((st, i) => (
@@ -690,7 +693,7 @@ function StartHere({ num = '01' }) {
         </ol>
         <Reveal className="start-help">
           <span>Stuck anywhere?</span>
-          <a href="#ai-skill">Give your AI the Db2 skill →</a>
+          <a href="#ai-skill">Give your AI the IBM Db2 skill →</a>
           <a href={WHATSAPP_URL} {...ext}>
             Ask in WhatsApp ↗
           </a>
@@ -722,10 +725,10 @@ function CopyText({ text, label = 'Copy prompt' }) {
 }
 
 const SKILL_INSIDE = [
-  'Free Db2 setup for Windows (WSL 2), macOS and Linux',
+  'Free IBM Db2 setup for Windows (WSL 2), macOS and Linux',
   'How the VS Code extension helps while you build — tables, SQL editor, history, DDL',
-  'How to fit your own idea onto Db2: RAG, vector search, agents or text-to-SQL',
-  'All five Db2 framework packages with their official docs',
+  'How to fit your own idea onto IBM Db2: RAG, vector search, agents or text-to-SQL',
+  'All five IBM Db2 framework packages with their official docs',
   'A Python connection test and RAG pattern code',
   'Submission steps, naming rules and the judging rubric',
   'Fixes for Docker, Colima, WSL and port errors',
@@ -742,12 +745,12 @@ function AiSkill() {
               <AnchorLink id="ai-skill" label="AI skill" />
             </span>
             <h2>
-              Give your AI <span className="dim">the Db2 playbook.</span>
+              Give your AI <span className="dim">the IBM Db2 playbook.</span>
             </h2>
             <p>
               Download the IBM Db2 builder skill and hand it to Claude, Cursor, Copilot, IBM Bob, ChatGPT or Gemini.
               It doesn't hand you an idea — it helps your AI fit <b>your</b> idea onto IBM Db2 with RAG, agents or
-              vector search, set up Db2 free in VS Code, and get you to a clean submission, step by step.
+              vector search, set up IBM Db2 free in VS Code, and get you to a clean submission, step by step.
             </p>
             <div className="skill-btns">
               <a className="btn btn-primary btn-lg" href={AI_SKILL.zip} download>
@@ -962,13 +965,13 @@ function Db2Hack() {
             on IBM Db2
           </Reveal>
           <Reveal delay={0.14} as="p" className="hack-lead">
-            Build an AI use case on IBM Db2. Open to everyone — solo participation only. <b>Submissions are closed. The 20 finalists pitched on 14 Nov — judging is in progress.</b>
+            Build an AI use case on IBM Db2. Open to everyone — solo participation only. <b>Submissions are closed. 20 finalists were selected and 15 pitched on 13 Nov — judging is in progress.</b>
           </Reveal>
         </div>
 
         <Reveal className="flap-board">
           <SplitFlapText
-            words={['SUBMISSIONS CLOSED', '20 HAVE PITCHED', 'JUDGING IN PROGRESS']}
+            words={['20 FINALISTS', '15 HAVE PITCHED', 'JUDGING IN PROGRESS', 'OSS STILL LIVE']}
             padTo={19}
             fontSize={flap}
             gap={wide ? 5 : 3}
@@ -999,8 +1002,8 @@ function Db2Hack() {
             <span className="hw-line-fill" />
           </div>
           <div className="hw-point hw-final">
-            <span className="mono-label">20 finalists pitched</span>
-            <strong>Sat, 14 Nov</strong>
+            <span className="mono-label">20 finalists selected · 15 pitched</span>
+            <strong>Fri, 13 Nov</strong>
             <span>Judging in progress</span>
           </div>
         </Reveal>
@@ -1035,7 +1038,9 @@ function Db2Hack() {
               <li>Submit a GitHub pull request, then the PR link via Google Form</li>
               <li>Joining the WhatsApp community is mandatory</li>
               <li>Submissions closed at 1:30 PM IST on Wed 11 Nov (extended by one day)</li>
-              <li>20 finalists pitched on Sat 14 Nov · judging in progress</li>
+              <li>20 finalists selected · 15 pitched on Fri 13 Nov · judging in progress</li>
+              <li>Top 10 win · the other 10 finalists get recognition</li>
+              <li>Open-source opportunity still live — keep submitting to the submission repo</li>
               <li>Post your use case on LinkedIn and tag the organising team</li>
               <li>Top 3 win trophies, Top 10 win IBM Db2 goodies</li>
             </ul>
@@ -1043,7 +1048,7 @@ function Db2Hack() {
         </div>
         <Reveal className="hack-cta">
           <Link className="btn btn-primary btn-lg" to="/finalists">
-            Finalists · coming soon <Arrow />
+            Finalists · results 14 Nov <Arrow />
           </Link>
           <Link className="btn btn-ghost btn-lg" to="/submit">
             Submission guide & judging <Arrow />
@@ -1092,10 +1097,10 @@ function Toolkit() {
             kicker="Toolkit · IBM Db2 packages"
             title={
               <>
-                Everything you need <span className="dim">to build on Db2.</span>
+                Everything you need <span className="dim">to build on IBM Db2.</span>
               </>
             }
-            sub="Ready-made Db2 integrations for the frameworks you already use. Copy a command and start building."
+            sub="Ready-made IBM Db2 integrations for the frameworks you already use. Copy a command and start building."
           />
           <Reveal delay={0.1}>
             <Orbit />
@@ -1141,7 +1146,7 @@ function Toolkit() {
             <div>
               <span className="mono-label">Start here · free</span>
               <h3>
-                Db2 Community Edition. <span className="dim">Your Db2, on your laptop.</span>
+                IBM Db2 Community Edition. <span className="dim">Your IBM Db2, on your laptop.</span>
               </h3>
             </div>
             <ul className="ce-facts">
@@ -1323,7 +1328,7 @@ function MustDo() {
             <div>
               <span className="mono-label">Must-read · IBM Db2 community</span>
               <h3>
-                Community blogs <span className="dim">from the Db2 team.</span>
+                Community blogs <span className="dim">from the IBM Db2 team.</span>
               </h3>
             </div>
           </div>
@@ -1455,7 +1460,7 @@ function Rewards() {
               Build well. <span className="dim">Take home a trophy.</span>
             </>
           }
-          sub="IBM experts are reviewing every submission. The 20 finalists pitched on Saturday, 14 November — next we announce the Top 3, the Top 10 and the projects with real potential."
+          sub="IBM experts are reviewing every submission. 20 finalists were selected and 15 pitched on Friday, 13 November — next we announce the Top 3, the Top 10 and the projects with real potential."
         />
         <div className="rw-grid">
           {[top3, top10].map((r, i) => (
@@ -1633,10 +1638,10 @@ function Speakers() {
             kicker="Chief guest & leadership"
             title={
               <>
-                Led by IBM. <span className="dim">Built by the Db2 team.</span>
+                Led by IBM. <span className="dim">Built by the IBM Db2 team.</span>
               </>
             }
-            sub="Our chief guest Deepak Rangrao, with Gaurav Saxena who directs the IBM Db2 program and Daya Nand, Senior Db2 Development Manager."
+            sub="Our chief guest Deepak Rangrao, with Gaurav Saxena who directs the IBM Db2 program and Daya Nand, Senior IBM Db2 Development Manager."
           />
           <div className="speakers speakers-featured">
             {byGroup('lead').map((sp, i) => (
@@ -1707,7 +1712,7 @@ function TeamHighlight() {
             <AnchorLink id="team" label="team" />
           </Reveal>
           <Reveal delay={0.06} as="h2">
-            Led by IBM. <span className="dim">Judged by the Db2 team.</span>
+            Led by IBM. <span className="dim">Judged by the IBM Db2 team.</span>
           </Reveal>
         </div>
         <div className="team-hl-grid">
@@ -1771,23 +1776,54 @@ function Impact() {
                 real AI projects on IBM Db2 with LangChain, LlamaIndex, Haystack, CrewAI and Langflow.
               </p>
             </div>
-            <div className="impact-hero">
+            <a className="impact-hero" href={h.href} {...ext}>
               <strong>
                 <CountUp to={h.to} decimals={h.decimals} suffix={h.suffix} pad={false} />
               </strong>
-              <span>{h.label}</span>
-            </div>
+              <span>{h.label} ↗</span>
+            </a>
           </div>
           <div className="impact-grid">
-            {IMPACT.stats.map(st => (
-              <div className="impact-stat" key={st.label}>
-                <strong>
-                  {st.pre}
-                  <CountUp to={st.to} decimals={st.decimals || 0} suffix={st.suffix || ''} pad={false} />
-                </strong>
-                <span>{st.label}</span>
-              </div>
-            ))}
+            {IMPACT.stats.map(st => {
+              const inner = (
+                <>
+                  <strong>
+                    {st.pre}
+                    <CountUp to={st.to} decimals={st.decimals || 0} suffix={st.suffix || ''} pad={false} />
+                  </strong>
+                  <span>{st.label}</span>
+                  {st.href && <em aria-hidden="true">{st.href.startsWith('/') ? '→' : '↗'}</em>}
+                </>
+              );
+              if (!st.href) return <div className="impact-stat" key={st.label}>{inner}</div>;
+              return st.href.startsWith('/') ? (
+                <Link className="impact-stat" key={st.label} to={st.href}>
+                  {inner}
+                </Link>
+              ) : (
+                <a className="impact-stat" key={st.label} href={st.href} {...ext}>
+                  {inner}
+                </a>
+              );
+            })}
+          </div>
+          <div className="impact-links">
+            <span>See it yourself</span>
+            <a className="btn btn-ghost btn-sm impact-unstop" href={UNSTOP_URL} {...ext}>
+              <img src="/logos/unstop.svg" alt="" /> Unstop event page <ArrowUpRight />
+            </a>
+            <a className="btn btn-ghost btn-sm" href={LUMA_EVENT} {...ext}>
+              Luma event page <ArrowUpRight />
+            </a>
+            <a className="btn btn-ghost btn-sm" href={PROJECTS_URL} {...ext}>
+              All submitted projects on GitHub <ArrowUpRight />
+            </a>
+            <Link className="btn btn-ghost btn-sm" to="/gallery">
+              Workshop photos <Arrow />
+            </Link>
+            <Link className="btn btn-ghost btn-sm" to="/finalists">
+              Finalists <Arrow />
+            </Link>
           </div>
         </Reveal>
       </div>
@@ -1808,11 +1844,11 @@ function FinalistsTeaser() {
               <AnchorLink id="finalists" label="finalists" />
             </span>
             <h2>
-              20 finalists pitched. <span className="dim">Results coming soon.</span>
+              20 finalists. 15 pitched. <span className="dim">Results on Sat 14 Nov.</span>
             </h2>
             <p>
-              Registrations and submissions are closed. The 20 finalists pitched to the judges on Sat 14 Nov, and every judge is
-              scoring each project independently against the published criteria.
+              Registrations and submissions are closed. 20 finalists were selected and 15 pitched to the judges on Fri 13 Nov, and every judge is
+              scoring each project independently. The Top 10 win, and the other 10 finalists get recognition.
             </p>
           </div>
           <div className="fin-teaser-act">
@@ -1831,17 +1867,37 @@ function FinalistsTeaser() {
             </div>
           </div>
         </Reveal>
+        <OssLive />
       </div>
     </section>
+  );
+}
+
+// The IBM open-source opportunity stays open after Db2Hack closes.
+function OssLive() {
+  return (
+    <Reveal className="oss-live">
+      <span className="live-dot" />
+      <div>
+        <strong>The open-source opportunity is still live.</strong>
+        <span>
+          Keep building and keep submitting your IBM Db2 projects to the submission repo — strong use cases get the chance to
+          be contributed to IBM Db2 open-source projects.
+        </span>
+      </div>
+      <a className="btn btn-primary btn-sm" href={SUBMISSION_REPO} {...ext}>
+        Submit to the repo <ArrowUpRight />
+      </a>
+    </Reveal>
   );
 }
 
 const FIN_STAGES = [
   { t: 'Registrations closed', d: 'Sun 8 Nov', done: true },
   { t: 'Submissions closed', d: 'Wed 11 Nov · 1:30 PM IST', done: true },
-  { t: '20 finalists pitched', d: 'Sat 14 Nov', done: true },
+  { t: '20 finalists selected · 15 pitched', d: 'Fri 13 Nov', done: true },
   { t: 'Judging in progress', d: 'Every judge scores independently', now: true },
-  { t: 'Finalists & winners announced', d: 'Coming soon' },
+  { t: 'Results announced', d: 'Sat 14 Nov' },
 ];
 
 function FinalistsPage() {
@@ -1862,11 +1918,11 @@ function FinalistsPage() {
             Db2Hack · {revealed ? 'finalists' : 'judging in progress'}
           </Reveal>
           <Reveal delay={0.06} as="h1">
-            The Db2Hack finalists. <span className="dim">{revealed ? 'Congratulations.' : 'Revealed soon.'}</span>
+            The Db2Hack finalists. <span className="dim">{revealed ? 'Congratulations.' : 'Results on Sat 14 Nov.'}</span>
           </Reveal>
           <Reveal delay={0.12} as="p">
-            Registrations and submissions are closed. The 20 finalists pitched their projects to the judges on Saturday,
-            14 November. Every judge is scoring each project independently — results are shared with everyone, so each
+            Registrations and submissions are closed. 20 finalists were selected and 15 pitched their projects to the judges on Friday,
+            13 November. Every judge is scoring each project independently — results are shared with everyone, so each
             participant sees where they stand.
           </Reveal>
         </div>
@@ -1892,17 +1948,20 @@ function FinalistsPage() {
             kicker="20 finalists"
             title={
               <>
-                {revealed ? 'Meet the finalists.' : 'Twenty spots.'} <span className="dim">{revealed ? '' : 'Names coming soon.'}</span>
+                {revealed ? 'Meet the finalists.' : 'Twenty spots.'} <span className="dim">{revealed ? '' : 'Names on Sat 14 Nov.'}</span>
               </>
             }
-            sub="Top 3 win a trophy, an IBM Db2 kit and a Certificate of Excellence. Top 10 win IBM Db2 goodies and a Certificate of Merit."
+            sub="The Top 10 win: Top 3 get a trophy, an IBM Db2 kit and a Certificate of Excellence; the rest of the Top 10 get IBM Db2 goodies and a Certificate of Merit. The other 10 finalists receive recognition from IBM."
           />
           <div className="fin-grid">
             {Array.from({ length: 20 }).map((_, i) => {
               const f = FINALISTS[i];
               return (
-                <Reveal key={i} delay={0.03 * i} className={`fin-card ${f ? '' : 'is-soon'}`}>
-                  <span className="fin-n">{String(i + 1).padStart(2, '0')}</span>
+                <Reveal key={i} delay={0.03 * i} className={`fin-card ${f ? '' : 'is-soon'} ${i < 10 ? 'is-top' : 'is-rec'}`}>
+                  <span className="fin-n">
+                    {String(i + 1).padStart(2, '0')}
+                    <b>{i < 10 ? 'Top 10 · wins' : 'Recognition'}</b>
+                  </span>
                   {f ? (
                     <>
                       <strong>{f.name}</strong>
@@ -1925,6 +1984,7 @@ function FinalistsPage() {
               );
             })}
           </div>
+          <OssLive />
           <Reveal className="fin-ctas">
             <a className="btn btn-primary btn-lg" href={WHATSAPP_CHANNEL} {...ext}>
               Follow the WhatsApp channel for results <ArrowUpRight />
@@ -1978,7 +2038,7 @@ function Band() {
   return (
     <section className="band" aria-hidden="true">
       <ScrollVelocity
-        texts={['Judging in progress', 'Finalists announced soon']}
+        texts={['Judging in progress', 'Results on Sat 14 Nov']}
         velocity={60}
         separator="✦"
         outlineAlternate
@@ -2049,10 +2109,10 @@ function FinalCta() {
           Db2Hack · submissions closed · judging in progress
         </Reveal>
         <Reveal delay={0.06} as="h2">
-          Finalists <span className="dim">coming soon.</span>
+          Results <span className="dim">on Sat 14 Nov.</span>
         </Reveal>
         <Reveal delay={0.12} as="p">
-          Thank you to everyone who built on IBM Db2. The 20 finalists have pitched and the judges are scoring every
+          Thank you to everyone who built on IBM Db2. 20 finalists were selected, 15 pitched, and the judges are scoring every
           project independently. Top 3 win trophies, Top 10 win IBM Db2 goodies.
         </Reveal>
         <Reveal delay={0.18} className="final-ctas">
@@ -2111,7 +2171,7 @@ function Footer() {
             <div>
               <span className="mono-label">Connect</span>
               <a href={VSCODE_EXT.url} {...ext}>
-                Db2 extension for VS Code
+                IBM Db2 extension for VS Code
               </a>
               <Link to="/submit">Submission guide</Link>
               <a href={SUBMIT_FORM} {...ext}>
@@ -2274,7 +2334,7 @@ function QuickStart() {
           <CodeBlock code={QUICK_EXAMPLE.code} />
           <p className="qex-note">
             Swap the notes for your own data, add an LLM for step 5, and you have a submission. Use the same host, port,
-            username and password you set when creating the Db2 instance below.
+            username and password you set when creating the IBM Db2 instance below.
           </p>
         </Reveal>
       </div>
@@ -2338,13 +2398,13 @@ function LocalDb2() {
       <div className="container">
         <SectionHead
           num="02"
-          kicker="Free Db2 on your laptop"
+          kicker="Free IBM Db2 on your laptop"
           title={
             <>
-              The easiest way to use <span className="dim">Db2 Community Edition — free.</span>
+              The easiest way to use <span className="dim">IBM Db2 Community Edition — free.</span>
             </>
           }
-          sub="The IBM Db2 Developer Extension for VS Code is the easiest way for developers to run Db2 Community Edition for free, right on your laptop — no cloud account or credit card."
+          sub="The IBM Db2 Developer Extension for VS Code is the easiest way for developers to run IBM Db2 Community Edition for free, right on your laptop — no cloud account or credit card."
         />
         <Reveal className="ext-docs">
           <img src="/fw/vscode-db2.png" alt="" />
@@ -2428,7 +2488,7 @@ function SubmitHero() {
           Ship it right. <span className="dim">Get judged fairly.</span>
         </Reveal>
         <Reveal delay={0.12} as="p">
-          Db2Hack submissions are closed — judging is in progress. A 6-step quick start, free local Db2, the GitHub + Google Form
+          Db2Hack submissions are closed — judging is in progress. A 6-step quick start, free local IBM Db2, the GitHub + Google Form
           flow, naming rules and the 100-point judging rubric.
         </Reveal>
         <Reveal delay={0.18} className="page-hero-ctas">
@@ -2443,7 +2503,7 @@ function SubmitHero() {
         <Reveal delay={0.24} className="page-hero-links">
           <a href="#quick-start">Quick start</a>
           <a href="#ibm-bob">IBM Bob</a>
-          <a href="#local-db2">Free local Db2</a>
+          <a href="#local-db2">Free local IBM Db2</a>
           <a href="#submit-dates">Timeline</a>
           <a href="#submit-steps">Submit steps</a>
           <a href="#judging">Judging</a>
@@ -2467,7 +2527,7 @@ function SubmitGuide() {
                 Closed. <span className="dim">Judging in progress.</span>
               </>
             }
-            sub="Registrations and submissions are closed — submissions closed at 1:30 PM IST on Wednesday, 11 November (12:00 AM PST · 9:00 AM WAT), extended by one day. The 20 finalists pitched on Sat 14 Nov and judging is in progress."
+            sub="Registrations and submissions are closed — submissions closed at 1:30 PM IST on Wednesday, 11 November (12:00 AM PST · 9:00 AM WAT), extended by one day. 20 finalists were selected and 15 pitched on Fri 13 Nov and judging is in progress."
           />
           <div className="sdates">
             {SUBMIT_DATES.map((d, i) => (
@@ -2633,8 +2693,8 @@ function SubmitGuide() {
             <Reveal delay={0.12}>
               <Link className="shelp-card" to="/resources">
                 <span className="mono-label">Resources</span>
-                <h3>Db2 setup & connector docs</h3>
-                <p>Db2 Community Edition, the VS Code extension, toolkit packages and tutorials.</p>
+                <h3>IBM Db2 setup & connector docs</h3>
+                <p>IBM Db2 Community Edition, the VS Code extension, toolkit packages and tutorials.</p>
                 <span className="res-go">
                   Open resources <Arrow />
                 </span>
@@ -2642,7 +2702,7 @@ function SubmitGuide() {
             </Reveal>
           </div>
           <Reveal className="shelp-spoc">
-            Event SPOC: <b>Dhruv Chaturvedi</b>, Db2 Software Engineer, IBM Lucknow · Submission repo maintained by{' '}
+            Event SPOC: <b>Dhruv Chaturvedi</b>, Software Engineer, IBM Db2, IBM Lucknow · Submission repo maintained by{' '}
             <b>Kunal Gola</b>, IBM
           </Reveal>
         </div>
@@ -2681,10 +2741,10 @@ function ResourcesTeaser() {
           <div className="teaser-copy">
             <span className="mono-label">Resources · toolkit · tutorials</span>
             <h2>
-              Everything you need <span className="dim">to build on Db2.</span>
+              Everything you need <span className="dim">to build on IBM Db2.</span>
             </h2>
             <p>
-              {VIDEOS.length + LEARN_VIDEOS.length} tutorial videos, {TOOLKIT.length} Db2 packages, the free Db2
+              {VIDEOS.length + LEARN_VIDEOS.length} tutorial videos, {TOOLKIT.length} IBM Db2 packages, the free IBM Db2
               Community Edition and {RESOURCES.length} hand-picked docs and blogs — all on one page.
             </p>
             <Link className="btn btn-primary btn-lg" to="/resources">
@@ -2734,10 +2794,10 @@ function PageHero() {
           IBM Db2 TechX · Resources
         </Reveal>
         <Reveal delay={0.06} as="h1">
-          Learn it. <span className="dim">Then build it on Db2.</span>
+          Learn it. <span className="dim">Then build it on IBM Db2.</span>
         </Reveal>
         <Reveal delay={0.12} as="p">
-          Tutorials, the Db2 toolkit, Db2 Community Edition and every doc you need for Db2Hack — in one place.
+          Tutorials, the IBM Db2 toolkit, IBM Db2 Community Edition and every doc you need for Db2Hack — in one place.
         </Reveal>
         <Reveal delay={0.18} className="page-hero-links">
           <a href="#must-do">Compulsory first</a>

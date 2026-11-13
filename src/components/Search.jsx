@@ -77,7 +77,7 @@ const SECTIONS = [
     "rubric score points marks evaluation fair",
   ],
   [
-    "Free Db2 on your laptop",
+    "Free IBM Db2 on your laptop",
     "/submit#local-db2",
     "local install docker colima wsl community edition",
   ],
@@ -87,7 +87,7 @@ const SECTIONS = [
   ["Resources", "/resources", "docs blogs tutorials learning"],
   ["Must-do before you build", "/resources#must-do", "setup checklist"],
   [
-    "Db2 toolkit · packages",
+    "IBM Db2 toolkit · packages",
     "/resources#toolkit",
     "langchain llamaindex haystack crewai langflow pip",
   ],
@@ -176,7 +176,7 @@ function buildIndex() {
   add(
     "package",
     "IBM Db2 Developer Extension for VS Code",
-    "Free Db2 Community Edition with testdb and SAMPLE",
+    "Free IBM Db2 Community Edition with testdb and SAMPLE",
     "/#vscode-extension",
     `vscode extension install ${VSCODE_EXT.id}`,
   );

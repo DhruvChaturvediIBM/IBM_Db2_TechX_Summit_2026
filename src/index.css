@@ -5926,3 +5926,100 @@ h3 .anchor-link {
     height: 104px;
   }
 }
+
+/* OSS still live + finalist tiers */
+.oss-live {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+  padding: 18px 22px;
+  border: 1px solid rgba(66, 190, 101, 0.5);
+  border-radius: 16px;
+  background: rgba(66, 190, 101, 0.07);
+}
+.oss-live > div {
+  flex: 1 1 280px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.oss-live strong {
+  font-size: 17px;
+  font-weight: 600;
+}
+.oss-live > div span {
+  color: var(--ink-2);
+  font-size: 14px;
+}
+.page-finalists .oss-live {
+  margin-top: 24px;
+}
+.fin-n {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.fin-n b {
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.fin-card.is-top {
+  border-color: rgba(15, 98, 254, 0.5);
+}
+.fin-card.is-top .fin-n b {
+  color: #78a9ff;
+}
+a.impact-hero {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+a.impact-hero:hover > span {
+  color: #fff;
+}
+.impact-stat {
+  position: relative;
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+a.impact-stat:hover {
+  border-color: var(--blue);
+  background: rgba(15, 98, 254, 0.12);
+}
+.impact-stat em {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-style: normal;
+  color: var(--ink-2);
+  font-size: 14px;
+}
+a.impact-stat:hover em {
+  color: #fff;
+}
+.impact-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 22px;
+}
+.impact-links > span {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin-right: 6px;
+}
+.impact-unstop img {
+  height: 14px;
+  width: auto;
+}
