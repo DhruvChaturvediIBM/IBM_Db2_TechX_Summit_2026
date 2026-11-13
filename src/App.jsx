@@ -1589,6 +1589,36 @@ function SpeakerCard({ sp, i, big = false }) {
 const byGroup = g => SPEAKERS.filter(sp => sp.group === g);
 const JUDGE_NAMES = SPEAKERS.filter(sp => sp.group === 'judge' || sp.tag?.includes('Judge')).map(sp => sp.name.split(' ')[0]);
 
+// Wide highlighted card for the event SPOC & lead.
+function SpotlightLead({ sp, compact = false }) {
+  return (
+    <Reveal className={`spoc-card ${compact ? 'is-compact' : ''}`}>
+      <img src={sp.photo} alt={sp.name} />
+      <div className="spoc-copy">
+        <span className="tag tag-sm tag-chief">{sp.tag}</span>
+        <strong>{sp.name}</strong>
+        <span>{sp.role} · IBM Lucknow</span>
+        <p>
+          The IBM SPOC who led IBM Db2 TechX 2026 and Db2Hack end to end — the Summit and workshop at GL Bajaj, the
+          submission flow and the judging.
+        </p>
+        {!compact && (
+          <div className="sp-social">
+            {['linkedin', 'instagram', 'youtube']
+              .filter(k => sp[k])
+              .map(k => (
+                <a key={k} href={sp[k]} {...ext} aria-label={`${sp.name} on ${SOCIAL_LABEL[k]}`}>
+                  {Social[k]}
+                  <span>{SOCIAL_LABEL[k]}</span>
+                </a>
+              ))}
+          </div>
+        )}
+      </div>
+    </Reveal>
+  );
+}
+
 function Speakers() {
   return (
     <>
@@ -1602,7 +1632,7 @@ function Speakers() {
                 Led by IBM. <span className="dim">Built by the Db2 team.</span>
               </>
             }
-            sub="Our chief guest Deepak Rangrao, Gaurav Saxena who directs the IBM Db2 program, and Dhruv Chaturvedi — Event SPOC and lead for IBM Db2 TechX and Db2Hack."
+            sub="Our chief guest Deepak Rangrao, with Gaurav Saxena who directs the IBM Db2 program and Daya Nand, Senior Db2 Development Manager."
           />
           <div className="speakers speakers-featured">
             {byGroup('lead').map((sp, i) => (
@@ -1611,10 +1641,18 @@ function Speakers() {
           </div>
         </div>
       </section>
+      <section className="section spoc-sec" id="event-lead">
+        <div className="container">
+          <SectionHead num="02" kicker="Event SPOC & lead" title={<>Dhruv Chaturvedi. <span className="dim">Event SPOC &amp; lead.</span></>} />
+          {byGroup('spoc').map(sp => (
+            <SpotlightLead key={sp.name} sp={sp} />
+          ))}
+        </div>
+      </section>
       <section className="section" id="judges">
         <div className="container">
           <SectionHead
-            num="02"
+            num="03"
             kicker="Db2Hack judges · IBM Db2"
             title={
               <>
@@ -1633,7 +1671,7 @@ function Speakers() {
       <section className="section" id="host">
         <div className="container">
           <SectionHead
-            num="03"
+            num="04"
             kicker="Host · GL Bajaj Group of Institutions"
             title={
               <>
@@ -1680,6 +1718,9 @@ function TeamHighlight() {
             </Reveal>
           ))}
         </div>
+        {byGroup('spoc').map(sp => (
+          <SpotlightLead key={sp.name} sp={sp} compact />
+        ))}
         <Reveal delay={0.1} className="team-hl-people">
           {people.map(sp => (
             <div className={`team-hl-p is-${sp.group}`} key={sp.name}>
