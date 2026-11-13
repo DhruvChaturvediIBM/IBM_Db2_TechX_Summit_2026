@@ -5725,7 +5725,7 @@ h3 .anchor-link {
   font-size: 16px;
   font-weight: 600;
 }
-.team-hl-p div > span:last-child {
+.team-hl-p div > span:not(.tag) {
   color: var(--ink-2);
   font-size: 13px;
 }
@@ -5885,42 +5885,27 @@ h3 .anchor-link {
   height: 13px;
 }
 .spoc-card.is-compact {
-  padding: 16px 22px;
-  gap: 18px;
+  margin-top: 14px;
+  padding: 22px 26px;
+  gap: 24px;
 }
 .spoc-card.is-compact img {
-  width: 64px;
-  box-shadow: 0 0 0 2px rgba(15, 98, 254, 0.6);
+  width: 100px;
+  box-shadow: 0 0 0 3px rgba(15, 98, 254, 0.6);
 }
 .spoc-card.is-compact strong {
-  font-size: 18px;
-}
-.spoc-card.is-compact .spoc-copy > span:not(.tag) {
-  font-size: 13px;
+  font-size: clamp(20px, 1.8vw, 24px);
 }
 .spoc-card.is-compact .spoc-about {
-  display: none;
-}
-.spoc-card.is-compact .spoc-copy {
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  column-gap: 14px;
-}
-.spoc-card.is-compact .spoc-copy .tag {
-  margin: 0;
+  font-size: 14px;
 }
 .spoc-card.is-compact .hl-social {
-  margin-top: 0;
+  margin-top: 8px;
 }
 .team-hl-p {
   align-items: flex-start;
 }
 @media (max-width: 560px) {
-  .spoc-card.is-compact {
-    flex-direction: row;
-    align-items: center;
-  }
   .team-hl-feat img {
     width: 104px;
     height: 104px;
