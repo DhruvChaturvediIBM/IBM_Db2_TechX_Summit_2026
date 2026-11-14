@@ -6222,3 +6222,10 @@ a.impact-stat:hover em {
     transform: translateY(0);
   }
 }
+.team-anchor {
+  display: block;
+  scroll-margin-top: 110px;
+}
+.page-team .spoc-card.is-compact {
+  margin-top: 16px;
+}

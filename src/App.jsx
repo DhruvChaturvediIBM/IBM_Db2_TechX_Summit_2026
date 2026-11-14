@@ -1661,26 +1661,22 @@ function Speakers() {
         <div className="container">
           <SectionHead
             num="01"
-            kicker="Chief guest & leadership"
+            kicker="Chief guest, leadership & event lead"
             title={
               <>
                 Led by IBM. <span className="dim">Built by the IBM Db2 team.</span>
               </>
             }
-            sub="Our chief guest Deepak Rangrao, with Gaurav Saxena who directs the IBM Db2 program and Daya Nand, Senior IBM Db2 Development Manager."
+            sub="Our chief guest Deepak Rangrao, with Gaurav Saxena who directs the IBM Db2 program and Daya Nand, Senior Development Manager, IBM Db2."
           />
           <div className="speakers speakers-featured">
             {byGroup('lead').map((sp, i) => (
               <SpeakerCard key={sp.name} sp={sp} i={i} big />
             ))}
           </div>
-        </div>
-      </section>
-      <section className="section spoc-sec" id="event-lead">
-        <div className="container">
-          <SectionHead num="02" kicker="Event SPOC & lead" title={<>Dhruv Chaturvedi. <span className="dim">Event SPOC &amp; lead.</span></>} />
+          <span className="team-anchor" id="event-lead" />
           {byGroup('spoc').map(sp => (
-            <SpotlightLead key={sp.name} sp={sp} />
+            <SpotlightLead key={sp.name} sp={sp} compact />
           ))}
           {byGroup('core').map(sp => (
             <SpotlightLead key={sp.name} sp={sp} compact variant="core" />
@@ -1690,7 +1686,7 @@ function Speakers() {
       <section className="section" id="judges">
         <div className="container">
           <SectionHead
-            num="03"
+            num="02"
             kicker="Db2Hack judges · IBM Db2"
             title={
               <>
@@ -1709,7 +1705,7 @@ function Speakers() {
       <section className="section" id="host">
         <div className="container">
           <SectionHead
-            num="04"
+            num="03"
             kicker="Host · GL Bajaj Group of Institutions"
             title={
               <>
