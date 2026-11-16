@@ -6731,3 +6731,36 @@ img.is-sm,
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* hosts side by side */
+.host-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.host-row .spoc-card.is-host {
+  max-width: none;
+  height: 100%;
+}
+.spoc-initials {
+  display: grid;
+  place-items: center;
+  width: clamp(96px, 12vw, 150px);
+  aspect-ratio: 1;
+  flex: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0f62fe, #002d9c);
+  box-shadow: 0 0 0 3px rgba(15, 98, 254, 0.6);
+  color: #fff;
+  font-weight: 600;
+  font-size: 28px;
+}
+.spoc-card.is-host .spoc-initials {
+  width: 80px;
+  font-size: 24px;
+}
+@media (max-width: 760px) {
+  .host-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

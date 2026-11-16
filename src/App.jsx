@@ -1642,10 +1642,16 @@ function SocialLinks({ sp, className = 'sp-social' }) {
 
 // Wide highlighted card for the event SPOC & lead.
 function SpotlightLead({ sp, compact = false, variant = '' }) {
-  const where = `${sp.role} · ${sp.org}`;
+  const where = [sp.role, sp.org].filter(Boolean).join(' · ');
   return (
     <Reveal className={`spoc-card ${compact ? 'is-compact' : ''} ${variant ? `is-${variant}` : ''}`}>
-      <img src={sp.photo} alt={sp.name} />
+      {sp.photo ? (
+        <img src={sp.photo} alt={sp.name} />
+      ) : (
+        <span className="spoc-initials" aria-hidden="true">
+          {sp.name.split(' ').map(w => w[0]).slice(0, 2).join('')}
+        </span>
+      )}
       <div className="spoc-copy">
         <span className={`tag tag-sm ${sp.group === 'core' ? 'tag-judge' : 'tag-chief'}`}>{sp.tag}</span>
         <strong>{sp.name}</strong>
@@ -1710,16 +1716,18 @@ function Speakers() {
         <div className="container">
           <SectionHead
             num="03"
-            kicker="Host · GL Bajaj Group of Institutions"
+            kicker="Hosts · GL Bajaj Group of Institutions"
             title={
               <>
-                Our host <span className="dim">at GL Bajaj, Mathura.</span>
+                Our hosts <span className="dim">at GL Bajaj, Mathura.</span>
               </>
             }
           />
-          {byGroup('host').map(sp => (
-            <SpotlightLead key={sp.name} sp={sp} compact variant="host" />
-          ))}
+          <div className="host-row">
+            {byGroup('host').map(sp => (
+              <SpotlightLead key={sp.name} sp={sp} compact variant="host" />
+            ))}
+          </div>
         </div>
       </section>
     </>
@@ -1775,11 +1783,13 @@ function TeamHighlight() {
           ))}
         </Reveal>
         <Reveal as="span" className="mono-label team-hl-hostlabel">
-          Host · GL Bajaj Group of Institutions
+          Hosts · GL Bajaj Group of Institutions
         </Reveal>
-        {byGroup('host').map(sp => (
-          <SpotlightLead key={sp.name} sp={sp} compact variant="host" />
-        ))}
+        <div className="host-row">
+          {byGroup('host').map(sp => (
+            <SpotlightLead key={sp.name} sp={sp} compact variant="host" />
+          ))}
+        </div>
         <Reveal className="team-hl-more">
           <Link className="btn btn-ghost btn-lg" to="/team">
             Meet the whole team <Arrow />
