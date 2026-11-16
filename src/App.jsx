@@ -2109,8 +2109,36 @@ function FinalistsPage() {
             }
             sub="These finalists reached the final 20 out of around 100 projects. Each receives recognition from IBM."
           />
+          <div className="rec-feature">
+            {RECOGNISED.filter(f => f.standout).map(f => (
+              <Reveal as="article" key={f.id} id={`winner-${f.id}`} className="win-card rec-star">
+                <div className="win-card-top">
+                  <span className="rec-badge">★ {f.standout}</span>
+                  {f.country && (
+                    <span className="win-country">
+                      {f.flag} {f.country}
+                    </span>
+                  )}
+                </div>
+                <h3 className="win-card-proj">{f.project}</h3>
+                <p className="win-card-about">{f.about}</p>
+                <div className="win-card-person">
+                  <FinAvatar f={f} className="is-md" />
+                  <span>
+                    <b>{f.name}</b>
+                    {f.school && (
+                      <em>
+                        {f.study} · {f.school}
+                      </em>
+                    )}
+                  </span>
+                </div>
+                <FinLinks f={f} />
+              </Reveal>
+            ))}
+          </div>
           <ul className="rec-list">
-            {RECOGNISED.map(f => (
+            {RECOGNISED.filter(f => !f.standout).map(f => (
               <Reveal as="li" key={f.id} id={`winner-${f.id}`} className="rec-row">
                 <FinAvatar f={f} className="is-sm" />
                 <div className="rec-main">

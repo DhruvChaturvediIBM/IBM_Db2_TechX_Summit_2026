@@ -6704,3 +6704,30 @@ img.is-sm,
     padding: 20px;
   }
 }
+
+/* finalists 11–20: featured standouts */
+.rec-feature {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.win-card.rec-star {
+  border-color: rgba(120, 169, 255, 0.55);
+  background: radial-gradient(120% 120% at 0% 0%, rgba(15, 98, 254, 0.2), transparent 60%), var(--surface);
+}
+.rec-badge {
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #000;
+  background: #78a9ff;
+}
+@media (max-width: 760px) {
+  .rec-feature {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
