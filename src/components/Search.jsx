@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import {
   AGENTIC,
   FAQ,
+  FINALISTS,
   GALLERY_TABS,
   JUDGING,
   LEARN_VIDEOS,
@@ -60,6 +61,7 @@ const SECTIONS = [
   
   ["Schedule", "/db2hack#schedule", "timeline dates event flow pitch 13 nov results 14 nov"],
   ["FAQ", "/faq", "questions help doubts"],
+  ["Winners · Top 10", "/finalists", "finalists results winners top 10 top 3 rank prize announced 14 nov"],
   ["Build on IBM Db2", "/build", "build start steps skill packages extension oss open source"],
   ["Impact · a grand success", "/#impact", "impressions registrations countries unstop luma devpost projects numbers"],
   ["Submit project", "/submit", "submission guide pr form"],
@@ -190,6 +192,16 @@ function buildIndex() {
       v.tag,
       `https://www.youtube.com/watch?v=${v.id}`,
       "youtube tutorial",
+    ),
+  );
+
+  FINALISTS.forEach((f) =>
+    add(
+      "people",
+      `${f.project} · ${f.name}`,
+      `Db2Hack 2026 · ${f.rank}${["st", "nd", "rd"][f.rank - 1] || "th"} place · ${f.country}${f.tagline ? ` · ${f.tagline}` : ""}`,
+      `/finalists#winner-${f.photo}`,
+      "winner finalist top 10 project",
     ),
   );
 

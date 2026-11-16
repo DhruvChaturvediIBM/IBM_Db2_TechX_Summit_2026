@@ -25,3 +25,8 @@ dist-ssr
 
 # Full-size event photos (originals, ~650 MB) — web copies live in public/gallery/
 public/Workshop_done/
+
+# Raw finalist uploads + attendance sheet (personal data) — cropped web copies live in public/finalists/
+public/Photo Upload (File responses)/
+public/Finalist Pictures.zip
+public/*.xlsx

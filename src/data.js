@@ -14,7 +14,7 @@ export const MOMENTS = {
   // Workshop is over; Db2Hack stays open until this moment.
   hackEnd: new Date('2026-11-11T13:30:00+05:30'),
   // Extended by one day (judges travelling). 20 finalists selected · 15 pitched on Fri 13 Nov; judging runs until results are announced.
-  resultsEnd: new Date('2026-12-31T00:00:00+05:30'),
+  resultsEnd: new Date('2026-11-14T00:00:00+05:30'),
   summitStart: new Date('2026-10-30T09:00:00+05:30'),
   summitEnd: new Date('2026-10-30T17:00:00+05:30'),
   // Unstop registration stays open until the end of Sun 8 Nov; Register buttons hide after this.
@@ -33,7 +33,7 @@ export const EVENT = {
 
 // Section anchors on the home page; `path` entries are separate pages.
 export const NAV = [
-  { path: '/finalists', label: 'Finalists', highlight: true },
+  { path: '/finalists', label: 'Winners', highlight: true },
   { path: '/team', label: 'Team' },
   { path: '/db2hack', label: 'Db2Hack' },
   { path: '/build', label: 'Build' },
@@ -128,7 +128,7 @@ export const SCHEDULE_DAYS = [
     label: 'Fri · 13 Nov',
     caption: 'Db2Hack · finalists pitching',
     items: [
-      { start: '00:00', end: '24:00', title: 'Finalists pitching round · judging in progress', detail: '20 finalists were selected and 15 pitched their projects to the judges. Judging is in progress', highlight: true, tag: 'Pitch' },
+      { start: '00:00', end: '24:00', title: 'Finalists pitching round', detail: '20 finalists were selected and 15 pitched their projects live to the judges', highlight: true, tag: 'Pitch' },
     ],
   },
   {
@@ -136,27 +136,49 @@ export const SCHEDULE_DAYS = [
     label: 'Sat · 14 Nov',
     caption: 'Db2Hack · results',
     items: [
-      { start: '00:00', end: '24:00', title: 'Results announced', detail: 'The Top 10 win — Top 3 get trophies — and the other 10 finalists get recognition. Results go up on the Finalists page and the WhatsApp channel', highlight: true, tag: 'Results' },
+      { start: '00:00', end: '24:00', title: 'Results announced', detail: 'Results are out — the Top 10 were announced, led by Vishnu Sundhan (PortProof), Jay Malhotra (AsOf) and Ayush Gade (Custodian). The other 10 finalists get recognition', highlight: true, tag: 'Results' },
     ],
   },
 ];
 
 // "Grand success" impact numbers shown big on the landing page.
 export const IMPACT = {
-  hero: { to: 49.4, decimals: 1, suffix: 'K', label: 'Brand impressions on Unstop', href: UNSTOP_URL },
+  hero: { to: 49.6, decimals: 1, suffix: 'K', label: 'Brand impressions on Unstop', href: UNSTOP_URL },
   stats: [
     { to: 5.3, decimals: 1, suffix: 'K', pre: '~', label: 'Registrations on Unstop', href: UNSTOP_URL },
-    { to: 1, suffix: 'K', pre: '~', label: 'More registrations on Devpost & Luma', href: LUMA_EVENT },
-    { to: 5, suffix: '+', label: 'Countries participating' },
+    { to: 450, label: 'Registrations on Luma · 3,132 page views', href: LUMA_EVENT },
+    { to: 13, label: 'Countries participating · 6 international finalists' },
     { to: 100, pre: '~', label: 'Projects built on IBM Db2 + AI frameworks', href: PROJECTS_URL },
-    { to: 130, suffix: '+', label: 'Workshop attendees · 2–3 hours of engagement', href: '/gallery' },
-    { to: 20, label: 'Finalists selected · 15 pitched to the judges', href: '/finalists' },
+    { to: 110, label: 'Live workshop attendees · 3 h 12 min session · 311 reactions' },
+    { to: 1, suffix: 'K+', label: 'IBM Db2 VS Code extension downloads · VS Code, Antigravity, Bob & more' },
+    { to: 23, suffix: ' hrs', label: 'YouTube watch time on the live finals stream · 334 views' },
+    { to: 20, label: 'Finalists · 15 pitched · Top 10 announced', href: '/finalists' },
   ],
 };
 
-// Db2Hack finalists. Empty = the Finalists page shows "revealed soon".
-// To reveal, add { name, project, about, pr } entries (up to 10) and push.
-export const FINALISTS = [];
+// Where Db2Hack participants came from (registration count per country).
+export const COUNTRIES = [
+  ['India', 564], ['Nigeria', 2], ['United States', 1], ['Canada', 1], ['United Arab Emirates', 1], ['Italy', 1], ['Netherlands', 1],
+  ['Hungary', 1], ['Malaysia', 1], ['Sri Lanka', 1], ['Bangladesh', 1], ['Pakistan', 1], ['Tunisia', 1],
+];
+
+// Db2Hack 2026 Top 10 — announced Sat 14 Nov. Photos in public/finalists/ are
+// published with each winner's consent (photo upload form + event terms).
+export const FINALISTS = [
+  { rank: 1, name: 'Vishnu Sundhan', project: 'PortProof', tagline: 'Verified SQL Migration to Db2', country: 'USA', photo: 'vishnu-sundhan' },
+  { rank: 2, name: 'Jay Malhotra', project: 'AsOf', tagline: 'Dated Policy Checks for AI Assistant Answers on IBM Db2', country: 'Canada', photo: 'jay-malhotra' },
+  { rank: 3, name: 'Ayush Gade', project: 'Custodian', tagline: 'The Db2 Control Plane for AI Agents', country: 'India', photo: 'ayush-gade' },
+  { rank: 4, name: 'Mohamed Atiyah', project: 'reDB', tagline: 'The AI Agent That Tunes IBM Db2 and Proves Every Fix', country: 'UAE', photo: 'mohamed-atiyah' },
+  { rank: 5, name: 'Sunday Robert', project: 'PayGuard', tagline: 'AI Payment Firewall on IBM Db2', country: 'Nigeria', photo: 'sunday-robert' },
+  { rank: 6, name: 'Debi Prasad Samal', project: 'AQI Truth', tagline: '', country: 'India', photo: 'debi-prasad-samal' },
+  { rank: 7, name: 'Abhinav Khokhar', project: 'FinSight AI', tagline: 'Semantic Intelligence & Financial Reconciliation Platform', country: 'India', photo: 'abhinav-khokhar' },
+  { rank: 8, name: 'Clark Fernandes', project: 'Hotel Ops Copilot', tagline: 'Governed Multi-Agent Hotel Operations on IBM Db2', country: 'India', photo: 'clark-fernandes' },
+  { rank: 9, name: 'Chandra Pavansai', project: 'Db2 Cortex', tagline: 'Governed, Self-Auditing Multi-Agent Analytics Copilot on IBM Db2', country: 'India', photo: 'chandra-pavansai' },
+  { rank: 10, name: 'Aryan Rane', project: 'Db2 Privacy Copilot', tagline: '', country: 'India', photo: 'aryan-rane' },
+];
+
+export const PHOTO_CONSENT =
+  'Winner photos are published with each winner’s consent. Every winner shared their photo through the official Db2Hack photo upload form and agreed to the event terms & conditions allowing IBM Db2 TechX to use it to announce the results. To update or remove a photo, contact the organising team on the WhatsApp community.';
 
 // Online sessions for Db2Hack builders — dates go out on WhatsApp first.
 export const COMING_SOON = [
@@ -280,7 +302,7 @@ export const SPEAKERS = [
 ];
 
 export const FAQ = [
-  { q: 'Is Db2Hack still open?', a: 'No. Registrations and submissions are closed (submissions closed at 1:30 PM IST on Wed 11 Nov). 20 finalists were selected and 15 pitched to the judges on Fri 13 Nov, and judging is in progress. The finalists and winners will be announced on the Finalists page and the WhatsApp channel soon.' },
+  { q: 'Is Db2Hack still open?', a: 'No. Registrations and submissions are closed (submissions closed at 1:30 PM IST on Wed 11 Nov). 20 finalists were selected, 15 pitched to the judges on Fri 13 Nov, and the Top 10 were announced on Sat 14 Nov — see the Finalists page. The open-source opportunity is still live: keep submitting to the submission repo.' },
   { q: 'Can I still submit my project?', a: 'Db2Hack judging is closed to new entries, but the IBM open-source opportunity is still live. Keep building and keep submitting your IBM Db2 projects to the submission repo (github.com/KunalGolaIBM/IBM_Db2_TechX_Project_Submission) — strong use cases get the chance to be contributed to IBM Db2 open-source projects.' },
   { q: 'What do the 20 finalists get?', a: 'The Top 10 win: Top 3 get a trophy, an IBM Db2 kit and a Certificate of Excellence, and the rest of the Top 10 get IBM Db2 goodies and a Certificate of Merit. The other 10 finalists receive recognition from IBM.' },
   { q: 'Was the deadline extended?', a: 'Yes, by one day, because the judges were travelling. Submissions closed at 1:30 PM IST on Wednesday, 11 November (12:00 AM PST · 9:00 AM WAT, Nigeria), and 20 finalists were selected and 15 pitched on Friday, 13 November.' },
@@ -294,7 +316,7 @@ export const FAQ = [
   { q: 'Who can participate?', a: 'Everyone — students, working professionals and developers, in India or anywhere in the world. International participants are judged equally.' },
   { q: 'My project has more than one member. What do we do?', a: 'Db2Hack is individual. Add your teammates as assignees on the PR and write each person\'s role in the README. Each member must submit separately. Only one member can win per project, so you also compete within your team on the same project.' },
   { q: 'I missed the start. Can I still join?', a: 'Db2Hack submissions are closed. You can still build with the quick start and resources, follow the WhatsApp channel for the online workshop and the next challenge — and the deadline.' },
-  { q: 'When are the results?', a: 'Judging is in progress. 20 finalists were selected and 15 pitched to the judges on Fri 13 Nov, and each judge scores every project independently. The finalists, the Top 3 and the projects with real potential will be announced soon on the Finalists page and the WhatsApp channel.' },
+  { q: 'Where are the results?', a: 'Results are out. The Top 10 were announced on Sat 14 Nov after 15 finalists pitched to the judges on Fri 13 Nov, with every judge scoring each project independently. 1st: Vishnu Sundhan (PortProof), 2nd: Jay Malhotra (AsOf), 3rd: Ayush Gade (Custodian). The full Top 10 is on the Finalists page.' },
   { q: 'How are the Top 10 chosen?', a: 'IBM experts score every submission with the 100-point rubric on the Submit page. To keep it transparent, we share the judging sheet and feedback explaining why a submission was not selected for the Top 10.' },
   { q: 'Will the judging be fair?', a: 'Yes. Every judge evaluates each submission independently against the published criteria, and PRs are first checked by automation against the PR template — so follow the template. Results are shared with everyone, so each participant sees where they stand and what they missed.' },
   { q: 'Which frameworks can I use?', a: 'Every project must use at least one of LangChain, Haystack, CrewAI, LlamaIndex or the no-code Langflow. One is enough; combining several (for example LangChain + CrewAI) is also allowed.' },
@@ -408,7 +430,7 @@ export const SUBMISSION_ISSUES = `${SUBMISSION_REPO}/issues/new/choose`;
 export const SUBMIT_DATES = [
   { what: 'Submissions opened', when: 'Wed 28 Oct · 7:00 PM IST', note: 'Registrations closed on Sun 8 Nov' },
   { what: 'Submissions closed', when: 'Wed 11 Nov · 1:30 PM IST', note: 'Extended by one day · 12:00 AM PST · 9:00 AM WAT' },
-  { what: '20 finalists selected · 15 pitched · judging in progress', when: 'Fri 13 Nov → results Sat 14 Nov', note: '20 finalists were selected and 15 pitched to the judges. Judging is in progress — then the Top 3, Top 10 and the projects with potential are announced. Best submissions win IBM goodies and a chance to contribute to IBM open-source projects' },
+  { what: '20 finalists · 15 pitched · results out', when: 'Fri 13 Nov → results Sat 14 Nov', note: '20 finalists were selected and 15 pitched to the judges. The Top 10 were announced on Sat 14 Nov, and the other 10 finalists get recognition. The open-source opportunity is still live' },
 ];
 
 export const SUBMIT_REQUIREMENTS = [

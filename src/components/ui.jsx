@@ -6,10 +6,11 @@ import Counter from './reactbits/Counter';
 
 const EASE = [0.22, 1, 0.36, 1];
 
-export function Reveal({ children, delay = 0, y = 28, className = '', as = 'div' }) {
+export function Reveal({ children, delay = 0, y = 28, className = '', as = 'div', id }) {
   const Tag = motion[as];
   return (
     <Tag
+      id={id}
       className={className}
       initial={{ opacity: 0, y, filter: 'blur(8px)' }}
       whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -123,7 +124,7 @@ export function phaseAt(now) {
   if (now < summitEnd) return { label: 'Happening now', target: null, status: 'Live at GL Bajaj · build after the workshop and submit' };
   if (now < hackEnd) return { label: 'Db2Hack submissions close in', target: hackEnd, status: 'Workshop done · Db2Hack still live — extended — submit by 1:30 PM IST, Wed 11 Nov (12 AM PST)' };
   if (now < resultsEnd) return { label: 'Judging in progress', target: null, status: 'Registrations & submissions closed · 20 finalists selected · 15 pitched · judging in progress · OSS opportunity still live' };
-  return { label: "That's a wrap", target: null, status: 'Thank you, builders — keep building on IBM Db2' };
+  return { label: 'Results are out', target: null, status: 'Db2Hack 2026 results are out · Top 10 announced · ~100 projects from 13 countries · OSS opportunity still live' };
 }
 
 export function Countdown() {

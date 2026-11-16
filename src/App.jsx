@@ -42,6 +42,8 @@ import {
   AGENTIC,
   AI_SKILL,
   FINALISTS,
+  COUNTRIES,
+  PHOTO_CONSENT,
   IMPACT,
   LUMA_EVENT,
   PROJECTS_URL,
@@ -178,7 +180,7 @@ function AnnouncementBar() {
             </span>
             <span>Registrations closed · submissions closed</span>
             <span>20 finalists selected · 15 pitched to the judges on Fri 13 Nov</span>
-            <span>Judging in progress · Top 10 win · the other 10 finalists get recognition</span>
+            <span>Results are out · Top 10 announced · 1st Vishnu Sundhan (PortProof) · 2nd Jay Malhotra (AsOf) · 3rd Ayush Gade (Custodian)</span>
             <span>Open-source opportunity still live · keep submitting to the submission repo</span>
             <span>Chief guest: Deepak Rangrao, Distinguished Engineer, IBM</span>
             <span>Get IBM Db2 free: IBM Db2 Developer Extension for VS Code</span>
@@ -290,7 +292,7 @@ function Nav() {
             <RegisterButton size="btn-sm" label="Register" />
           ) : (
             <Link className="btn btn-primary btn-sm" to="/finalists">
-              Finalists <Arrow />
+              Winners <Arrow />
             </Link>
           )}
           <button
@@ -375,7 +377,7 @@ function Hero() {
         <motion.div className="hero-pill" {...rise(0.2, 16)}>
           <span className="live-dot" />
           <DecryptedText
-            text="SUBMISSIONS CLOSED · JUDGING IN PROGRESS"
+            text="RESULTS ARE OUT · TOP 10 ANNOUNCED"
             animateOn="view"
             sequential
             speed={35}
@@ -395,7 +397,7 @@ function Hero() {
 
         <motion.p className="hero-tagline" {...rise(0.85, 20)}>
           <ShinyText
-            text="Registrations and submissions are closed. 20 finalists selected · 15 pitched to the judges — results on Sat 14 Nov."
+            text="Results are out. Congratulations to the Db2Hack 2026 Top 10 — builders from 13 countries, ~100 projects on IBM Db2."
             color="#c6c6c6"
             shineColor="#ffffff"
             speed={3}
@@ -411,7 +413,7 @@ function Hero() {
           )}
           <Magnet padding={70} magnetStrength={4}>
             <Link className="btn btn-primary btn-xl" to="/finalists">
-              Finalists · results 14 Nov <Arrow />
+              See the winners <Arrow />
             </Link>
           </Magnet>
           <Magnet padding={70} magnetStrength={4}>
@@ -433,7 +435,7 @@ function Hero() {
         )}
         <motion.div className="hero-sublinks" {...rise(1.2, 14)}>
           <a href={WHATSAPP_CHANNEL} {...ext}>
-            Results on the WhatsApp channel ↗
+            WhatsApp channel ↗
           </a>
           <Link to="/submit#judging">Judging criteria →</Link>
           <Link to="/db2hack#rewards">Rewards →</Link>
@@ -448,17 +450,17 @@ function Hero() {
         transition={{ duration: 1, delay: 1.35, ease: EASE }}
       >
         <div className="hb-date">
-          <span className="hb-day">13</span>
+          <span className="hb-day">14</span>
           <span className="hb-month">
             <b>November</b>
-            <span>20 finalists selected · 15 pitched</span>
+            <span>Results announced · Top 10</span>
           </span>
         </div>
         <Countdown />
         <div className="hb-venue">
-          <span className="mono-label">Judging in progress</span>
-          <span>Results announced</span>
-          <span>Sat 14 Nov</span>
+          <span className="mono-label">1st place</span>
+          <span>PortProof</span>
+          <span>Vishnu Sundhan · USA</span>
         </div>
       </motion.div>
     </section>
@@ -992,13 +994,13 @@ function Db2Hack() {
             on IBM Db2
           </Reveal>
           <Reveal delay={0.14} as="p" className="hack-lead">
-            Build an AI use case on IBM Db2. Open to everyone — solo participation only. <b>Submissions are closed. 20 finalists were selected and 15 pitched on 13 Nov — judging is in progress.</b>
+            Build an AI use case on IBM Db2. Open to everyone — solo participation only. <b>Results are out. 20 finalists were selected, 15 pitched on 13 Nov, and the Top 10 were announced on 14 Nov.</b>
           </Reveal>
         </div>
 
         <Reveal className="flap-board">
           <SplitFlapText
-            words={['20 FINALISTS', '15 HAVE PITCHED', 'JUDGING IN PROGRESS', 'OSS STILL LIVE']}
+            words={['RESULTS ARE OUT', 'TOP 10 ANNOUNCED', '13 COUNTRIES', 'OSS STILL LIVE']}
             padTo={19}
             fontSize={flap}
             gap={wide ? 5 : 3}
@@ -1029,9 +1031,9 @@ function Db2Hack() {
             <span className="hw-line-fill" />
           </div>
           <div className="hw-point hw-final">
-            <span className="mono-label">20 finalists selected · 15 pitched</span>
-            <strong>Fri, 13 Nov</strong>
-            <span>Judging in progress</span>
+            <span className="mono-label">Results announced · Top 10</span>
+            <strong>Sat, 14 Nov</strong>
+            <span>15 pitched on Fri 13 Nov</span>
           </div>
         </Reveal>
 
@@ -1065,7 +1067,7 @@ function Db2Hack() {
               <li>Submit a GitHub pull request, then the PR link via Google Form</li>
               <li>Joining the WhatsApp community is mandatory</li>
               <li>Submissions closed at 1:30 PM IST on Wed 11 Nov (extended by one day)</li>
-              <li>20 finalists selected · 15 pitched on Fri 13 Nov · judging in progress</li>
+              <li>20 finalists selected · 15 pitched on Fri 13 Nov · Top 10 announced Sat 14 Nov</li>
               <li>Top 10 win · the other 10 finalists get recognition</li>
               <li>Open-source opportunity still live — keep submitting to the submission repo</li>
               <li>Post your use case on LinkedIn and tag the organising team</li>
@@ -1075,7 +1077,7 @@ function Db2Hack() {
         </div>
         <Reveal className="hack-cta">
           <Link className="btn btn-primary btn-lg" to="/finalists">
-            Finalists · results 14 Nov <Arrow />
+            See the winners <Arrow />
           </Link>
           <Link className="btn btn-ghost btn-lg" to="/submit">
             Submission guide & judging <Arrow />
@@ -1481,13 +1483,13 @@ function Rewards() {
       <div className="container">
         <SectionHead
           num="02"
-          kicker="Rewards · judging in progress"
+          kicker="Rewards · winners announced"
           title={
             <>
               Build well. <span className="dim">Take home a trophy.</span>
             </>
           }
-          sub="IBM experts are reviewing every submission. 20 finalists were selected and 15 pitched on Friday, 13 November — next we announce the Top 3, the Top 10 and the projects with real potential."
+          sub="20 finalists were selected and 15 pitched on Friday, 13 November. The Top 10 were announced on Saturday, 14 November — see the winners on the Finalists page."
         />
         <div className="rw-grid">
           {[top3, top10].map((r, i) => (
@@ -1804,7 +1806,7 @@ function Impact() {
                 A grand success. <span className="dim">An international win for IBM Db2.</span>
               </h2>
               <p>
-                Thousands of builders from 5+ countries joined on Unstop, Devpost and Luma — and around 100 of them shipped
+                Thousands of builders from 13 countries joined on Unstop, Luma and Devpost — and around 100 of them shipped
                 real AI projects on IBM Db2 with LangChain, LlamaIndex, Haystack, CrewAI and Langflow.
               </p>
             </div>
@@ -1839,6 +1841,16 @@ function Impact() {
               );
             })}
           </div>
+          <div className="impact-countries" id="countries">
+            <span className="mono-label">{COUNTRIES.length} countries</span>
+            <ul>
+              {COUNTRIES.map(([c, n]) => (
+                <li key={c}>
+                  {c} <b>{n}</b>
+                </li>
+              ))}
+            </ul>
+          </div>
           <div className="impact-links">
             <span>See it yourself</span>
             <a className="btn btn-ghost btn-sm impact-unstop" href={UNSTOP_URL} {...ext}>
@@ -1854,7 +1866,7 @@ function Impact() {
               Workshop photos <Arrow />
             </Link>
             <Link className="btn btn-ghost btn-sm" to="/finalists">
-              Finalists <Arrow />
+              Winners <Arrow />
             </Link>
           </div>
         </Reveal>
@@ -1863,41 +1875,75 @@ function Impact() {
   );
 }
 
-// "Finalists revealed soon" strip, high on the landing page.
+const ordinal = n => `${n}${n === 1 ? 'st' : n === 2 ? 'nd' : n === 3 ? 'rd' : 'th'}`;
+const finPhoto = f => `/finalists/${f.photo}.jpg`;
+const TOP_COUNTRIES = [...new Set(FINALISTS.map(f => f.country))];
+
+// Results strip on the landing page: project names lead, faces stay small.
 function FinalistsTeaser() {
+  const podium = FINALISTS.slice(0, 3);
+  const rest = FINALISTS.slice(3);
   return (
     <section className="section fin-teaser" id="finalists">
       <div className="container">
-        <Reveal className="fin-teaser-card">
-          <div>
+        <Reveal className="fin-teaser-card win-teaser">
+          <div className="win-head">
             <span className="kicker kicker-row">
               <span className="live-dot" />
-              Db2Hack · judging in progress
-              <AnchorLink id="finalists" label="finalists" />
+              Db2Hack 2026 · results are out
+              <AnchorLink id="finalists" label="winners" />
             </span>
             <h2>
-              20 finalists. 15 pitched. <span className="dim">Results on Sat 14 Nov.</span>
+              Congratulations to the Top 10. <span className="dim">Builders from {TOP_COUNTRIES.length} countries.</span>
             </h2>
             <p>
-              Registrations and submissions are closed. 20 finalists were selected and 15 pitched to the judges on Fri 13 Nov, and every judge is
-              scoring each project independently. The Top 10 win, and the other 10 finalists get recognition.
+              20 finalists were selected, 15 pitched live to the judges on Fri 13 Nov, and the Top 10 were announced on
+              Sat 14 Nov. The other 10 finalists receive recognition from IBM.
             </p>
           </div>
-          <div className="fin-teaser-act">
-            <div className="fin-slots" aria-hidden="true">
-              {Array.from({ length: 20 }).map((_, i) => (
-                <span key={i}>{String(i + 1).padStart(2, '0')}</span>
-              ))}
-            </div>
-            <div className="fin-teaser-btns">
-              <Link className="btn btn-primary btn-lg" to="/finalists">
-                Finalists page <Arrow />
-              </Link>
-              <a className="btn btn-ghost btn-lg" href={WHATSAPP_CHANNEL} {...ext}>
-                Get results on WhatsApp <ArrowUpRight />
-              </a>
-            </div>
+          <ol className="win-podium">
+            {podium.map(f => (
+              <li key={f.rank} className={`win-pod is-r${f.rank}`}>
+                <span className="win-rank">{ordinal(f.rank)}</span>
+                <h3>{f.project}</h3>
+                {f.tagline && <p>{f.tagline}</p>}
+                <span className="win-who">
+                  <img src={finPhoto(f)} alt="" loading="lazy" />
+                  <span>
+                    <b>{f.name}</b>
+                    {f.country}
+                  </span>
+                </span>
+              </li>
+            ))}
+          </ol>
+          <ol className="win-list">
+            {rest.map(f => (
+              <li key={f.rank}>
+                <span className="win-n">{String(f.rank).padStart(2, '0')}</span>
+                <span className="win-proj">
+                  <strong>{f.project}</strong>
+                  {f.tagline && <span>{f.tagline}</span>}
+                </span>
+                <span className="win-who is-sm">
+                  <img src={finPhoto(f)} alt="" loading="lazy" />
+                  <span>
+                    <b>{f.name}</b>
+                    {f.country}
+                  </span>
+                </span>
+              </li>
+            ))}
+          </ol>
+          <div className="fin-teaser-btns win-btns">
+            <Link className="btn btn-primary btn-lg" to="/finalists">
+              Meet the winners <Arrow />
+            </Link>
+            <a className="btn btn-ghost btn-lg" href={WHATSAPP_CHANNEL} {...ext}>
+              WhatsApp channel <ArrowUpRight />
+            </a>
           </div>
+          <p className="win-consent">{PHOTO_CONSENT}</p>
         </Reveal>
         <OssLive />
       </div>
@@ -1928,40 +1974,86 @@ const FIN_STAGES = [
   { t: 'Registrations closed', d: 'Sun 8 Nov', done: true },
   { t: 'Submissions closed', d: 'Wed 11 Nov · 1:30 PM IST', done: true },
   { t: '20 finalists selected · 15 pitched', d: 'Fri 13 Nov', done: true },
-  { t: 'Judging in progress', d: 'Every judge scores independently', now: true },
-  { t: 'Results announced', d: 'Sat 14 Nov' },
+  { t: 'Judging', d: 'Every judge scored independently', done: true },
+  { t: 'Results announced', d: 'Sat 14 Nov · Top 10', done: true, now: true },
 ];
+
+function WinnerCard({ f, big }) {
+  return (
+    <Reveal as="article" id={`winner-${f.photo}`} className={`win-card ${big ? 'is-big' : ''} is-r${f.rank}`}>
+      <div className="win-card-photo">
+        <img src={finPhoto(f)} alt={`${f.name}, ${ordinal(f.rank)} place, Db2Hack 2026`} loading="lazy" />
+        <span className="win-rank">{ordinal(f.rank)}</span>
+      </div>
+      <div className="win-card-body">
+        <span className="win-country">{f.country}</span>
+        <strong className="win-card-name">{f.name}</strong>
+        <span className="win-card-proj">{f.project}</span>
+        {f.tagline && <p>{f.tagline}</p>}
+      </div>
+    </Reveal>
+  );
+}
 
 function FinalistsPage() {
   useHashScroll();
-  useEffect(() => {
-    document.title = 'Finalists · Db2Hack · IBM Db2 TechX';
-    return () => {
-      document.title = 'Db2Hack · judging in progress · IBM Db2 TechX 2026';
-    };
-  }, []);
-  const revealed = FINALISTS.length > 0;
+  usePageTitle('Winners · Db2Hack 2026 · IBM Db2 TechX');
   return (
     <main className="page-finalists">
       <section className="page-hero">
         <div className="container page-hero-inner">
           <Reveal as="span" className="kicker">
             <span className="live-dot" />
-            Db2Hack · {revealed ? 'finalists' : 'judging in progress'}
+            Db2Hack 2026 · results
           </Reveal>
           <Reveal delay={0.06} as="h1">
-            The Db2Hack finalists. <span className="dim">{revealed ? 'Congratulations.' : 'Results on Sat 14 Nov.'}</span>
+            The Db2Hack winners. <span className="dim">Congratulations.</span>
           </Reveal>
           <Reveal delay={0.12} as="p">
-            Registrations and submissions are closed. 20 finalists were selected and 15 pitched their projects to the judges on Friday,
-            13 November. Every judge is scoring each project independently — results are shared with everyone, so each
-            participant sees where they stand.
+            Around 100 projects were submitted from {COUNTRIES.length} countries. 20 finalists were selected, 15 pitched live to the
+            judges on Friday, 13 November, and every judge scored each project independently. The Top 10 were announced on
+            Saturday, 14 November — builders from {TOP_COUNTRIES.join(', ')}.
+          </Reveal>
+        </div>
+      </section>
+      <section className="section" id="top-10">
+        <div className="container">
+          <SectionHead
+            num="01"
+            kicker="Top 10 · Db2Hack 2026"
+            title={
+              <>
+                Meet the winners. <span className="dim">Built on IBM Db2.</span>
+              </>
+            }
+            sub="Top 3 get a trophy, an IBM Db2 kit and a Certificate of Excellence; the rest of the Top 10 get IBM Db2 goodies and a Certificate of Merit. The other 10 finalists receive recognition from IBM."
+          />
+          <div className="win-cards-top">
+            {FINALISTS.slice(0, 3).map(f => (
+              <WinnerCard key={f.rank} f={f} big />
+            ))}
+          </div>
+          <div className="win-cards">
+            {FINALISTS.slice(3).map(f => (
+              <WinnerCard key={f.rank} f={f} />
+            ))}
+          </div>
+          <Reveal className="win-rec">
+            <span className="mono-label">Finalists 11–20</span>
+            <p>
+              The other 10 finalists receive recognition from IBM for reaching the final round. Thank you to everyone who built
+              on IBM Db2.
+            </p>
+          </Reveal>
+          <Reveal className="win-consent-box">
+            <span className="mono-label">Photo consent</span>
+            <p>{PHOTO_CONSENT}</p>
           </Reveal>
         </div>
       </section>
       <section className="section" id="status">
         <div className="container">
-          <SectionHead num="01" kicker="Where we are" title={<>Judging <span className="dim">in progress.</span></>} />
+          <SectionHead num="02" kicker="How it went" title={<>Done. <span className="dim">Results are out.</span></>} />
           <ol className="fin-stages">
             {FIN_STAGES.map(st => (
               <Reveal as="li" key={st.t} className={`${st.done ? 'is-done' : ''} ${st.now ? 'is-now' : ''}`}>
@@ -1971,58 +2063,13 @@ function FinalistsPage() {
               </Reveal>
             ))}
           </ol>
-        </div>
-      </section>
-      <section className="section" id="top-10">
-        <div className="container">
-          <SectionHead
-            num="02"
-            kicker="20 finalists"
-            title={
-              <>
-                {revealed ? 'Meet the finalists.' : 'Twenty spots.'} <span className="dim">{revealed ? '' : 'Names on Sat 14 Nov.'}</span>
-              </>
-            }
-            sub="The Top 10 win: Top 3 get a trophy, an IBM Db2 kit and a Certificate of Excellence; the rest of the Top 10 get IBM Db2 goodies and a Certificate of Merit. The other 10 finalists receive recognition from IBM."
-          />
-          <div className="fin-grid">
-            {Array.from({ length: 20 }).map((_, i) => {
-              const f = FINALISTS[i];
-              return (
-                <Reveal key={i} delay={0.03 * i} className={`fin-card ${f ? '' : 'is-soon'} ${i < 10 ? 'is-top' : 'is-rec'}`}>
-                  <span className="fin-n">
-                    {String(i + 1).padStart(2, '0')}
-                    <b>{i < 10 ? 'Top 10 · wins' : 'Recognition'}</b>
-                  </span>
-                  {f ? (
-                    <>
-                      <strong>{f.name}</strong>
-                      <span className="fin-proj">{f.project}</span>
-                      {f.about && <p>{f.about}</p>}
-                      {f.pr && (
-                        <a href={f.pr} {...ext}>
-                          View project <ArrowUpRight />
-                        </a>
-                      )}
-                    </>
-                  ) : (
-                    <>
-                      <span className="fin-blur" />
-                      <span className="fin-blur short" />
-                      <em>Revealed soon</em>
-                    </>
-                  )}
-                </Reveal>
-              );
-            })}
-          </div>
           <OssLive />
           <Reveal className="fin-ctas">
-            <a className="btn btn-primary btn-lg" href={WHATSAPP_CHANNEL} {...ext}>
-              Follow the WhatsApp channel for results <ArrowUpRight />
+            <a className="btn btn-primary btn-lg" href={PROJECTS_URL} {...ext}>
+              All submitted projects on GitHub <ArrowUpRight />
             </a>
             <Link className="btn btn-ghost btn-lg" to="/submit#judging">
-              How projects are judged <Arrow />
+              How projects were judged <Arrow />
             </Link>
             <Link className="btn btn-ghost btn-lg" to="/team">
               Meet the judges <Arrow />
@@ -2036,7 +2083,7 @@ function FinalistsPage() {
 }
 
 const QUICK_PAGES = [
-  { to: '/finalists', n: '01', t: 'Finalists', d: '20 selected · 15 pitched · results Sat 14 Nov', hl: true },
+  { to: '/finalists', n: '01', t: 'Winners', d: 'Top 10 announced · 20 finalists · 15 pitched', hl: true },
   { to: '/team', n: '02', t: 'Team', d: 'Chief guest, leadership, judges and host' },
   { to: '/db2hack', n: '03', t: 'Db2Hack & rewards', d: 'The challenge, rewards and the full schedule' },
   { to: '/build', n: '04', t: 'Build on IBM Db2', d: '4 steps, VS Code extension, AI packages, AI skill' },
@@ -2109,7 +2156,7 @@ function usePageTitle(title) {
   useEffect(() => {
     document.title = title;
     return () => {
-      document.title = 'Db2Hack · judging in progress · IBM Db2 TechX 2026';
+      document.title = 'Db2Hack 2026 · results are out · IBM Db2 TechX';
     };
   }, [title]);
 }
@@ -2170,7 +2217,7 @@ function TeamPage() {
   useEffect(() => {
     document.title = 'Team · IBM Db2 TechX';
     return () => {
-      document.title = 'Db2Hack · judging in progress · IBM Db2 TechX 2026';
+      document.title = 'Db2Hack 2026 · results are out · IBM Db2 TechX';
     };
   }, []);
   return (
@@ -2254,21 +2301,21 @@ function FinalCta() {
       </div>
       <div className="container final-inner">
         <Reveal as="span" className="mono-label">
-          Db2Hack · submissions closed · judging in progress
+          Db2Hack 2026 · results are out
         </Reveal>
         <Reveal delay={0.06} as="h2">
-          Results <span className="dim">on Sat 14 Nov.</span>
+          Thank you, <span className="dim">builders.</span>
         </Reveal>
         <Reveal delay={0.12} as="p">
-          Thank you to everyone who built on IBM Db2. 20 finalists were selected, 15 pitched, and the judges are scoring every
-          project independently. Top 3 win trophies, Top 10 win IBM Db2 goodies.
+          Thank you to everyone who built on IBM Db2 — around 100 projects from 13 countries. Congratulations to the Top 10, and
+          keep building: the open-source opportunity is still live.
         </Reveal>
         <Reveal delay={0.18} className="final-ctas">
           {regOpen ? (
             <RegisterButton size="btn-xl" />
           ) : (
             <Link className="btn btn-primary btn-xl" to="/finalists">
-              See the finalists page <Arrow />
+              See the winners <Arrow />
             </Link>
           )}
           <StarBorder
@@ -2645,7 +2692,7 @@ function SubmitHero() {
           Ship it right. <span className="dim">Get judged fairly.</span>
         </Reveal>
         <Reveal delay={0.12} as="p">
-          Db2Hack submissions are closed — judging is in progress. A 6-step quick start, free local IBM Db2, the GitHub + Google Form
+          Db2Hack submissions are closed — results are out. A 6-step quick start, free local IBM Db2, the GitHub + Google Form
           flow, naming rules and the 100-point judging rubric.
         </Reveal>
         <Reveal delay={0.18} className="page-hero-ctas">
@@ -2681,10 +2728,10 @@ function SubmitGuide() {
             kicker="Important dates"
             title={
               <>
-                Closed. <span className="dim">Judging in progress.</span>
+                Closed. <span className="dim">Results are out.</span>
               </>
             }
-            sub="Registrations and submissions are closed — submissions closed at 1:30 PM IST on Wednesday, 11 November (12:00 AM PST · 9:00 AM WAT), extended by one day. 20 finalists were selected and 15 pitched on Fri 13 Nov and judging is in progress."
+            sub="Registrations and submissions are closed — submissions closed at 1:30 PM IST on Wednesday, 11 November (12:00 AM PST · 9:00 AM WAT), extended by one day. 20 finalists were selected, 15 pitched on Fri 13 Nov, and the Top 10 were announced on Sat 14 Nov."
           />
           <div className="sdates">
             {SUBMIT_DATES.map((d, i) => (
@@ -2873,7 +2920,7 @@ function SubmitPage() {
   useEffect(() => {
     document.title = 'Submit your project · Db2Hack · IBM Db2 TechX';
     return () => {
-      document.title = 'Db2Hack · judging in progress · IBM Db2 TechX 2026';
+      document.title = 'Db2Hack 2026 · results are out · IBM Db2 TechX';
     };
   }, []);
   return (
@@ -3028,7 +3075,7 @@ function GalleryPage() {
   useEffect(() => {
     document.title = 'Gallery · 30 Oct 2026 · IBM Db2 TechX';
     return () => {
-      document.title = 'Db2Hack · judging in progress · IBM Db2 TechX 2026';
+      document.title = 'Db2Hack 2026 · results are out · IBM Db2 TechX';
     };
   }, []);
   return (
@@ -3059,7 +3106,7 @@ function ResourcesPage() {
   useEffect(() => {
     document.title = 'Resources · IBM Db2 TechX';
     return () => {
-      document.title = 'Db2Hack · judging in progress · IBM Db2 TechX 2026';
+      document.title = 'Db2Hack 2026 · results are out · IBM Db2 TechX';
     };
   }, []);
   return (
