@@ -5,6 +5,7 @@ import {
   AGENTIC,
   FAQ,
   FINALISTS,
+  RECOGNISED,
   GALLERY_TABS,
   JUDGING,
   LEARN_VIDEOS,
@@ -203,6 +204,10 @@ function buildIndex() {
       `/finalists#winner-${f.id || f.photo}`,
       "winner finalist top 10 project",
     ),
+  );
+
+  RECOGNISED.forEach((f) =>
+    add("people", `${f.project} · ${f.name}`, `Db2Hack 2026 finalist · ${f.about}`, `/finalists#winner-${f.id}`, "finalist recognised project"),
   );
 
   SPEAKERS.forEach((s) =>

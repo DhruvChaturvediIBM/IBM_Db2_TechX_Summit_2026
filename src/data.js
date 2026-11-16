@@ -143,42 +143,83 @@ export const SCHEDULE_DAYS = [
 
 // "Grand success" impact numbers shown big on the landing page.
 export const IMPACT = {
-  hero: { to: 49.6, decimals: 1, suffix: 'K', label: 'Brand impressions on Unstop', href: UNSTOP_URL },
+  hero: { to: 54, suffix: 'K+', label: 'Impressions across Unstop, Luma & Devpost' },
   stats: [
-    { to: 5.3, decimals: 1, suffix: 'K', pre: '~', label: 'Registrations on Unstop', href: UNSTOP_URL },
-    { to: 450, label: 'Registrations on Luma · 3,132 page views', href: LUMA_EVENT },
-    { to: 13, label: 'Countries participating · 6 international finalists' },
-    { to: 100, pre: '~', label: 'Projects built on IBM Db2 + AI frameworks', href: PROJECTS_URL },
-    { to: 110, label: 'Live workshop attendees · 3 h 12 min session · 311 reactions' },
-    { to: 1, suffix: 'K+', label: 'IBM Db2 VS Code extension downloads · VS Code, Antigravity, Bob & more' },
-    { to: 23, suffix: ' hrs', label: 'YouTube watch time on the live finals stream · 334 views' },
-    { to: 20, label: 'Finalists · 15 pitched · Top 10 announced', href: '/finalists' },
+    { to: 5.2, decimals: 1, suffix: 'K+', label: 'Total registrations', href: UNSTOP_URL },
+    { to: 13, label: 'Countries participating' },
+    { to: 100, pre: '~', label: 'Projects submitted on IBM Db2 + AI frameworks', href: PROJECTS_URL },
+    { to: 110, label: 'Attendees at our live technical workshop' },
+    { to: 1, suffix: 'K+', label: 'IBM Db2 VS Code Extension downloads across platforms' },
+    { to: 20, label: 'Finalists shortlisted · 15 pitched live · 6 international', href: '/finalists' },
+    { to: 300, suffix: '+', label: 'YouTube livestream views of the finals' },
+    { to: 23, suffix: '+ hrs', label: 'YouTube watch time on the finals livestream' },
   ],
 };
 
-// Where Db2Hack participants came from (registration count per country).
+// Where Db2Hack participants came from.
 export const COUNTRIES = [
-  ['India', 564], ['Nigeria', 2], ['United States', 1], ['Canada', 1], ['United Arab Emirates', 1], ['Italy', 1], ['Netherlands', 1],
-  ['Hungary', 1], ['Malaysia', 1], ['Sri Lanka', 1], ['Bangladesh', 1], ['Pakistan', 1], ['Tunisia', 1],
+  ['🇮🇳', 'India'], ['🇳🇬', 'Nigeria'], ['🇺🇸', 'United States'], ['🇨🇦', 'Canada'], ['🇦🇪', 'UAE'], ['🇮🇹', 'Italy'], ['🇳🇱', 'Netherlands'],
+  ['🇭🇺', 'Hungary'], ['🇲🇾', 'Malaysia'], ['🇱🇰', 'Sri Lanka'], ['🇧🇩', 'Bangladesh'], ['🇵🇰', 'Pakistan'], ['🇹🇳', 'Tunisia'],
 ];
 
-// Db2Hack 2026 Top 10 — announced Sat 14 Nov. Photos in public/finalists/ are
-// published with each winner's consent (photo upload form + event terms).
+const li = h => `https://www.linkedin.com/in/${h}/`;
+const pr = n => `https://github.com/KunalGolaIBM/IBM_Db2_TechX_Project_Submission/pull/${n}`;
+const yt = id => `https://youtu.be/${id}`;
+
+// Db2Hack 2026 Top 10 — announced Sat 14 Nov. `photo` is set only for finalists who
+// consented (finalist form) to their image being shared on event channels; the rest
+// show initials. Cropped photos live in public/finalists/<photo>.jpg.
 export const FINALISTS = [
-  { rank: 1, name: 'Vishnu Sundhan', project: 'PortProof', tagline: 'Verified SQL Migration to Db2', country: 'USA', photo: 'vishnu-sundhan' },
-  { rank: 2, name: 'Jay Malhotra', project: 'AsOf', tagline: 'Dated Policy Checks for AI Assistant Answers on IBM Db2', country: 'Canada', photo: 'jay-malhotra' },
-  { rank: 3, name: 'Ayush Gade', project: 'Custodian', tagline: 'The Db2 Control Plane for AI Agents', country: 'India', photo: 'ayush-gade' },
-  { rank: 4, name: 'Mohamed Atiyah', project: 'reDB', tagline: 'The AI Agent That Tunes IBM Db2 and Proves Every Fix', country: 'UAE', id: 'mohamed-atiyah', photo: null },
-  { rank: 5, name: 'Sunday Robert', project: 'PayGuard', tagline: 'AI Payment Firewall on IBM Db2', country: 'Nigeria', photo: 'sunday-robert' },
-  { rank: 6, name: 'Debi Prasad Samal', project: 'AQI Truth', tagline: '', country: 'India', photo: 'debi-prasad-samal' },
-  { rank: 7, name: 'Abhinav Khokhar', project: 'FinSight AI', tagline: 'Semantic Intelligence & Financial Reconciliation Platform', country: 'India', photo: 'abhinav-khokhar' },
-  { rank: 8, name: 'Clark Fernandes', project: 'Hotel Ops Copilot', tagline: 'Governed Multi-Agent Hotel Operations on IBM Db2', country: 'India', id: 'clark-fernandes', photo: null },
-  { rank: 9, name: 'Chandra Pavansai', project: 'Db2 Cortex', tagline: 'Governed, Self-Auditing Multi-Agent Analytics Copilot on IBM Db2', country: 'India', photo: 'chandra-pavansai' },
-  { rank: 10, name: 'Aryan Rane', project: 'Db2 Privacy Copilot', tagline: '', country: 'India', photo: 'aryan-rane' },
+  { rank: 1, name: 'Vishnu Sundhan', project: 'PortProof', tagline: 'Verified SQL Migration to Db2', country: 'USA', flag: '🇺🇸', id: 'vishnu-sundhan', photo: 'vishnu-sundhan',
+    about: 'Helps developers migrate SQL queries from PostgreSQL or MySQL to IBM Db2 by translating queries, validating compilation and comparing execution results to identify and fix migration issues.',
+    school: 'New York University', study: 'Computer Science, 2026', linkedin: li('vizeno'), pr: pr(56), demo: yt('cFsAuLg_I_4') },
+  { rank: 2, name: 'Jay Malhotra', project: 'AsOf', tagline: 'Dated Policy Checks for AI Assistant Answers on IBM Db2', country: 'Canada', flag: '🇨🇦', id: 'jay-malhotra', photo: 'jay-malhotra',
+    about: "Verifies whether an AI assistant's policy-based answers were correct for a specific date by checking historical policy versions. It records decisions in a tamper-evident IBM Db2 ledger.",
+    school: 'McGill University', study: 'Master of Management in Analytics', linkedin: li('jay-malhotraa'), pr: pr(49), demo: yt('mntehVWQn8E') },
+  { rank: 3, name: 'Ayush Gade', project: 'Custodian', tagline: 'The Db2 Control Plane for AI Agents', country: 'India', flag: '🇮🇳', id: 'ayush-gade', photo: 'ayush-gade',
+    about: 'A security and governance layer for AI agents that enforces user-level database permissions, checks query risks, supports human approvals and enables transaction recovery.',
+    school: 'Pune Institute of Computer Technology', study: 'Information Technology, 3rd year', linkedin: li('ayushgade'), pr: pr(30), demo: yt('0yWSy78-kPo') },
+  { rank: 4, name: 'Mohamed Atiyah', project: 'reDB', tagline: 'The AI Agent That Tunes IBM Db2 and Proves Every Fix', country: 'UAE', flag: '🇦🇪', id: 'mohamed-atiyah', photo: null,
+    about: 'An autonomous database tuning agent that analyses performance bottlenecks, recommends optimisations and verifies improvements using IBM Db2 capabilities before recording the changes.',
+    school: 'University of Wollongong in Dubai', study: 'Business Information Systems, senior year', linkedin: li('mohamedatiyah'), pr: pr(86), demo: yt('qW0Z23Wj8xs') },
+  { rank: 5, name: 'Sunday Robert', project: 'PayGuard', tagline: 'AI Payment Firewall on IBM Db2', country: 'Nigeria', flag: '🇳🇬', id: 'sunday-robert', photo: 'sunday-robert',
+    about: 'An AI-powered payment protection system that analyses peer-to-peer transactions and seller conversations to identify potential scams and provide risk assessments.',
+    school: 'University of Uyo', study: 'B.Sc Cybersecurity, 300 level', linkedin: li('sunday-robert-3714361a4'), pr: pr(64), demo: yt('Xl68sUC8XLY') },
+  { rank: 6, name: 'Debi Prasad Samal', project: 'AQI Truth', tagline: '', country: 'India', flag: '🇮🇳', id: 'debi-prasad-samal', photo: 'debi-prasad-samal',
+    about: 'A platform that verifies official air-quality readings and identifies unreliable, missing or inconsistent monitoring data before publishing AQI information, maintaining an auditable record of its decisions.',
+    school: 'VIT Vellore', study: 'B.Tech IT, 3rd year', linkedin: li('debi-prasad-samal-a026b23a4'), pr: pr(59), demo: yt('sq1AwgmbHcQ') },
+  { rank: 7, name: 'Abhinav Khokhar', project: 'FinSight AI', tagline: 'Semantic Intelligence & Financial Reconciliation Platform', country: 'India', flag: '🇮🇳', id: 'abhinav-khokhar', photo: 'abhinav-khokhar',
+    about: 'A personal finance intelligence platform that enables users to explore bank transactions, ask questions in natural language, search expenses semantically and identify unusual transactions.',
+    school: 'Panipat Institute of Engineering and Technology', study: 'B.Tech CSE (AI & ML), 1st year', linkedin: li('abhinavkhokhar'), pr: pr(52), demo: yt('Su-WMHwCDws') },
+  { rank: 8, name: 'Clark Fernandes', project: 'Hotel Ops Copilot', tagline: 'Governed Multi-Agent Hotel Operations on IBM Db2', country: 'India', flag: '🇮🇳', id: 'clark-fernandes', photo: null,
+    about: 'An AI-powered hotel operations assistant that analyses bookings, guest reviews, pricing and maintenance opportunities. It proposes operational actions with human approval and database-level governance.',
+    school: 'Sardar Patel Institute of Technology', study: 'Computer Engineering, 3rd year', linkedin: li('clark-fernandes-2414b3314'), pr: pr(66), demo: yt('umzemf4P65s') },
+  { rank: 9, name: 'Chandra Pavansai', project: 'Db2 Cortex', tagline: 'Governed, Self-Auditing Multi-Agent Analytics Copilot on IBM Db2', country: 'India', flag: '🇮🇳', id: 'chandra-pavansai', photo: 'chandra-pavansai',
+    about: 'A conversational analytics assistant that converts business questions into validated SQL queries, generates charts and insights, and maintains security checks and auditable records.',
+    school: 'CMR Technical Campus', study: 'B.Tech CSE, 4th year', linkedin: li('chandra-pavansai-7453532a1'), pr: pr(43) },
+  { rank: 10, name: 'Aryan Rane', project: 'Db2 Privacy Copilot', tagline: '', country: 'India', flag: '🇮🇳', id: 'aryan-rane', photo: 'aryan-rane',
+    about: 'A privacy management tool that discovers personal data, tracks consent over time and prepares data-erasure plans for human approval before any deletion takes place.',
+    school: 'NMIMS — Mukesh Patel School of Technology', study: 'B.Tech CSE (Data Science), 2nd year', linkedin: li('aryan-rane-order66'), pr: pr(69) },
+];
+
+// Finalists 11–20 — recognised by IBM. Alphabetical by project.
+export const RECOGNISED = [
+  { name: 'Rajat', project: 'AnnaSetu', about: 'Helps food donors, NGOs and volunteers rescue surplus food — checks a batch can still be delivered safely in time, reserves NGO capacity and logs every handoff.', country: 'India', flag: '🇮🇳', id: 'rajat', photo: 'rajat', school: 'GL Bajaj Group of Institutions, Mathura', study: 'B.Tech CSE (AI & ML), 2nd year', linkedin: li('rajat-rajput07'), pr: pr(85) },
+  { name: 'Tej Sagar', project: 'CivicLens AI', about: 'A dashboard for city engineers that collects infrastructure complaints, flags duplicates, finds hotspots and proposes repair priorities for human approval.', country: 'India', flag: '🇮🇳', id: 'tej-sagar', photo: null, pr: pr(65) },
+  { name: 'Prabodh Singh', project: 'Db2 Error Doctor', about: 'A command-line tool that parses IBM Db2 error messages, using exact SQLCODE lookups or vector search to explain root causes and suggest fixes.', country: 'India', flag: '🇮🇳', id: 'prabodh-singh', photo: 'prabodh-singh', school: 'University of Allahabad', study: 'Ph.D, final year', linkedin: li('prabodh-singh-a07b53133'), pr: pr(84), demo: yt('MOUpK0SBgk8') },
+  { name: 'Noah Stiggins', project: 'DriftTrace', about: "Traces a manufacturing lot's deviation to affected shipments and customers, recording every case, review and audit entry in IBM Db2 with append-only protection.", country: 'USA', flag: '🇺🇸', id: 'noah-stiggins', photo: 'noah-stiggins', school: 'UNC Chapel Hill', study: 'Computer Science & Philosophy', linkedin: li('noah-stiggins'), pr: pr(51), demo: yt('QR2Gyszfp0Q') },
+  { name: 'Manuneethi Cholan D', project: 'EnergySense AI', about: 'Monitors pumps and motors from sensor readings, flags unusual behaviour against their own history and suggests what a technician should inspect.', country: 'India', flag: '🇮🇳', id: 'manuneethi-cholan-d', photo: 'manuneethi-cholan-d', school: 'University College of Engineering, Arni', study: 'ECE, final year', linkedin: li('manuneethi-cholan'), pr: pr(37), demo: yt('eMzNWz9LIj8') },
+  { name: 'Aditya Shukla', project: 'GitMind', about: "Stores a project's history in IBM Db2 so an AI assistant can explain why code changed — and warns before merging a change that resembles past reverts.", country: 'India', flag: '🇮🇳', id: 'aditya-shukla', photo: 'aditya-shukla', school: 'Vivekananda Global University', study: 'CSE, 4th year', linkedin: li('vastavikadi'), pr: pr(46) },
+  { name: 'Shiva Gupta', project: 'IssueSmith', about: 'Turns a messy IBM Db2 VS Code extension error log into a clean, evidence-grounded GitHub bug report, flagging duplicates with IBM Db2 vector search.', country: 'India', flag: '🇮🇳', id: 'shiva-gupta', photo: 'shiva-gupta', school: 'GL Bajaj Group of Institutions', study: 'B.Tech CSE, 3rd year', linkedin: li('shiva-gupta00'), pr: pr(35), demo: yt('f4PcZk0FkSA') },
+  { name: 'Jaehyup Shin', project: 'MetricGuard', about: 'Answers sales analytics questions in plain language with verified, deterministic metrics from IBM Db2 and an append-only audit trail.', country: 'USA', flag: '🇺🇸', id: 'jaehyup-shin', photo: 'jaehyup-shin', school: 'Santa Clara University', study: 'MS in Artificial Intelligence', linkedin: li('jay-jaehyup-shin-08843a190'), pr: pr(36), demo: yt('8SpNxsvE32c') },
+  { name: 'Kartikeya Lathi & William Lu', project: 'NEEDLE', about: 'A permission-aware hybrid search and incident triage engine that maps security vulnerability reports to affected fleet services in IBM Db2.', country: '', flag: '', id: 'needle', photo: null, pr: pr(55) },
+  { name: 'Devanshu Sharma', project: 'ShipSafe AI', about: 'Keeps AI-generated code production-ready — scans for secrets, SQL injection and CVEs, cites team policies via IBM Db2 vector search and tracks risk trends in IBM Db2.', country: 'India', flag: '🇮🇳', id: 'devanshu-sharma', photo: 'devanshu-sharma', school: 'Cognizant', study: 'Software Engineer', linkedin: li('ddevsharma'), pr: pr(92) },
 ];
 
 export const PHOTO_CONSENT =
-  'Winner photos are published with each winner’s consent. Every winner shared their photo through the official Db2Hack photo upload form and agreed to the event terms & conditions allowing IBM Db2 TechX to use it to announce the results. To update or remove a photo, contact the organising team on the WhatsApp community.';
+  'Finalist photos are shown only where the finalist consented, in the official finalist form, to their image being shared on IBM Db2 Hack event channels. Finalists who did not give that consent are shown with initials. To update or remove a photo, contact the organising team on the WhatsApp community.';
+
+export const PRIZES_SOON = 'Certificates, goodies and trophies — all details will be available soon.';
 
 // Online sessions for Db2Hack builders — dates go out on WhatsApp first.
 export const COMING_SOON = [

@@ -42,6 +42,8 @@ import {
   AGENTIC,
   AI_SKILL,
   FINALISTS,
+  RECOGNISED,
+  PRIZES_SOON,
   COUNTRIES,
   PHOTO_CONSENT,
   IMPACT,
@@ -1810,12 +1812,12 @@ function Impact() {
                 real AI projects on IBM Db2 with LangChain, LlamaIndex, Haystack, CrewAI and Langflow.
               </p>
             </div>
-            <a className="impact-hero" href={h.href} {...ext}>
+            <div className="impact-hero">
               <strong>
-                <CountUp to={h.to} decimals={h.decimals} suffix={h.suffix} pad={false} />
+                <CountUp to={h.to} decimals={h.decimals || 0} suffix={h.suffix} pad={false} />
               </strong>
-              <span>{h.label} ↗</span>
-            </a>
+              <span>{h.label}</span>
+            </div>
           </div>
           <div className="impact-grid">
             {IMPACT.stats.map(st => {
@@ -1844,9 +1846,9 @@ function Impact() {
           <div className="impact-countries" id="countries">
             <span className="mono-label">{COUNTRIES.length} countries</span>
             <ul>
-              {COUNTRIES.map(([c, n]) => (
+              {COUNTRIES.map(([flag, c]) => (
                 <li key={c}>
-                  {c} <b>{n}</b>
+                  <span aria-hidden="true">{flag}</span> {c}
                 </li>
               ))}
             </ul>
@@ -1912,12 +1914,13 @@ function FinalistsTeaser() {
               <li key={f.rank} className={`win-pod is-r${f.rank}`}>
                 <span className="win-rank">{ordinal(f.rank)}</span>
                 <h3>{f.project}</h3>
-                {f.tagline && <p>{f.tagline}</p>}
+                {f.tagline && <span className="win-tag">{f.tagline}</span>}
+                <p>{f.about}</p>
                 <span className="win-who">
                   <FinAvatar f={f} />
                   <span>
                     <b>{f.name}</b>
-                    {f.country}
+                    {f.flag} {f.country}
                   </span>
                 </span>
               </li>
@@ -1929,13 +1932,13 @@ function FinalistsTeaser() {
                 <span className="win-n">{String(f.rank).padStart(2, '0')}</span>
                 <span className="win-proj">
                   <strong>{f.project}</strong>
-                  {f.tagline && <span>{f.tagline}</span>}
+                  <span>{f.tagline || f.about}</span>
                 </span>
                 <span className="win-who is-sm">
                   <FinAvatar f={f} />
                   <span>
                     <b>{f.name}</b>
-                    {f.country}
+                    {f.flag} {f.country}
                   </span>
                 </span>
               </li>
@@ -1943,13 +1946,12 @@ function FinalistsTeaser() {
           </ol>
           <div className="fin-teaser-btns win-btns">
             <Link className="btn btn-primary btn-lg" to="/finalists">
-              Meet the winners <Arrow />
+              All 20 finalists & their projects <Arrow />
             </Link>
             <a className="btn btn-ghost btn-lg" href={WHATSAPP_CHANNEL} {...ext}>
               WhatsApp channel <ArrowUpRight />
             </a>
           </div>
-          <p className="win-consent">{PHOTO_CONSENT}</p>
         </Reveal>
         <OssLive />
       </div>
@@ -1984,30 +1986,64 @@ const FIN_STAGES = [
   { t: 'Results announced', d: 'Sat 14 Nov · Top 10', done: true, now: true },
 ];
 
+const LinkedInIcon = () => Social.linkedin;
+
+// Profile + project links shared by winner cards and the finalist list.
+function FinLinks({ f }) {
+  return (
+    <span className="fin-links">
+      {f.linkedin && (
+        <a href={f.linkedin} {...ext} aria-label={`${f.name} on LinkedIn`}>
+          <LinkedInIcon /> LinkedIn
+        </a>
+      )}
+      {f.pr && (
+        <a href={f.pr} {...ext}>
+          Project on GitHub <ArrowUpRight />
+        </a>
+      )}
+      {f.demo && (
+        <a href={f.demo} {...ext}>
+          Demo video <ArrowUpRight />
+        </a>
+      )}
+    </span>
+  );
+}
+
+// Project-first winner card: the project leads, the builder sits below it.
 function WinnerCard({ f, big }) {
   return (
     <Reveal as="article" id={`winner-${finId(f)}`} className={`win-card ${big ? 'is-big' : ''} is-r${f.rank}`}>
-      <div className="win-card-photo">
-        {f.photo ? (
-          <img src={finPhoto(f)} alt={`${f.name}, ${ordinal(f.rank)} place, Db2Hack 2026`} loading="lazy" />
-        ) : (
-          <span className="fin-initials is-xl">{initials(f.name)}</span>
-        )}
+      <div className="win-card-top">
         <span className="win-rank">{ordinal(f.rank)}</span>
+        <span className="win-country">
+          {f.flag} {f.country}
+        </span>
       </div>
-      <div className="win-card-body">
-        <span className="win-country">{f.country}</span>
-        <strong className="win-card-name">{f.name}</strong>
-        <span className="win-card-proj">{f.project}</span>
-        {f.tagline && <p>{f.tagline}</p>}
+      <h3 className="win-card-proj">{f.project}</h3>
+      {f.tagline && <span className="win-card-tag">{f.tagline}</span>}
+      <p className="win-card-about">{f.about}</p>
+      <div className="win-card-person">
+        <FinAvatar f={f} className="is-md" />
+        <span>
+          <b>{f.name}</b>
+          {f.school && (
+            <em>
+              {f.study} · {f.school}
+            </em>
+          )}
+        </span>
       </div>
+      <FinLinks f={f} />
     </Reveal>
   );
 }
 
 function FinalistsPage() {
   useHashScroll();
-  usePageTitle('Winners · Db2Hack 2026 · IBM Db2 TechX');
+  usePageTitle('Winners & finalists · Db2Hack 2026 · IBM Db2 TechX');
+  const judges = SPEAKERS.filter(sp => sp.tag?.includes('Judge'));
   return (
     <main className="page-finalists">
       <section className="page-hero">
@@ -2024,6 +2060,12 @@ function FinalistsPage() {
             judges on Friday, 13 November, and every judge scored each project independently. The Top 10 were announced on
             Saturday, 14 November — builders from {TOP_COUNTRIES.join(', ')}.
           </Reveal>
+          <Reveal delay={0.18} className="page-hero-links">
+            <a href="#top-10">Top 10</a>
+            <a href="#finalists-11-20">Finalists 11–20</a>
+            <a href="#judges">Who judged</a>
+            <a href="#status">Timeline</a>
+          </Reveal>
         </div>
       </section>
       <section className="section" id="top-10">
@@ -2036,8 +2078,13 @@ function FinalistsPage() {
                 Meet the winners. <span className="dim">Built on IBM Db2.</span>
               </>
             }
-            sub="Top 3 get a trophy, an IBM Db2 kit and a Certificate of Excellence; the rest of the Top 10 get IBM Db2 goodies and a Certificate of Merit. The other 10 finalists receive recognition from IBM."
           />
+          <Reveal className="win-prizes">
+            <span className="live-dot" />
+            <span>
+              <b>{PRIZES_SOON}</b>
+            </span>
+          </Reveal>
           <div className="win-cards-top">
             {FINALISTS.slice(0, 3).map(f => (
               <WinnerCard key={f.rank} f={f} big />
@@ -2048,22 +2095,89 @@ function FinalistsPage() {
               <WinnerCard key={f.rank} f={f} />
             ))}
           </div>
-          <Reveal className="win-rec">
-            <span className="mono-label">Finalists 11–20</span>
-            <p>
-              The other 10 finalists receive recognition from IBM for reaching the final round. Thank you to everyone who built
-              on IBM Db2.
-            </p>
-          </Reveal>
+        </div>
+      </section>
+      <section className="section" id="finalists-11-20">
+        <div className="container">
+          <SectionHead
+            num="02"
+            kicker="Finalists 11–20 · recognised by IBM"
+            title={
+              <>
+                Ten more strong builds. <span className="dim">Recognised by IBM.</span>
+              </>
+            }
+            sub="These finalists reached the final 20 out of around 100 projects. Each receives recognition from IBM."
+          />
+          <ul className="rec-list">
+            {RECOGNISED.map(f => (
+              <Reveal as="li" key={f.id} id={`winner-${f.id}`} className="rec-row">
+                <FinAvatar f={f} className="is-sm" />
+                <div className="rec-main">
+                  <strong>{f.project}</strong>
+                  <p>{f.about}</p>
+                  <span className="rec-who">
+                    <b>{f.name}</b>
+                    {f.country && (
+                      <>
+                        {' · '}
+                        {f.flag} {f.country}
+                      </>
+                    )}
+                    {f.school && <> · {f.study}, {f.school}</>}
+                  </span>
+                </div>
+                <FinLinks f={f} />
+              </Reveal>
+            ))}
+          </ul>
           <Reveal className="win-consent-box">
             <span className="mono-label">Photo consent</span>
             <p>{PHOTO_CONSENT}</p>
           </Reveal>
         </div>
       </section>
+      <section className="section" id="judges">
+        <div className="container">
+          <SectionHead
+            num="03"
+            kicker="Who judged"
+            title={
+              <>
+                The judges. <span className="dim">IBM Db2, IBM Lucknow.</span>
+              </>
+            }
+            sub="Every judge scored each of the 15 pitches independently against the published 100-point rubric. Chief Guest: Deepak Rangrao, Director of Engineering & Distinguished Engineer, IBM."
+          />
+          <div className="judge-row">
+            {judges.map(sp => (
+              <Reveal key={sp.name} className="judge-chip">
+                <img src={sp.photo} alt="" loading="lazy" />
+                <span>
+                  <b>{sp.name}</b>
+                  {sp.role}
+                </span>
+                {sp.linkedin && (
+                  <a href={sp.linkedin} {...ext} aria-label={`${sp.name} on LinkedIn`}>
+                    <LinkedInIcon />
+                  </a>
+                )}
+              </Reveal>
+            ))}
+          </div>
+          <Reveal className="fin-ctas">
+            <Link className="btn btn-ghost btn-lg" to="/submit#judging">
+              The judging rubric <Arrow />
+            </Link>
+            <Link className="btn btn-ghost btn-lg" to="/team">
+              Meet the full team <Arrow />
+            </Link>
+          </Reveal>
+        </div>
+      </section>
       <section className="section" id="status">
         <div className="container">
-          <SectionHead num="02" kicker="How it went" title={<>Done. <span className="dim">Results are out.</span></>} />
+          <SectionHead num="04" kicker="How it went" title={<>Done. <span className="dim">Results are out.</span></>} />
           <ol className="fin-stages">
             {FIN_STAGES.map(st => (
               <Reveal as="li" key={st.t} className={`${st.done ? 'is-done' : ''} ${st.now ? 'is-now' : ''}`}>
@@ -2078,12 +2192,6 @@ function FinalistsPage() {
             <a className="btn btn-primary btn-lg" href={PROJECTS_URL} {...ext}>
               All submitted projects on GitHub <ArrowUpRight />
             </a>
-            <Link className="btn btn-ghost btn-lg" to="/submit#judging">
-              How projects were judged <Arrow />
-            </Link>
-            <Link className="btn btn-ghost btn-lg" to="/team">
-              Meet the judges <Arrow />
-            </Link>
           </Reveal>
         </div>
       </section>
@@ -2093,7 +2201,7 @@ function FinalistsPage() {
 }
 
 const QUICK_PAGES = [
-  { to: '/finalists', n: '01', t: 'Winners', d: 'Top 10 announced · 20 finalists · 15 pitched', hl: true },
+  { to: '/finalists', n: '01', t: 'Winners', d: 'Top 10 · all 20 finalists · who judged', hl: true },
   { to: '/team', n: '02', t: 'Team', d: 'Chief guest, leadership, judges and host' },
   { to: '/db2hack', n: '03', t: 'Db2Hack & rewards', d: 'The challenge, rewards and the full schedule' },
   { to: '/build', n: '04', t: 'Build on IBM Db2', d: '4 steps, VS Code extension, AI packages, AI skill' },
