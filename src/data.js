@@ -168,11 +168,11 @@ export const FINALISTS = [
   { rank: 1, name: 'Vishnu Sundhan', project: 'PortProof', tagline: 'Verified SQL Migration to Db2', country: 'USA', photo: 'vishnu-sundhan' },
   { rank: 2, name: 'Jay Malhotra', project: 'AsOf', tagline: 'Dated Policy Checks for AI Assistant Answers on IBM Db2', country: 'Canada', photo: 'jay-malhotra' },
   { rank: 3, name: 'Ayush Gade', project: 'Custodian', tagline: 'The Db2 Control Plane for AI Agents', country: 'India', photo: 'ayush-gade' },
-  { rank: 4, name: 'Mohamed Atiyah', project: 'reDB', tagline: 'The AI Agent That Tunes IBM Db2 and Proves Every Fix', country: 'UAE', photo: 'mohamed-atiyah' },
+  { rank: 4, name: 'Mohamed Atiyah', project: 'reDB', tagline: 'The AI Agent That Tunes IBM Db2 and Proves Every Fix', country: 'UAE', id: 'mohamed-atiyah', photo: null },
   { rank: 5, name: 'Sunday Robert', project: 'PayGuard', tagline: 'AI Payment Firewall on IBM Db2', country: 'Nigeria', photo: 'sunday-robert' },
   { rank: 6, name: 'Debi Prasad Samal', project: 'AQI Truth', tagline: '', country: 'India', photo: 'debi-prasad-samal' },
   { rank: 7, name: 'Abhinav Khokhar', project: 'FinSight AI', tagline: 'Semantic Intelligence & Financial Reconciliation Platform', country: 'India', photo: 'abhinav-khokhar' },
-  { rank: 8, name: 'Clark Fernandes', project: 'Hotel Ops Copilot', tagline: 'Governed Multi-Agent Hotel Operations on IBM Db2', country: 'India', photo: 'clark-fernandes' },
+  { rank: 8, name: 'Clark Fernandes', project: 'Hotel Ops Copilot', tagline: 'Governed Multi-Agent Hotel Operations on IBM Db2', country: 'India', id: 'clark-fernandes', photo: null },
   { rank: 9, name: 'Chandra Pavansai', project: 'Db2 Cortex', tagline: 'Governed, Self-Auditing Multi-Agent Analytics Copilot on IBM Db2', country: 'India', photo: 'chandra-pavansai' },
   { rank: 10, name: 'Aryan Rane', project: 'Db2 Privacy Copilot', tagline: '', country: 'India', photo: 'aryan-rane' },
 ];

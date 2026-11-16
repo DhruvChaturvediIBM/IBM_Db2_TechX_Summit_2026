@@ -200,7 +200,7 @@ function buildIndex() {
       "people",
       `${f.project} · ${f.name}`,
       `Db2Hack 2026 · ${f.rank}${["st", "nd", "rd"][f.rank - 1] || "th"} place · ${f.country}${f.tagline ? ` · ${f.tagline}` : ""}`,
-      `/finalists#winner-${f.photo}`,
+      `/finalists#winner-${f.id || f.photo}`,
       "winner finalist top 10 project",
     ),
   );

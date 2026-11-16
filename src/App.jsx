@@ -1876,7 +1876,13 @@ function Impact() {
 }
 
 const ordinal = n => `${n}${n === 1 ? 'st' : n === 2 ? 'nd' : n === 3 ? 'rd' : 'th'}`;
-const finPhoto = f => `/finalists/${f.photo}.jpg`;
+const finPhoto = f => (f.photo ? `/finalists/${f.photo}.jpg` : null);
+const finId = f => f.id || f.photo;
+const initials = n => n.split(' ').map(w => w[0]).slice(0, 2).join('');
+function FinAvatar({ f, className = '' }) {
+  const src = finPhoto(f);
+  return src ? <img className={className} src={src} alt="" loading="lazy" /> : <span className={`fin-initials ${className}`}>{initials(f.name)}</span>;
+}
 const TOP_COUNTRIES = [...new Set(FINALISTS.map(f => f.country))];
 
 // Results strip on the landing page: project names lead, faces stay small.
@@ -1908,7 +1914,7 @@ function FinalistsTeaser() {
                 <h3>{f.project}</h3>
                 {f.tagline && <p>{f.tagline}</p>}
                 <span className="win-who">
-                  <img src={finPhoto(f)} alt="" loading="lazy" />
+                  <FinAvatar f={f} />
                   <span>
                     <b>{f.name}</b>
                     {f.country}
@@ -1926,7 +1932,7 @@ function FinalistsTeaser() {
                   {f.tagline && <span>{f.tagline}</span>}
                 </span>
                 <span className="win-who is-sm">
-                  <img src={finPhoto(f)} alt="" loading="lazy" />
+                  <FinAvatar f={f} />
                   <span>
                     <b>{f.name}</b>
                     {f.country}
@@ -1980,9 +1986,13 @@ const FIN_STAGES = [
 
 function WinnerCard({ f, big }) {
   return (
-    <Reveal as="article" id={`winner-${f.photo}`} className={`win-card ${big ? 'is-big' : ''} is-r${f.rank}`}>
+    <Reveal as="article" id={`winner-${finId(f)}`} className={`win-card ${big ? 'is-big' : ''} is-r${f.rank}`}>
       <div className="win-card-photo">
-        <img src={finPhoto(f)} alt={`${f.name}, ${ordinal(f.rank)} place, Db2Hack 2026`} loading="lazy" />
+        {f.photo ? (
+          <img src={finPhoto(f)} alt={`${f.name}, ${ordinal(f.rank)} place, Db2Hack 2026`} loading="lazy" />
+        ) : (
+          <span className="fin-initials is-xl">{initials(f.name)}</span>
+        )}
         <span className="win-rank">{ordinal(f.rank)}</span>
       </div>
       <div className="win-card-body">
