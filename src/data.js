@@ -340,7 +340,7 @@ export const SPEAKERS = [
   { name: 'Pawan Thakur', role: 'Software Engineer, IBM Db2', org: 'IBM Lucknow', photo: '/speakers/Pawan-Thakur.png', tag: 'Judge', group: 'judge', linkedin: 'https://www.linkedin.com/in/pawanthakurindia/' },
   { name: 'Shaik Sadiq', role: 'Software Engineer, IBM Db2', org: 'IBM Lucknow', photo: '/speakers/Shaik-Sadiq.png', tag: 'Judge', group: 'judge', linkedin: 'https://www.linkedin.com/in/shaik-sadiq-068a39242/' },
   { name: 'Yagnik Sharma', role: 'Student President, IIC · Member, IQAC · Joint Secretary, UBA', org: 'GL Bajaj Group of Institutions', photo: '/speakers/Yagnik-Sharma.jpg', tag: 'Host', group: 'host', linkedin: 'https://www.linkedin.com/in/yagnik-sharma/', about: 'Hosted the IBM Db2 TechX Summit at GL Bajaj Group of Institutions, Mathura, and headed the student team behind it.' },
-  { name: 'Sameeksha Sahani', role: 'Student Convenor, IIC', org: 'GL Bajaj Group of Institutions', photo: '/speakers/Sameeksha-Sahani.jpg', tag: 'Host', group: 'host', about: 'Co-hosted the IBM Db2 TechX Summit at GL Bajaj Group of Institutions, Mathura, with Yagnik Sharma.' },
+  { name: 'Sameeksha', role: 'Student Convenor, IIC', org: 'GL Bajaj Group of Institutions', photo: '/speakers/Sameeksha-Sahani.jpg', tag: 'Host', group: 'host', about: 'Co-hosted the IBM Db2 TechX Summit at GL Bajaj Group of Institutions, Mathura, with Yagnik Sharma.' },
 ];
 
 export const FAQ = [
